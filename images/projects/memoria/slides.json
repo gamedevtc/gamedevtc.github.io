@@ -1,0 +1,10 @@
+{
+  "thumb": "images/projects/memoria/memoria-thumb.png",
+  "background": "images/projects/memoria/memoria-slide-1.png",
+  "slides":
+  [
+    { "type": "image",   "src": "images/projects/memoria/memoria-slide-1.png", "alt": "Memoria slide 1" },
+    { "type": "image",   "src": "images/projects/memoria/memoria-slide-2.png", "alt": "Memoria slide 2" },
+    { "type": "image",   "src": "images/projects/memoria/memoria-slide-3.png", "alt": "Memoria slide 3" }
+  ]
+}

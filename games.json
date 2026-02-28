@@ -1,0 +1,109 @@
+[
+	{
+		"id": "scraptics",
+		"name": "Scraptics",
+		"meta": "Halfbrick Studios &bull; 2023&ndash;2026",
+		"tags": ["Unity 6", "C#", "iOS & Android"],
+		"roles": ["Lead Programmer", "Game Designer", "Team Lead"],
+		"desc": "A tactical turn-based roguelike on a hex grid with a unique inventory puzzle mechanic. Pitched in an internal game jam, greenlit for full production, and led as programmer, designer, and team lead for 3 years at Halfbrick Studios. Shipped to closed beta on iOS and Android.",
+		"bullets": [
+			"Architected the full systems stack: turn management, hex-grid logic, roguelike progression, and inventory puzzle systems",
+			"Wrote complex recursive algorithms powering the core puzzle mechanic",
+			"Designed and programmed enemy AI behavior systems",
+			"Developed custom editor tools to support content creation and team workflows",
+			"Built full UI/UX across all game screens and menus",
+			"Cross-platform iOS & Android builds with profiling and performance optimization",
+			"Leaderboard networking and metadata architecture using Unity Cloud Services",
+			"Cross-platform save systems",
+			"Led a team of 4 developers across the full production lifecycle"
+		]
+	},
+	{
+		"id": "sumo",
+		"name": "Sumo Fight",
+		"meta": "Halfbrick Internal Game Jam &bull; 2024",
+		"tags": ["Unity 6", "C#", "Photon", "iOS & Android"],
+		"roles": ["Lead Programmer"],
+		"desc": "Multiplayer beat-em-up party game built in one week. Lead programmer on a team of 5.",
+		"bullets": [
+			"Photon networking for player customization sync and core gameplay"
+		]
+	},
+	{
+		"id": "survivors",
+		"name": "Survivors Aren't Dead",
+		"meta": "Halfbrick Internal Game Jam &bull; 2023",
+		"tags": ["Unity 6", "C#", "iOS & Android"],
+		"roles": ["Pitch", "Project Lead", "Lead Programmer"],
+		"desc": "Survivor-like action game built in one week. Pitched the concept, led the project, and served as lead programmer on a team of 4.",
+		"bullets": [
+			"Created the pitch and core design document",
+			"Lead programmer, enemy behavior programmer, and sound designer"
+		]
+	},
+	{
+		"id": "rucksack",
+		"name": "Rucksack Dungeon",
+		"meta": "Halfbrick Internal Game Jam &bull; 2022",
+		"tags": ["Unity", "C#", "iOS & Android"],
+		"roles": ["Team Lead", "AI Programmer"],
+		"desc": "The prototype that became Scraptics. Built in one week at an internal Halfbrick game jam, greenlit for full production, and reworked into the full game over the following 3 years. Team lead and AI behavior programmer.",
+		"bullets": [
+			"Designed and implemented AI enemy behaviour systems",
+			"Team lead across the full jam week",
+			"Prototype was selected and greenlit — became the foundation for Scraptics"
+		]
+	},
+	{
+		"id": "unannounced",
+		"name": "Unannounced Mobile Project",
+		"meta": "Halfbrick Studios &bull; Unreleased; 2021&ndash;2023",
+		"tags": ["Unity", "C#", "iOS & Android"],
+		"roles": ["Project Lead", "Lead Programmer"],
+		"desc": "A 2D side-scrolling endless runner with a novel physics-driven swinging mechanic. Created the prototype that was greenlit, then led the project until it was paused due to shifting company priorities.",
+		"bullets": [
+			"Created the original prototype establishing the core loop and swinging mechanic",
+			"Led physics prototyping and mechanical iteration",
+			"Project lead and lead programmer for a team of 4"
+		]
+	},
+	{
+		"id": "to-the-moon",
+		"name": "To The Moon!",
+		"meta": "Full Sail University &bull; Feb&ndash;Jun 2021",
+		"tags": ["Unity HDRP", "C#", "Photon", "PC"],
+		"roles": ["Project Lead"],
+		"desc": "Competitive 3D space dogfighter. Capstone project at Full Sail University. Project lead on a team of 6.",
+		"bullets": [
+			"AI fighter ships using steering behaviors and compute shaders for improved framerate at scale",
+			"Full Photon networking stack: GameManager, MatchManager, weapons, projectiles, loading transitions, procedural map generation",
+			"All multiplayer UI: ready-up system, name changing, lobby/player listing, scoreboard, score tracking, and hit registration",
+			"Player controller with single/multiplayer versions via polymorphism and inheritance"
+		]
+	},
+	{
+		"id": "memoria",
+		"name": "Memoria Damnum",
+		"meta": "Global Game Jam 2020 &bull; Jan 2020",
+		"tags": ["Unity", "C#", "PC"],
+		"roles": ["Lead Programmer"],
+		"desc": "2D platformer built in 48 hours for Global Game Jam 2020. Programming lead on a team of 9.",
+		"bullets": [
+			"Object pooling system for collectibles with persistent collection state",
+			"Contributed to level design, audio systems, GameManager architecture, and VFX"
+		]
+	},
+	{
+		"id": "retrospectre",
+		"name": "Retrospectre",
+		"meta": "Full Sail University &bull; Sep&ndash;Nov 2019",
+		"tags": ["Unity", "C#", "PC & Web"],
+		"roles": ["Project Lead"],
+		"desc": "Retrowave-inspired 2.5D metroidvania platformer. Project lead on a team of 4.",
+		"bullets": [
+			"AI systems for 8+ distinct enemy types with varied behaviors and attack patterns",
+			"Player controller, weapon systems, and projectile mechanics",
+			"Level design and all interactable systems: destructible areas, climbable walls, moving platforms, environmental puzzles"
+		]
+	}
+]

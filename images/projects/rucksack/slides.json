@@ -1,0 +1,11 @@
+{
+  "thumb": "images/projects/rucksack/rucksack-thumb.png",
+  "background": "images/projects/rucksack/rucksack-background.png",
+  "slides":
+  [
+    { "type": "youtube", "src": "OH3pSlfQwc8",                                   "alt": "Retrospectre trailer" },
+    { "type": "image",   "src": "images/projects/rucksack/rucksack-slide-1.png", "alt": "Rucksack slide 1" },
+    { "type": "image",   "src": "images/projects/rucksack/rucksack-slide-2.png", "alt": "Rucksack slide 2" },
+    { "type": "image",   "src": "images/projects/rucksack/rucksack-slide-3.png", "alt": "Rucksack slide 3" }
+  ]
+}

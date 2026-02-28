@@ -1,0 +1,16 @@
+{
+  "thumb": "images/projects/to-the-moon/moon-thumb.png",
+  "background": "images/projects/to-the-moon/moon-slide-1.png",
+  "slides": 
+  [
+    { "type": "youtube", "src": "8iGjbVhnlgs",                                  "alt": "ToTheMoon trailer"},
+    { "type": "image",   "src": "images/projects/to-the-moon/moon-gif-1.gif",   "alt": "ToTheMoon gif 1"},
+    { "type": "image",   "src": "images/projects/to-the-moon/moon-gif-2.gif",   "alt": "ToTheMoon gif 2"},
+    { "type": "image",   "src": "images/projects/to-the-moon/moon-gif-3.gif",   "alt": "ToTheMoon gif 3"},
+    { "type": "image",   "src": "images/projects/to-the-moon/moon-slide-1.png", "alt": "ToTheMoon slide 1"},
+    { "type": "image",   "src": "images/projects/to-the-moon/moon-slide-2.png", "alt": "ToTheMoon slide 2"},
+    { "type": "image",   "src": "images/projects/to-the-moon/moon-slide-3.png", "alt": "ToTheMoon slide 3"},
+    { "type": "image",   "src": "images/projects/to-the-moon/moon-slide-4.png", "alt": "ToTheMoon slide 4"},
+    { "type": "image",   "src": "images/projects/to-the-moon/moon-slide-5.png", "alt": "ToTheMoon slide 5"}
+  ]
+}

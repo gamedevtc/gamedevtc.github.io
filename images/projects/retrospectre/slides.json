@@ -1,0 +1,18 @@
+{
+  "thumb": "images/projects/retrospectre/retro-thumb.png",
+  "background": "images/projects/retrospectre/retro-thumb.png",
+  "slides":
+  [
+    { "type": "youtube", "src": "cK-FKjk-ZCo",                                    "alt": "Retrospectre trailer" },
+    { "type": "image",   "src": "images/projects/retrospectre/retro-gif-1.gif",   "alt": "Retrospectre gif 1"   },
+    { "type": "image",   "src": "images/projects/retrospectre/retro-gif-2.gif",   "alt": "Retrospectre gif 2"   },
+    { "type": "image",   "src": "images/projects/retrospectre/retro-gif-3.gif",   "alt": "Retrospectre gif 3"   },
+    { "type": "image",   "src": "images/projects/retrospectre/retro-gif-4.gif",   "alt": "Retrospectre gif 4"   },
+    { "type": "image",   "src": "images/projects/retrospectre/retro-slide-1.png", "alt": "Retrospectre slide 1" },
+    { "type": "image",   "src": "images/projects/retrospectre/retro-slide-2.png", "alt": "Retrospectre slide 2" },
+    { "type": "image",   "src": "images/projects/retrospectre/retro-slide-3.png", "alt": "Retrospectre slide 3" },
+    { "type": "image",   "src": "images/projects/retrospectre/retro-slide-4.png", "alt": "Retrospectre slide 4" },
+    { "type": "image",   "src": "images/projects/retrospectre/retro-slide-5.png", "alt": "Retrospectre slide 5" },
+    { "type": "image",   "src": "images/projects/retrospectre/retro-slide-6.png", "alt": "Retrospectre slide 6" }
+  ]
+}

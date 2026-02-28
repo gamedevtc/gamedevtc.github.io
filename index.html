@@ -1,0 +1,1397 @@
+<!DOCTYPE HTML>
+<!--
+	Read Only by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Taylor Christianson - Game Developer Portfolio</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+	</head>
+	<body class="is-preload">
+
+		<!-- Header -->
+			<section id="header">
+				<header>
+					<span class="image avatar"><img src="images/Coast Selfie - Round.png" alt="" /></span>
+					<h1 id="logo"><a href="#">Taylor Christianson</a></h1>
+					<p>Game Developer &bull; Programmer<br />
+					Designer &bull; Team Lead</p>
+				</header>
+				<nav id="nav">
+					<ul>
+						<li><a href="#one" class="active">About</a></li>
+						<li><a href="#two">Projects</a></li>
+						<li><a href="#three">Resume</a></li>
+						<li><a href="#four">Contact</a></li>
+					</ul>
+				</nav>
+				<footer>
+					<ul class="icons">
+						<li><a href="https://www.linkedin.com/in/taylor-christianson-066991159/" class="icon brands alt fa-linkedin" target="_blank"><span class="label">LinkedIn</span></a></li>
+						<li><a href="https://github.com/lobsterisme" class="icon brands alt fa-github" target="_blank"><span class="label">GitHub</span></a></li>
+						<li><a href="/cdn-cgi/l/email-protection#7703141f051e04031e161904181937161b021a191e5911021b1b04161e1b59121302" class="icon solid alt fa-envelope" target="_blank"><span class="label">Email</span></a></li>
+					</ul>
+				</footer>
+			</section>
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<div id="main">
+
+						<!-- One -->
+							<section id="one">
+								<div class="image main" data-position="center">
+									<video autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover;display:block;">
+										<source src="videos/banner.mp4" type="video/mp4">
+										<img src="images/banner.jpg" alt="" />
+									</video>
+								</div>
+								<div class="container">
+									<header class="major">
+										<h2>I pitch it, build it, and ship it.</h2>
+									</header>
+									<p><b>FIX THIS</b> I'm Taylor Christianson — a game developer and natural team lead with 4.5 years of professional experience at Halfbrick Studios. I consistently take on lead roles across every project I work on, from pitching ideas and building prototypes to driving teams from concept through production. My technical expertise is in Unity and C#, with generalist experience spanning systems architecture, game design, mobile optimization, and tool development.</p>
+								</div>
+							</section>
+
+						<!-- Two -->
+							<section id="two">
+								<div class="container">
+									<h3>Projects</h3>
+									<p>Click any game to explore it.</p>
+
+									<style>
+										/* ── App Grid ── */
+										.app-grid {
+											display: grid;
+											grid-template-columns: repeat(auto-fill, minmax(80px, 120px));
+											gap: 2em 1.5em;
+											justify-content: center;
+											padding: 1em 0 2.5em;
+											overflow: visible;
+										}
+										.app-icon-wrap {
+											display: flex;
+											flex-direction: column;
+											align-items: center;
+											width: 100%;
+											cursor: pointer;
+											user-select: none;
+											overflow: visible;
+										}
+										.app-icon-stage {
+											width: 100%;
+											aspect-ratio: 1;
+											perspective: 500px;
+										}
+										.app-icon-inner {
+											width: 100%;
+											height: 100%;
+											border-radius: clamp(16px, 22%, 26px);
+											overflow: hidden;
+											box-shadow: 0 6px 24px rgba(0,0,0,0.5);
+											transform-style: preserve-3d;
+											transition: box-shadow 0.2s;
+											will-change: transform;
+										}
+										.app-icon-inner img {
+											width: 100%;
+											height: 100%;
+											object-fit: fill;
+											display: block;
+											pointer-events: none;
+										}
+										.app-icon-inner .app-icon-placeholder {
+											width: 100%;
+											height: 100%;
+											background: linear-gradient(135deg, #1a3a4a, #0d2030);
+											display: flex;
+											align-items: center;
+											justify-content: center;
+											font-size: 2em;
+											color: rgba(255,255,255,0.3);
+										}
+										.app-icon-wrap:hover .app-icon-inner {
+											box-shadow: 0 12px 36px rgba(0,0,0,0.7);
+										}
+										.app-icon-label {
+											display: block !important;
+											visibility: visible !important;
+											margin-top: 0.55em;
+											font-size: 0.75em;
+											text-align: center;
+											color: #3d4449 !important;
+											line-height: 1.3;
+											width: 100%;
+											word-break: break-word;
+											position: relative;
+											z-index: 1;
+										}
+
+										/* ── App Store Popup ── */
+										.appstore-overlay {
+											visibility: hidden;
+											pointer-events: none;
+											position: fixed;
+											inset: 0;
+											z-index: 9999;
+											display: flex;
+											align-items: flex-end;
+										}
+										.appstore-overlay.active {
+											visibility: visible;
+											pointer-events: auto;
+										}
+										.appstore-backdrop {
+											position: absolute;
+											inset: 0;
+											backdrop-filter: blur(14px) brightness(0.4);
+											-webkit-backdrop-filter: blur(14px) brightness(0.4);
+											background: rgba(0,0,0,0.5);
+											opacity: 0;
+											transition: opacity 0.28s ease;
+										}
+										.appstore-overlay.active .appstore-backdrop {
+											opacity: 1;
+										}
+										.appstore-sheet {
+											position: relative;
+											z-index: 2;
+											width: 100%;
+											min-height: 75vh;
+											max-height: 90vh;
+											background: #1a1f24;
+											border-radius: 20px 20px 0 0;
+											overflow-y: auto;
+											padding: 0 0 2em;
+											transform: translateY(100%);
+											transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+										}
+										.appstore-sheet::before {
+											content: '';
+											position: fixed;
+											inset: 0;
+											border-radius: 20px 20px 0 0;
+											background-image: var(--sheet-bg, none);
+											background-size: cover;
+											background-position: center;
+											filter: blur(22px) brightness(0.28) saturate(1.4);
+											z-index: 0;
+											opacity: 0;
+											transition: opacity 0.5s ease;
+											pointer-events: none;
+										}
+										.appstore-sheet.has-bg::before { opacity: 1; }
+										.appstore-sheet > * { position: relative; z-index: 1; }
+										.appstore-overlay.active .appstore-sheet {
+											transform: translateY(0);
+										}
+										.appstore-handle {
+											width: 40px;
+											height: 4px;
+											background: rgba(255,255,255,0.2);
+											border-radius: 2px;
+											margin: 12px auto 0;
+										}
+										.appstore-header {
+											display: flex;
+											align-items: flex-start;
+											gap: 1.2em;
+											padding: 1.4em 1.6em 1em;
+											border-bottom: 1px solid rgba(255,255,255,0.07);
+										}
+										.appstore-header-icon {
+											flex-shrink: 0;
+											width: auto;
+											min-width: 126px;
+											max-width: 280px;
+											height: 126px;
+											border-radius: 28px;
+											overflow: hidden;
+											box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+										}
+										.appstore-header-icon img {
+											width: auto;
+											height: 100%;
+											max-width: 280px;
+											object-fit: contain;
+											display: block;
+										}
+										.appstore-header-icon .app-icon-placeholder {
+											width: 100%;
+											height: 100%;
+											background: linear-gradient(135deg, #1a3a4a, #0d2030);
+											display: flex;
+											align-items: center;
+											justify-content: center;
+											font-size: 1.6em;
+											color: rgba(255,255,255,0.3);
+										}
+										.appstore-header-info { flex: 1; }
+										.appstore-header-info h3 {
+											margin: 0 0 0.15em;
+											font-size: 1.3em;
+											line-height: 1.2;
+										}
+										.appstore-header-meta {
+											font-size: 0.8em;
+											color: #aaa;
+											margin: 0 0 0.5em;
+										}
+										.appstore-header-tags {
+											display: flex;
+											flex-wrap: wrap;
+											gap: 0.4em;
+										}
+										.appstore-tag {
+											background: rgba(255,255,255,0.08);
+											border-radius: 20px;
+											padding: 0.2em 0.7em;
+											font-size: 0.72em;
+											color: rgba(255,255,255,0.7);
+										}
+										.appstore-close {
+											flex-shrink: 0;
+											background: rgba(255,255,255,0.1);
+											border: none;
+											color: #fff;
+											width: 30px;
+											height: 30px;
+											border-radius: 50%;
+											font-size: 1em;
+											cursor: pointer;
+											display: flex;
+											align-items: center;
+											justify-content: center;
+											margin-top: 4px;
+											transition: background 0.2s;
+										}
+										.appstore-close:hover { background: rgba(255,255,255,0.2); }
+										.appstore-body {
+											padding: 1.4em 1.6em 0;
+										}
+										.appstore-desc {
+											font-size: 0.9em;
+											line-height: 1.7;
+											color: rgba(255,255,255,0.8);
+											margin-bottom: 1.2em;
+										}
+										.appstore-bullets {
+											font-size: 0.85em;
+											color: rgba(255,255,255,0.7);
+											padding-left: 1.2em;
+											margin-bottom: 1.4em;
+											line-height: 1.8;
+										}
+
+										/* Gallery strip inside popup */
+										.appstore-gallery-wrap {
+											position: relative;
+											overflow: hidden;
+											border-radius: 10px;
+											cursor: grab;
+											user-select: none;
+											margin-bottom: 1em;
+										}
+										.appstore-gallery-wrap:active { cursor: grabbing; }
+										.appstore-gallery-strip {
+											display: flex;
+											gap: 10px;
+											padding: 4px 2px;
+											will-change: transform;
+										}
+										.appstore-gallery-item {
+											flex-shrink: 0;
+											width: 300px;
+											height: 220px;
+											border-radius: 8px;
+											overflow: hidden;
+											cursor: pointer;
+											background: rgba(0,0,0,0.3);
+											transition: opacity 0.15s;
+										}
+										.appstore-gallery-item:hover { opacity: 0.82; }
+										.appstore-gallery-item img {
+											width: 100%;
+											height: 100%;
+											object-fit: cover;
+											display: block;
+											pointer-events: none;
+										}
+										.appstore-roles {
+											display: flex;
+											flex-wrap: wrap;
+											gap: 0.4em;
+											margin-bottom: 1.4em;
+										}
+										.appstore-role {
+											background: rgba(255,255,255,0.13);
+											border: 1px solid rgba(255,255,255,0.18);
+											border-radius: 20px;
+											padding: 0.25em 0.8em;
+											font-size: 0.75em;
+											font-weight: 600;
+											color: rgba(255,255,255,0.9);
+										}
+										.appstore-gallery-item.yt-thumb { position: relative; }
+										.appstore-gallery-item.yt-thumb::after {
+											content: '▶';
+											position: absolute;
+											inset: 0;
+											display: flex;
+											align-items: center;
+											justify-content: center;
+											font-size: 2em;
+											color: rgba(255,255,255,0.9);
+											background: rgba(0,0,0,0.3);
+											pointer-events: none;
+										}
+										.appstore-gallery-placeholder {
+											padding: 1.5em;
+											text-align: center;
+											color: #555;
+											font-style: italic;
+											font-size: 0.85em;
+											border: 1px dashed rgba(255,255,255,0.08);
+											border-radius: 8px;
+											margin-bottom: 1em;
+										}
+
+										/* Lightbox */
+										.as-lightbox {
+											display: none;
+											position: fixed;
+											inset: 0;
+											z-index: 10000;
+											align-items: center;
+											justify-content: center;
+										}
+										.as-lightbox.active { display: flex; }
+										.as-lightbox-backdrop {
+											position: absolute;
+											inset: 0;
+											backdrop-filter: blur(18px) brightness(0.35);
+											-webkit-backdrop-filter: blur(18px) brightness(0.35);
+											background: rgba(0,0,0,0.6);
+										}
+										.as-lightbox-inner {
+											position: relative;
+											z-index: 2;
+											width: 92vw;
+											max-width: 1100px;
+											display: flex;
+											flex-direction: column;
+											align-items: center;
+										}
+										.as-lightbox-media {
+											width: 100%;
+											max-height: 75vh;
+											display: flex;
+											align-items: center;
+											justify-content: center;
+											border-radius: 8px;
+											overflow: hidden;
+										}
+										.as-lightbox-media img {
+											max-width: 100%;
+											max-height: 75vh;
+											object-fit: contain;
+											border-radius: 6px;
+										}
+										.as-lightbox-media iframe {
+											width: 100%;
+											aspect-ratio: 16/9;
+											border: none;
+											border-radius: 6px;
+										}
+										.as-lightbox-controls {
+											display: flex;
+											align-items: center;
+											gap: 1em;
+											margin-top: 0.9em;
+										}
+										.as-lb-btn {
+											background: rgba(255,255,255,0.12);
+											color: #fff;
+											border: none;
+											width: 44px;
+											height: 44px;
+											border-radius: 50%;
+											font-size: 1.4em;
+											cursor: pointer;
+											transition: background 0.2s;
+											display: flex;
+											align-items: center;
+											justify-content: center;
+										}
+										.as-lb-btn:hover { background: rgba(255,255,255,0.25); }
+										.as-lb-counter { color: rgba(255,255,255,0.7); font-size: 0.85em; min-width: 56px; text-align: center; }
+										.as-lb-close {
+											position: absolute;
+											top: -2.6em;
+											right: 0;
+											background: none;
+											border: none;
+											color: rgba(255,255,255,0.7);
+											font-size: 1.7em;
+											cursor: pointer;
+											padding: 0;
+											transition: color 0.15s;
+										}
+										.as-lb-close:hover { color: #fff; }
+
+										.appstore-gallery-outer {
+											position: relative;
+											margin-bottom: 1em;
+										}
+										.appstore-gallery-arrow {
+											position: absolute;
+											top: 50%;
+											transform: translateY(-50%);
+											z-index: 10;
+											width: 36px;
+											height: 36px;
+											border-radius: 50%;
+											border: none;
+											background: rgba(255,255,255,0.15);
+											color: #fff;
+											font-size: 1.3em;
+											cursor: pointer;
+											display: flex;
+											align-items: center;
+											justify-content: center;
+											transition: background 0.2s, opacity 0.2s;
+											backdrop-filter: blur(4px);
+											-webkit-backdrop-filter: blur(4px);
+										}
+										.appstore-gallery-arrow:hover { background: rgba(255,255,255,0.28); }
+										.appstore-gallery-arrow.arrow-prev { left: 6px; }
+										.appstore-gallery-arrow.arrow-next { right: 6px; }
+										.appstore-gallery-arrow:disabled {
+											opacity: 0;
+											pointer-events: none;
+										}
+
+										@media (max-width: 500px) {
+											.appstore-gallery-item { width: 180px; height: 120px; }
+											.appstore-header-icon { height: 80px; max-width: 200px; border-radius: 18px; }
+										}
+									</style>
+
+									<!-- App Grid -->
+									<div class="app-grid" id="app-grid">
+										<!-- Icons injected by JS from GAME_DATA -->
+									</div>
+
+									<!-- App Store Sheet -->
+									<div class="appstore-overlay" id="appstore-overlay">
+										<div class="appstore-backdrop" id="appstore-backdrop"></div>
+										<div class="appstore-sheet" id="appstore-sheet">
+											<div class="appstore-handle"></div>
+											<div class="appstore-header">
+												<div class="appstore-header-icon" id="as-icon"></div>
+												<div class="appstore-header-info">
+													<h3 id="as-title"></h3>
+													<p class="appstore-header-meta" id="as-meta"></p>
+													<div class="appstore-header-tags" id="as-tags"></div>
+												</div>
+												<button class="appstore-close" onclick="asClose()">&times;</button>
+											</div>
+											<div class="appstore-body">
+												<p class="appstore-desc" id="as-desc"></p>
+												<ul class="appstore-bullets" id="as-bullets"></ul>
+												<div class="appstore-roles" id="as-roles"></div>
+												<div id="as-gallery-area"></div>
+											</div>
+										</div>
+									</div>
+
+									<!-- Lightbox -->
+									<div class="as-lightbox" id="as-lightbox">
+										<div class="as-lightbox-backdrop" onclick="asLbClose()"></div>
+										<div class="as-lightbox-inner">
+											<button class="as-lb-close" onclick="asLbClose()">&times;</button>
+											<div class="as-lightbox-media" id="as-lb-media"></div>
+											<div class="as-lightbox-controls">
+												<button class="as-lb-btn" onclick="asLbMove(-1)">&#8249;</button>
+												<span class="as-lb-counter" id="as-lb-counter"></span>
+												<button class="as-lb-btn" onclick="asLbMove(1)">&#8250;</button>
+											</div>
+										</div>
+									</div>
+
+									<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+									(function() {
+
+										// ── Game Data (loaded from games.json) ───────────────────
+										var GAMES = [];
+
+										function buildGrid() {
+											// ── Build app grid ───────────────────────────────────────
+											var grid = document.getElementById('app-grid');
+											GAMES.forEach(function(game) {
+											var wrap = document.createElement('div');
+											wrap.className = 'app-icon-wrap';
+
+											var stage = document.createElement('div');
+											stage.className = 'app-icon-stage';
+											var inner = document.createElement('div');
+											inner.className = 'app-icon-inner';
+											inner.id = 'icon-inner-' + game.id;
+
+											var img = document.createElement('img');
+											img.alt = game.name;
+											img.style.display = 'none';
+
+											var placeholder = document.createElement('div');
+											placeholder.className = 'app-icon-placeholder';
+											placeholder.innerHTML = '<strong style="font-size:1.4em;color:rgba(255,255,255,0.45)">?</strong>';
+
+											img.onload  = function() { img.style.display = 'block'; placeholder.style.display = 'none'; };
+											img.onerror = function() { img.style.display = 'none';  placeholder.style.display = 'flex'; };
+
+											inner.appendChild(img);
+											inner.appendChild(placeholder);
+											stage.appendChild(inner);
+											wrap.appendChild(stage);
+
+											// Label appended synchronously — always visible
+											var label = document.createElement('span');
+											label.className = 'app-icon-label';
+											label.textContent = game.name;
+											wrap.appendChild(label);
+
+											wrap.addEventListener('click', (function(id) {
+												return function() { asOpen(id); };
+											})(game.id));
+
+											grid.appendChild(wrap);
+											initTilt(wrap);
+
+											// Load thumb from JSON, fall back to thumb.png
+											fetch('images/projects/' + game.id + '/slides.json')
+												.then(function(r) { return r.json(); })
+												.then(function(data) {
+													var thumbSrc = (!Array.isArray(data) && data.thumb)
+														? data.thumb
+														: 'images/projects/' + game.id + '/thumb.png';
+													img.src = thumbSrc;
+													game._thumb = thumbSrc;
+												})
+												.catch(function() {
+													img.src = 'images/projects/' + game.id + '/thumb.png';
+													game._thumb = img.src;
+												});
+										}); // end GAMES.forEach
+										} // end buildGrid()
+
+										// ── Bootstrap: fetch games.json then build ────────────────
+										fetch('games.json')
+											.then(function(r) { return r.json(); })
+											.then(function(data) {
+												GAMES = data;
+												buildGrid();
+											})
+											.catch(function(err) {
+												console.error('Failed to load games.json:', err);
+											});
+
+										// ── Tilt on proximity ────────────────────────────────────
+										// Radius (px) within which icons start reacting to the mouse
+										var TILT_RADIUS = 180;
+
+										function initTilt(wrap) {
+											var inner = wrap.querySelector('.app-icon-inner');
+											var isSettling = false;
+
+											wrap._tiltUpdate = function(mouseX, mouseY) {
+												var rect = wrap.getBoundingClientRect();
+												var cx = rect.left + rect.width  / 2;
+												var cy = rect.top  + rect.height / 2;
+												var dx = mouseX - cx;
+												var dy = mouseY - cy;
+												var dist = Math.sqrt(dx * dx + dy * dy);
+
+												if (dist > TILT_RADIUS) {
+													// Outside radius — spring back if not already there
+													if (inner._tilted) {
+														inner._tilted = false;
+														inner.style.transition = 'transform 0.35s ease, box-shadow 0.2s';
+														inner.style.transform = 'rotateX(0) rotateY(0) scale(1)';
+														setTimeout(function() { inner.style.transition = ''; }, 360);
+													}
+													return;
+												}
+
+												// Falloff: full tilt at center, zero at TILT_RADIUS edge
+												var strength = 1 - (dist / TILT_RADIUS);
+												// Normalise direction by icon half-size for feel consistency
+												var nx = dx / (rect.width  / 2);
+												var ny = dy / (rect.height / 2);
+												var tiltX =  ny * 12 * strength;
+												var tiltY = -nx * 12 * strength;
+												// Scale up slightly when mouse is close/over
+												var scl = 1 + 0.06 * strength;
+
+												inner._tilted = true;
+												inner.style.transition = '';
+												inner.style.transform = 'rotateX(' + tiltX + 'deg) rotateY(' + tiltY + 'deg) scale(' + scl + ')';
+											};
+										}
+
+										// Single global mousemove drives all icons
+										window.addEventListener('mousemove', function(e) {
+											var wraps = document.querySelectorAll('.app-icon-wrap');
+											wraps.forEach(function(w) {
+												if (w._tiltUpdate) w._tiltUpdate(e.clientX, e.clientY);
+											});
+										});
+
+										// ── App Store Open/Close ─────────────────────────────────
+										var currentGame = null;
+										var lbItems = [];
+										var lbIndex = 0;
+
+										window.asOpen = function(id) {
+											var game = GAMES.find(function(g) { return g.id === id; });
+											if (!game) return;
+											currentGame = game;
+
+											// Header
+											var iconEl = document.getElementById('as-icon');
+											iconEl.innerHTML = '<img src="' + (game._thumb || 'images/projects/' + game.id + '/thumb.png') + '" ' +
+												'onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'" alt="" />' +
+												'<div class="app-icon-placeholder" style="display:none"><strong style="font-size:1.2em;color:rgba(255,255,255,0.45)">?</strong></div>';
+
+											document.getElementById('as-title').innerHTML = game.name;
+											document.getElementById('as-meta').innerHTML  = game.meta;
+
+											var tagsEl = document.getElementById('as-tags');
+											tagsEl.innerHTML = (game.tags || []).map(function(t) {
+												return '<span class="appstore-tag">' + t + '</span>';
+											}).join('');
+
+											document.getElementById('as-desc').textContent = game.desc;
+
+											var rolesEl = document.getElementById('as-roles');
+											rolesEl.innerHTML = (game.roles || []).map(function(r) {
+												return '<span class="appstore-role">' + r + '</span>';
+											}).join('');
+
+											var bulletsEl = document.getElementById('as-bullets');
+											bulletsEl.innerHTML = game.bullets.map(function(b) {
+												return '<li>' + b + '</li>';
+											}).join('');
+
+											// Gallery
+											var galleryArea = document.getElementById('as-gallery-area');
+											galleryArea.innerHTML = '<div class="appstore-gallery-placeholder">Screenshots &amp; footage coming soon</div>';
+											loadGallery(game.id, galleryArea);
+
+											// Scroll sheet to top
+											document.getElementById('appstore-sheet').scrollTop = 0;
+
+											document.getElementById('appstore-overlay').classList.add('active');
+											document.body.style.overflow = 'hidden';
+										};
+
+										window.asClose = function() {
+											document.getElementById('appstore-overlay').classList.remove('active');
+											document.body.style.overflow = '';
+											var sheet = document.getElementById('appstore-sheet');
+											sheet.style.removeProperty('--sheet-bg');
+											sheet.classList.remove('has-bg');
+										};
+
+										document.getElementById('appstore-backdrop').addEventListener('click', asClose);
+
+										// Block background page scroll on mobile when overlay is open
+										document.getElementById('appstore-overlay').addEventListener('touchmove', function(e) {
+											// Allow touch scrolling inside the sheet, block everything else
+											if (!e.target.closest('#appstore-sheet')) {
+												e.preventDefault();
+											}
+										}, { passive: false });
+
+										// ── Load gallery from JSON ───────────────────────────────
+										function loadGallery(id, container) {
+											fetch('images/projects/' + id + '/slides.json')
+												.then(function(r) { return r.json(); })
+												.then(function(data) {
+													var slides = Array.isArray(data) ? data : (data.slides || []);
+
+													// Update thumb from JSON if present
+													if (!Array.isArray(data) && data.thumb) {
+														var imgs = document.querySelectorAll('#as-icon img, #icon-inner-' + id + ' img');
+														imgs.forEach(function(img) { img.src = data.thumb; });
+													}
+
+													// Apply background image if present
+													var sheet = document.getElementById('appstore-sheet');
+													if (!Array.isArray(data) && data.background) {
+														sheet.style.setProperty('--sheet-bg', 'url(' + data.background + ')');
+														sheet.classList.add('has-bg');
+													} else {
+														sheet.style.removeProperty('--sheet-bg');
+														sheet.classList.remove('has-bg');
+													}
+
+													if (!slides.length) return;
+													lbItems = slides;
+
+													var wrap = document.createElement('div');
+													wrap.className = 'appstore-gallery-wrap';
+													var strip = document.createElement('div');
+													strip.className = 'appstore-gallery-strip';
+
+													slides.forEach(function(item, i) {
+														var el = document.createElement('div');
+														el.className = 'appstore-gallery-item' + (item.type === 'youtube' ? ' yt-thumb' : '');
+														if (item.type === 'video') {
+															// Use a video element as the thumbnail (shows first frame)
+															var vid = document.createElement('video');
+															vid.src = item.src;
+															vid.muted = true;
+															vid.preload = 'metadata';
+															vid.style.cssText = 'width:100%;height:100%;object-fit:cover;pointer-events:none;';
+															el.appendChild(vid);
+														} else {
+															var img = document.createElement('img');
+															img.src = item.type === 'youtube'
+																? 'https://img.youtube.com/vi/' + item.src + '/mqdefault.jpg'
+																: item.src;
+															img.alt = item.alt || '';
+															el.appendChild(img);
+														}
+														el.onclick = (function(idx) {
+															return function() { asLbOpen(idx); };
+														})(i);
+														strip.appendChild(el);
+													});
+
+													wrap.appendChild(strip);
+
+													// Outer wrapper with arrow buttons
+													var outer = document.createElement('div');
+													outer.className = 'appstore-gallery-outer';
+
+													var btnPrev = document.createElement('button');
+													btnPrev.className = 'appstore-gallery-arrow arrow-prev';
+													btnPrev.innerHTML = '&#8249;';
+													btnPrev.disabled = true; // starts at left edge
+
+													var btnNext = document.createElement('button');
+													btnNext.className = 'appstore-gallery-arrow arrow-next';
+													btnNext.innerHTML = '&#8250;';
+
+													outer.appendChild(btnPrev);
+													outer.appendChild(wrap);
+													outer.appendChild(btnNext);
+
+													container.innerHTML = '';
+													container.appendChild(outer);
+													initGallerySwipe(wrap, btnPrev, btnNext);
+												})
+												.catch(function() { /* placeholder stays */ });
+										}
+
+										// ── Gallery swipe ────────────────────────────────────────
+										function initGallerySwipe(wrap, btnPrev, btnNext) {
+											var strip = wrap.querySelector('.appstore-gallery-strip');
+											var startX = 0, startScroll = 0, dragging = false, moved = false;
+											var velX = 0, lastX = 0, rafId = null;
+
+											function cx(e) { return e.touches ? e.touches[0].clientX : e.clientX; }
+
+											function getMax() { return Math.max(0, strip.scrollWidth - wrap.clientWidth + 16); }
+
+											function updateArrows() {
+												if (!btnPrev || !btnNext) return;
+												var off = strip._off || 0;
+												var max = getMax();
+												btnPrev.disabled = off <= 1;
+												btnNext.disabled = off >= max - 1;
+											}
+
+											// Arrow button clicks — scroll by one item width
+											if (btnPrev) btnPrev.addEventListener('click', function() {
+												if (rafId) cancelAnimationFrame(rafId);
+												var itemW = strip.firstChild ? strip.firstChild.offsetWidth + 10 : 310;
+												animTo(Math.max(0, (strip._off || 0) - itemW));
+											});
+											if (btnNext) btnNext.addEventListener('click', function() {
+												if (rafId) cancelAnimationFrame(rafId);
+												var itemW = strip.firstChild ? strip.firstChild.offsetWidth + 10 : 310;
+												animTo(Math.min(getMax(), (strip._off || 0) + itemW));
+											});
+
+											wrap.addEventListener('mousedown',  function(e) { dragging=true; moved=false; startX=cx(e); startScroll=strip._off||0; velX=0; lastX=startX; if(rafId) cancelAnimationFrame(rafId); });
+											wrap.addEventListener('touchstart', function(e) { dragging=true; moved=false; startX=cx(e); startScroll=strip._off||0; velX=0; lastX=startX; }, {passive:true});
+
+											window.addEventListener('mousemove', function(e) {
+												if (!dragging) return;
+												var x=cx(e), dx=x-startX;
+												if(Math.abs(dx)>4) moved=true;
+												if(moved && e.cancelable) e.preventDefault();
+												velX=x-lastX; lastX=x; setOff(startScroll-dx);
+											});
+											window.addEventListener('touchmove', function(e) {
+												if (!dragging) return;
+												var x=cx(e), dx=x-startX;
+												if(Math.abs(dx)>4) moved=true;
+												if(moved && e.cancelable) e.preventDefault();
+												velX=x-lastX; lastX=x; setOff(startScroll-dx);
+											}, {passive:false});
+
+											function endDrag() {
+												if(!dragging) return; dragging=false;
+												var v=-velX*0.8;
+												(function momentum(){ if(Math.abs(v)<0.4){clamp();return;} setOff((strip._off||0)+v); v*=0.88; rafId=requestAnimationFrame(momentum); })();
+											}
+											window.addEventListener('mouseup', endDrag);
+											window.addEventListener('touchend', endDrag);
+
+											function setOff(val) {
+												var max=getMax();
+												if(val<0) val*=0.25;
+												if(val>max) val=max+(val-max)*0.25;
+												strip._off=val; strip.style.transform='translateX('+(-val)+'px)';
+												updateArrows();
+											}
+											function clamp() {
+												var max=getMax();
+												var t=Math.max(0,Math.min(strip._off||0,max)); animTo(t);
+											}
+											function animTo(t) {
+												var c=strip._off||0, d=t-c;
+												if(Math.abs(d)<0.5){setOff(t);return;}
+												setOff(c+d*0.18); rafId=requestAnimationFrame(function(){animTo(t);});
+											}
+											wrap.addEventListener('click',function(e){if(moved){e.stopPropagation();e.preventDefault();}},true);
+
+											// Init arrow state after layout settles
+											setTimeout(updateArrows, 50);
+										}
+
+										// ── Lightbox ─────────────────────────────────────────────
+										window.asLbOpen = function(idx) {
+											lbIndex = idx;
+											document.getElementById('as-lightbox').classList.add('active');
+											document.body.style.overflow = 'hidden';
+											asLbRender();
+										};
+										window.asLbClose = function() {
+											var media = document.getElementById('as-lb-media');
+											var vid = media.querySelector('video');
+											if (vid) { vid.pause(); vid.src = ''; }
+											document.getElementById('as-lightbox').classList.remove('active');
+											media.innerHTML = '';
+										};
+										window.asLbMove = function(dir) {
+											lbIndex = (lbIndex + dir + lbItems.length) % lbItems.length;
+											asLbRender();
+										};
+										function asLbRender() {
+											var item  = lbItems[lbIndex];
+											var media = document.getElementById('as-lb-media');
+											// Stop any playing video before clearing
+											var oldVid = media.querySelector('video');
+											if (oldVid) { oldVid.pause(); oldVid.src = ''; }
+											media.innerHTML = '';
+											if (item.type === 'youtube') {
+												var f = document.createElement('iframe');
+												f.src = 'https://www.youtube.com/embed/' + item.src + '?autoplay=1';
+												f.allow = 'autoplay; fullscreen';
+												f.allowFullscreen = true;
+												media.appendChild(f);
+											} else if (item.type === 'video') {
+												var vid = document.createElement('video');
+												vid.src = item.src;
+												vid.controls = true;
+												vid.autoplay = true;
+												vid.loop = true;
+												vid.style.cssText = 'max-width:100%;max-height:75vh;border-radius:6px;';
+												media.appendChild(vid);
+											} else {
+												var img = document.createElement('img');
+												img.src = item.src;
+												img.alt = item.alt || '';
+												media.appendChild(img);
+											}
+											document.getElementById('as-lb-counter').textContent = (lbIndex+1) + ' / ' + lbItems.length;
+										}
+
+										document.addEventListener('keydown', function(e) {
+											if (document.getElementById('as-lightbox').classList.contains('active')) {
+												if (e.key==='ArrowLeft')  asLbMove(-1);
+												if (e.key==='ArrowRight') asLbMove(1);
+												if (e.key==='Escape')     asLbClose();
+												return;
+											}
+											if (document.getElementById('appstore-overlay').classList.contains('active')) {
+												if (e.key==='Escape') asClose();
+											}
+										});
+
+									})();
+									</script>
+
+								</div>
+							</section>
+
+						<!-- Three -->
+							<section id="three">
+								<div class="container">
+									<h3>Resume</h3>
+									<p><b>FIX THIS</b> Some of my skills and credentials.</p>
+									<div class="row">
+										<div class="col-6 col-12-xsmall">
+											<header>
+												<h4>B.S. Game Development</h4>
+												<p>Full Sail University &mdash; Winter Park, FL &bull; 2021</p>
+											</header>
+										</div>
+										<div class="col-6 col-12-xsmall">
+											<header>
+												<h4>Lead Programmer / Project Lead</h4>
+												<p>Halfbrick Studios &bull; Oct 2021 &ndash; Mar 2026</p>
+											</header>
+										</div>
+									</div>
+									<br />
+									<ul class="feature-icons">
+										<li class="icon solid fa-code">C# &bull; C++ &bull; HLSL &bull; HTML</li>
+										<li class="icon solid fa-gamepad">Unity (URP / HDRP / 6 / Cloud) &bull; Photon Networking</li>
+										<li class="icon solid fa-mobile-alt">iOS &amp; Android &bull; Profiling &amp; Optimization</li>
+										<li class="icon solid fa-code-branch">Perforce &bull; Git &bull; TeamCity</li>
+										<li class="icon solid fa-tools">JetBrains Rider &bull; Visual Studio &bull; Cursor AI</li>
+										<li class="icon solid fa-layer-group">Agile/Scrum &bull; Game &amp; Systems Design</li>
+										<li class="icon solid fa-robot">AI Behaviors &bull; Procedural Generation &bull; Tool Development</li>
+										<li class="icon solid fa-users">Team Leadership &amp; Management</li>
+									</ul>
+									<br />
+									<ul class="actions">
+										<li><a href="downloads/Taylor Christianson - Resume 2026.pdf" download class="button primary icon solid fa-download" target="_blank">1-Page Resume</a></li>
+										<li><a href="downloads/TChristianson-FullResume.pdf" download class="button primary icon solid fa-download" target="_blank">Full Resume <b>FIX THIS</b></a></li>
+									</ul>
+								</div>
+							</section>
+
+						<!-- Four -->
+							<section id="four">
+								<div class="container">
+									<h3>Contact Me</h3>
+									<p>Feel free to reach out at any of the options below!</p>
+									<ul class="actions">
+										<li><a href="https://www.linkedin.com/in/taylor-christianson-066991159/" class="button primary icon brands alt fa-linkedin" target="_blank">  LinkedIn</a></li>
+										<li><a href="https://github.com/lobsterisme" class="button primary icon brands alt fa-github" target="_blank">  GitHub</a></li>
+										<li><a href="/cdn-cgi/l/email-protection#deaabdb6acb7adaab7bfb0adb1b09ebfb2abb3b0b7f0b8abb2b2adbfb7b2f0bbbaab" class="button primary icon solid alt fa-envelope" target="_blank">  Email</a></li>
+									</ul>
+								</div>
+							</section>
+
+						<!-- Six (Examples) - REFERENCE ONLY, not displayed
+						
+							<section id="six">
+								<div class="container">
+									<h3>Elements</h3>
+
+									<section>
+										<h4>Text</h4>
+										<p>This is <b>bold</b> and this is <strong>strong</strong>. This is <i>italic</i> and this is <em>emphasized</em>.
+										This is <sup>superscript</sup> text and this is <sub>subscript</sub> text.
+										This is <u>underlined</u> and this is code: <code>for (;;) { ... }</code>. Finally, <a href="#">this is a link</a>.</p>
+										<hr />
+										<header>
+											<h4>Heading with a Subtitle</h4>
+											<p>Lorem ipsum dolor sit amet nullam id egestas urna aliquam</p>
+										</header>
+										<p>Nunc lacinia ante nunc ac lobortis. Interdum adipiscing gravida odio porttitor sem non mi integer non faucibus ornare mi ut ante amet placerat aliquet. Volutpat eu sed ante lacinia sapien lorem accumsan varius montes viverra nibh in adipiscing blandit tempus accumsan.</p>
+										<header>
+											<h5>Heading with a Subtitle</h5>
+											<p>Lorem ipsum dolor sit amet nullam id egestas urna aliquam</p>
+										</header>
+										<p>Nunc lacinia ante nunc ac lobortis. Interdum adipiscing gravida odio porttitor sem non mi integer non faucibus ornare mi ut ante amet placerat aliquet. Volutpat eu sed ante lacinia sapien lorem accumsan varius montes viverra nibh in adipiscing blandit tempus accumsan.</p>
+										<hr />
+										<h2>Heading Level 2</h2>
+										<h3>Heading Level 3</h3>
+										<h4>Heading Level 4</h4>
+										<h5>Heading Level 5</h5>
+										<h6>Heading Level 6</h6>
+										<hr />
+										<h5>Blockquote</h5>
+										<blockquote>Fringilla nisl. Donec accumsan interdum nisi, quis tincidunt felis sagittis eget tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan faucibus. Vestibulum ante ipsum primis in faucibus lorem ipsum dolor sit amet nullam adipiscing eu felis.</blockquote>
+										<h5>Preformatted</h5>
+										<pre><code>i = 0;
+
+while (!deck.isInOrder()) {
+    print 'Iteration ' + i;
+    deck.shuffle();
+    i++;
+}
+
+print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
+									</section>
+
+									<section>
+										<h4>Lists</h4>
+										<div class="row">
+											<div class="col-6 col-12-xsmall">
+												<h5>Unordered</h5>
+												<ul>
+													<li>Dolor pulvinar etiam magna etiam.</li>
+													<li>Sagittis adipiscing lorem eleifend.</li>
+													<li>Felis enim feugiat dolore viverra.</li>
+												</ul>
+												<h5>Alternate</h5>
+												<ul class="alt">
+													<li>Dolor pulvinar etiam magna etiam.</li>
+													<li>Sagittis adipiscing lorem eleifend.</li>
+													<li>Felis enim feugiat dolore viverra.</li>
+												</ul>
+											</div>
+											<div class="col-6 col-12-xsmall">
+												<h5>Ordered</h5>
+												<ol>
+													<li>Dolor pulvinar etiam magna etiam.</li>
+													<li>Etiam vel felis at lorem sed viverra.</li>
+													<li>Felis enim feugiat dolore viverra.</li>
+													<li>Dolor pulvinar etiam magna etiam.</li>
+													<li>Etiam vel felis at lorem sed viverra.</li>
+													<li>Felis enim feugiat dolore viverra.</li>
+												</ol>
+												<h5>Icons</h5>
+												<ul class="icons">
+													<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+													<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+													<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+													<li><a href="#" class="icon brands fa-github"><span class="label">Github</span></a></li>
+													<li><a href="#" class="icon brands fa-dribbble"><span class="label">Dribbble</span></a></li>
+													<li><a href="#" class="icon brands fa-tumblr"><span class="label">Tumblr</span></a></li>
+												</ul>
+											</div>
+										</div>
+										<h5>Actions</h5>
+										<ul class="actions">
+											<li><a href="#" class="button primary">Default</a></li>
+											<li><a href="#" class="button">Default</a></li>
+											<li><a href="#" class="button alt">Default</a></li>
+										</ul>
+										<ul class="actions small">
+											<li><a href="#" class="button primary small">Small</a></li>
+											<li><a href="#" class="button small">Small</a></li>
+											<li><a href="#" class="button alt small">Small</a></li>
+										</ul>
+										<div class="row">
+											<div class="col-3 col-6-medium col-12-xsmall">
+												<ul class="actions stacked">
+													<li><a href="#" class="button primary">Default</a></li>
+													<li><a href="#" class="button">Default</a></li>
+													<li><a href="#" class="button alt">Default</a></li>
+												</ul>
+											</div>
+											<div class="col-3 col-6 col-12-xsmall">
+												<ul class="actions stacked">
+													<li><a href="#" class="button primary small">Small</a></li>
+													<li><a href="#" class="button small">Small</a></li>
+													<li><a href="#" class="button alt small">Small</a></li>
+												</ul>
+											</div>
+											<div class="col-3 col-6-medium col-12-xsmall">
+												<ul class="actions stacked">
+													<li><a href="#" class="button primary fit">Default</a></li>
+													<li><a href="#" class="button fit">Default</a></li>
+													<li><a href="#" class="button alt fit">Default</a></li>
+												</ul>
+											</div>
+											<div class="col-3 col-6-medium col-12-xsmall">
+												<ul class="actions stacked">
+													<li><a href="#" class="button primary small fit">Small</a></li>
+													<li><a href="#" class="button small fit">Small</a></li>
+													<li><a href="#" class="button alt small fit">Small</a></li>
+												</ul>
+											</div>
+										</div>
+									</section>
+
+									<section>
+										<h4>Table</h4>
+										<h5>Default</h5>
+										<div class="table-wrapper">
+											<table>
+												<thead>
+													<tr>
+														<th>Name</th>
+														<th>Description</th>
+														<th>Price</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td>Item One</td>
+														<td>Ante turpis integer aliquet porttitor.</td>
+														<td>29.99</td>
+													</tr>
+													<tr>
+														<td>Item Two</td>
+														<td>Vis ac commodo adipiscing arcu aliquet.</td>
+														<td>19.99</td>
+													</tr>
+													<tr>
+														<td>Item Three</td>
+														<td> Morbi faucibus arcu accumsan lorem.</td>
+														<td>29.99</td>
+													</tr>
+													<tr>
+														<td>Item Four</td>
+														<td>Vitae integer tempus condimentum.</td>
+														<td>19.99</td>
+													</tr>
+													<tr>
+														<td>Item Five</td>
+														<td>Ante turpis integer aliquet porttitor.</td>
+														<td>29.99</td>
+													</tr>
+												</tbody>
+												<tfoot>
+													<tr>
+														<td colspan="2"></td>
+														<td>100.00</td>
+													</tr>
+												</tfoot>
+											</table>
+										</div>
+
+										<h5>Alternate</h5>
+										<div class="table-wrapper">
+											<table class="alt">
+												<thead>
+													<tr>
+														<th>Name</th>
+														<th>Description</th>
+														<th>Price</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td>Item One</td>
+														<td>Ante turpis integer aliquet porttitor.</td>
+														<td>29.99</td>
+													</tr>
+													<tr>
+														<td>Item Two</td>
+														<td>Vis ac commodo adipiscing arcu aliquet.</td>
+														<td>19.99</td>
+													</tr>
+													<tr>
+														<td>Item Three</td>
+														<td> Morbi faucibus arcu accumsan lorem.</td>
+														<td>29.99</td>
+													</tr>
+													<tr>
+														<td>Item Four</td>
+														<td>Vitae integer tempus condimentum.</td>
+														<td>19.99</td>
+													</tr>
+													<tr>
+														<td>Item Five</td>
+														<td>Ante turpis integer aliquet porttitor.</td>
+														<td>29.99</td>
+													</tr>
+												</tbody>
+												<tfoot>
+													<tr>
+														<td colspan="2"></td>
+														<td>100.00</td>
+													</tr>
+												</tfoot>
+											</table>
+										</div>
+									</section>
+
+									<section>
+										<h4>Buttons</h4>
+										<ul class="actions">
+											<li><a href="#" class="button primary">Primary</a></li>
+											<li><a href="#" class="button">Default</a></li>
+											<li><a href="#" class="button alt">Alternate</a></li>
+										</ul>
+										<ul class="actions">
+											<li><a href="#" class="button primary large">Large</a></li>
+											<li><a href="#" class="button">Default</a></li>
+											<li><a href="#" class="button alt small">Small</a></li>
+										</ul>
+										<ul class="actions fit">
+											<li><a href="#" class="button primary fit">Fit</a></li>
+											<li><a href="#" class="button fit">Fit</a></li>
+											<li><a href="#" class="button alt fit">Fit</a></li>
+										</ul>
+										<ul class="actions fit small">
+											<li><a href="#" class="button primary fit small">Fit + Small</a></li>
+											<li><a href="#" class="button fit small">Fit + Small</a></li>
+											<li><a href="#" class="button alt fit small">Fit + Small</a></li>
+										</ul>
+										<ul class="actions">
+											<li><a href="#" class="button primary icon solid fa-download">Icon</a></li>
+											<li><a href="#" class="button icon solid fa-download">Icon</a></li>
+											<li><a href="#" class="button alt icon solid fa-check">Icon</a></li>
+										</ul>
+										<ul class="actions">
+											<li><span class="button primary disabled">Primary</span></li>
+											<li><span class="button disabled">Default</span></li>
+											<li><span class="button alt disabled">Alternate</span></li>
+										</ul>
+									</section>
+
+									<section>
+										<h4>Form</h4>
+										<form method="post" action="#">
+											<div class="row gtr-uniform">
+												<div class="col-6 col-12-xsmall">
+													<input type="text" name="demo-name" id="demo-name" value="" placeholder="Name" />
+												</div>
+												<div class="col-6 col-12-xsmall">
+													<input type="email" name="demo-email" id="demo-email" value="" placeholder="Email" />
+												</div>
+												<div class="col-12">
+													<select name="demo-category" id="demo-category">
+														<option value="">- Category -</option>
+														<option value="1">Manufacturing</option>
+														<option value="1">Shipping</option>
+														<option value="1">Administration</option>
+														<option value="1">Human Resources</option>
+													</select>
+												</div>
+												<div class="col-4 col-12-medium">
+													<input type="radio" id="demo-priority-low" name="demo-priority" checked>
+													<label for="demo-priority-low">Low Priority</label>
+												</div>
+												<div class="col-4 col-12-medium">
+													<input type="radio" id="demo-priority-normal" name="demo-priority">
+													<label for="demo-priority-normal">Normal Priority</label>
+												</div>
+												<div class="col-4 col-12-medium">
+													<input type="radio" id="demo-priority-high" name="demo-priority">
+													<label for="demo-priority-high">High Priority</label>
+												</div>
+												<div class="col-6 col-12-medium">
+													<input type="checkbox" id="demo-copy" name="demo-copy">
+													<label for="demo-copy">Email me a copy of this message</label>
+												</div>
+												<div class="col-6 col-12-medium">
+													<input type="checkbox" id="demo-human" name="demo-human" checked>
+													<label for="demo-human">I am a human and not a robot</label>
+												</div>
+												<div class="col-12">
+													<textarea name="demo-message" id="demo-message" placeholder="Enter your message" rows="6"></textarea>
+												</div>
+												<div class="col-12">
+													<ul class="actions">
+														<li><input type="submit" value="Send Message" /></li>
+														<li><input type="reset" value="Reset" class="alt" /></li>
+													</ul>
+												</div>
+											</div>
+										</form>
+									</section>
+
+									<section>
+										<h4>Image</h4>
+										<h5>Fit</h5>
+										<span class="image fit"><img src="images/banner.jpg" alt="" /></span>
+										<div class="box alt">
+											<div class="row gtr-50 gtr-uniform">
+												<div class="col-4"><span class="image fit"><img src="images/pic01.jpg" alt="" /></span></div>
+												<div class="col-4"><span class="image fit"><img src="images/pic02.jpg" alt="" /></span></div>
+												<div class="col-4"><span class="image fit"><img src="images/pic03.jpg" alt="" /></span></div>
+												<div class="col-4"><span class="image fit"><img src="images/pic02.jpg" alt="" /></span></div>
+												<div class="col-4"><span class="image fit"><img src="images/pic03.jpg" alt="" /></span></div>
+												<div class="col-4"><span class="image fit"><img src="images/pic01.jpg" alt="" /></span></div>
+												<div class="col-4"><span class="image fit"><img src="images/pic03.jpg" alt="" /></span></div>
+												<div class="col-4"><span class="image fit"><img src="images/pic01.jpg" alt="" /></span></div>
+												<div class="col-4"><span class="image fit"><img src="images/pic02.jpg" alt="" /></span></div>
+											</div>
+										</div>
+										<h5>Left &amp; Right</h5>
+										<p><span class="image left"><img src="images/avatar.jpg" alt="" /></span>Fringilla nisl. Donec accumsan interdum nisi, quis tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent. Donec accumsan interdum nisi, quis tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent.</p>
+										<p><span class="image right"><img src="images/avatar.jpg" alt="" /></span>Fringilla nisl. Donec accumsan interdum nisi, quis tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent. Donec accumsan interdum nisi, quis tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent.</p>
+									</section>
+
+								</div>
+							</section>
+						
+						-->
+
+					</div>
+
+				<!-- Footer -->
+					<section id="footer">
+						<div class="container">
+							<ul class="copyright">
+								<li>&copy; Taylor Christianson. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+							</ul>
+						</div>
+					</section>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+			<script>
+			window.addEventListener('load', function() {
+				var navLinks = Array.from(document.querySelectorAll('#nav ul li a'));
+				var sectionIds = navLinks.map(function(l) { return l.getAttribute('href').replace('#',''); });
+				var sections = sectionIds.map(function(id) { return document.getElementById(id); }).filter(Boolean);
+
+				// Track how much of each section is visible
+				var visibility = {};
+				sections.forEach(function(s) { visibility[s.id] = 0; });
+
+				function updateActive() {
+					// If scrolled to bottom, always highlight last
+					var atBottom = (window.innerHeight + window.scrollY) >= document.body.scrollHeight - 10;
+					var activeId;
+					if (atBottom) {
+						activeId = sections[sections.length - 1].id;
+					} else {
+						// Pick section with most visible pixels
+						var bestId = null, bestPx = 0;
+						sections.forEach(function(s) {
+							if (visibility[s.id] > bestPx) {
+								bestPx = visibility[s.id];
+								bestId = s.id;
+							}
+						});
+						activeId = bestId;
+					}
+					navLinks.forEach(function(l) {
+						l.classList.toggle('active', l.getAttribute('href') === '#' + activeId);
+					});
+				}
+
+				var observer = new IntersectionObserver(function(entries) {
+					entries.forEach(function(entry) {
+						visibility[entry.target.id] = entry.intersectionRect.height;
+					});
+					updateActive();
+				}, { threshold: Array.from({length: 101}, function(_, i) { return i / 100; }) });
+
+				sections.forEach(function(s) { observer.observe(s); });
+				window.addEventListener('scroll', updateActive, { passive: true });
+			});
+		</script>
+
+		</body>
+	</html>
