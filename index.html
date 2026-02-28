@@ -478,9 +478,13 @@
 											pointer-events: none;
 										}
 
-										@media (max-width: 500px) {
+										@media (max-width: 600px) {
+											.app-grid {
+												grid-template-columns: repeat(3, 1fr);
+												gap: 1.4em 1em;
+											}
 											.appstore-gallery-item { width: 180px; height: 120px; }
-											.appstore-header-icon { height: 80px; max-width: 200px; border-radius: 18px; }
+											.appstore-header-icon { height: 80px; min-width: 80px; max-width: 200px; border-radius: 18px; }
 										}
 									</style>
 
@@ -678,13 +682,19 @@
 										}
 
 										// ── Close popup if sidebar opens ──────────────────────────
+										var _closedByNav = false;
 										var _navObserver = new MutationObserver(function(mutations) {
 											mutations.forEach(function(m) {
 												if (m.attributeName === 'class') {
 													var isNavOpen = document.body.classList.contains('is-navPanel-visible');
 													var isPopupOpen = document.getElementById('appstore-overlay').classList.contains('active');
 													if (isNavOpen && isPopupOpen) {
+														_closedByNav = true;
 														asClose();
+													}
+													// Nav closed — clear the flag after a tick
+													if (!isNavOpen && _closedByNav) {
+														setTimeout(function() { _closedByNav = false; }, 400);
 													}
 												}
 											});
@@ -692,6 +702,7 @@
 										_navObserver.observe(document.body, { attributes: true });
 
 										window.asOpen = function(id) {
+											if (_closedByNav) return; // nav panel is open, don't reopen popup
 											var game = GAMES.find(function(g) { return g.id === id; });
 											if (!game) return;
 											currentGame = game;
@@ -1378,21 +1389,32 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 			<script>
 			window.addEventListener('load', function() {
 				var navLinks = Array.from(document.querySelectorAll('#nav ul li a'));
-				var sectionIds = navLinks.map(function(l) { return l.getAttribute('href').replace('#',''); });
+				var sectionIds = navLinks.map(function(l) {
+					var href = l.getAttribute('href');
+					return (href && href[0] === '#') ? href.replace('#','') : '';
+				}).filter(Boolean);
 				var sections = sectionIds.map(function(id) { return document.getElementById(id); }).filter(Boolean);
 
-				// Track how much of each section is visible
 				var visibility = {};
 				sections.forEach(function(s) { visibility[s.id] = 0; });
 
+				var _scrollLocked = false;
+				var _scrollLockTimer = null;
+
+				function setActive(id) {
+					navLinks.forEach(function(l) {
+						var target = l.getAttribute('data-target') || l.getAttribute('href').replace('#','');
+						l.classList.toggle('active', target === id);
+					});
+				}
+
 				function updateActive() {
-					// If scrolled to bottom, always highlight last
+					if (_scrollLocked) return; // nav click in progress — don't override
 					var atBottom = (window.innerHeight + window.scrollY) >= document.body.scrollHeight - 10;
 					var activeId;
 					if (atBottom) {
 						activeId = sections[sections.length - 1].id;
 					} else {
-						// Pick section with most visible pixels
 						var bestId = null, bestPx = 0;
 						sections.forEach(function(s) {
 							if (visibility[s.id] > bestPx) {
@@ -1402,10 +1424,61 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 						});
 						activeId = bestId;
 					}
-					navLinks.forEach(function(l) {
-						l.classList.toggle('active', l.getAttribute('href') === '#' + activeId);
-					});
+					if (activeId) setActive(activeId);
 				}
+
+				// Smooth scroll with custom duration, lock active during animation
+				function smoothScrollTo(targetY, duration, targetId) {
+					var startY = window.scrollY;
+					var diff = targetY - startY;
+					var startTime = null;
+
+					_scrollLocked = true;
+					setActive(targetId);
+					if (_scrollLockTimer) clearTimeout(_scrollLockTimer);
+
+					function step(timestamp) {
+						if (!startTime) startTime = timestamp;
+						var elapsed = timestamp - startTime;
+						var progress = Math.min(elapsed / duration, 1);
+						// Ease in-out cubic
+						var ease = progress < 0.5
+							? 4 * progress * progress * progress
+							: 1 - Math.pow(-2 * progress + 2, 3) / 2;
+						window.scrollTo(0, startY + diff * ease);
+						if (progress < 1) {
+							requestAnimationFrame(step);
+						} else {
+							// Hold lock briefly after scroll lands to absorb observer firing
+							_scrollLockTimer = setTimeout(function() {
+								_scrollLocked = false;
+								updateActive();
+							}, 100);
+						}
+					}
+					requestAnimationFrame(step);
+				}
+
+				// Clone each nav link to strip all jQuery-bound handlers,
+				// then attach our own clean click handler
+				navLinks = navLinks.map(function(link) {
+					var href = link.getAttribute('href');
+					var targetId = (href && href[0] === '#') ? href.replace('#', '') : null;
+					var clone = link.cloneNode(true);
+					clone.setAttribute('href', 'javascript:void(0)');
+					if (targetId) clone.setAttribute('data-target', targetId);
+					link.parentNode.replaceChild(clone, link);
+					clone.addEventListener('click', function(e) {
+						e.preventDefault();
+						var tid = clone.getAttribute('data-target');
+						if (!tid) return;
+						var target = document.getElementById(tid);
+						if (!target) return;
+						var targetY = target.getBoundingClientRect().top + window.scrollY;
+						smoothScrollTo(targetY, 400, tid);
+					});
+					return clone;
+				});
 
 				var observer = new IntersectionObserver(function(entries) {
 					entries.forEach(function(entry) {
