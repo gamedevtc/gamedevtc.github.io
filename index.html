@@ -658,6 +658,39 @@
 										var lbItems = [];
 										var lbIndex = 0;
 
+										// ── Scroll lock helpers (iOS-safe) ───────────────────────
+										var _scrollY = 0;
+										function lockScroll() {
+											_scrollY = window.scrollY;
+											document.body.style.position = 'fixed';
+											document.body.style.top = '-' + _scrollY + 'px';
+											document.body.style.left = '0';
+											document.body.style.right = '0';
+											document.body.style.overflow = 'hidden';
+										}
+										function unlockScroll() {
+											document.body.style.position = '';
+											document.body.style.top = '';
+											document.body.style.left = '';
+											document.body.style.right = '';
+											document.body.style.overflow = '';
+											window.scrollTo(0, _scrollY);
+										}
+
+										// ── Close popup if sidebar opens ──────────────────────────
+										var _navObserver = new MutationObserver(function(mutations) {
+											mutations.forEach(function(m) {
+												if (m.attributeName === 'class') {
+													var isNavOpen = document.body.classList.contains('is-navPanel-visible');
+													var isPopupOpen = document.getElementById('appstore-overlay').classList.contains('active');
+													if (isNavOpen && isPopupOpen) {
+														asClose();
+													}
+												}
+											});
+										});
+										_navObserver.observe(document.body, { attributes: true });
+
 										window.asOpen = function(id) {
 											var game = GAMES.find(function(g) { return g.id === id; });
 											if (!game) return;
@@ -698,12 +731,12 @@
 											document.getElementById('appstore-sheet').scrollTop = 0;
 
 											document.getElementById('appstore-overlay').classList.add('active');
-											document.body.style.overflow = 'hidden';
+											lockScroll();
 										};
 
 										window.asClose = function() {
 											document.getElementById('appstore-overlay').classList.remove('active');
-											document.body.style.overflow = '';
+											unlockScroll();
 											var sheet = document.getElementById('appstore-sheet');
 											sheet.style.removeProperty('--sheet-bg');
 											sheet.classList.remove('has-bg');
@@ -711,13 +744,6 @@
 
 										document.getElementById('appstore-backdrop').addEventListener('click', asClose);
 
-										// Block background page scroll on mobile when overlay is open
-										document.getElementById('appstore-overlay').addEventListener('touchmove', function(e) {
-											// Allow touch scrolling inside the sheet, block everything else
-											if (!e.target.closest('#appstore-sheet')) {
-												e.preventDefault();
-											}
-										}, { passive: false });
 
 										// ── Load gallery from JSON ───────────────────────────────
 										function loadGallery(id, container) {
@@ -883,7 +909,7 @@
 										window.asLbOpen = function(idx) {
 											lbIndex = idx;
 											document.getElementById('as-lightbox').classList.add('active');
-											document.body.style.overflow = 'hidden';
+											lockScroll();
 											asLbRender();
 										};
 										window.asLbClose = function() {
@@ -989,8 +1015,8 @@
 									<h3>Contact Me</h3>
 									<p>Feel free to reach out at any of the options below!</p>
 									<ul class="actions">
-										<li><a href="https://www.linkedin.com/in/taylor-christianson-066991159/" class="button primary icon brands alt fa-linkedin" target="_blank">  LinkedIn</a></li>
-										<li><a href="https://github.com/lobsterisme" class="button primary icon brands alt fa-github" target="_blank">  GitHub</a></li>
+										<li><a href="https://www.linkedin.com/in/gamedevtaylor/" class="button primary icon brands alt fa-linkedin" target="_blank">  LinkedIn</a></li>
+										<li><a href="https://github.com/gamedevtc" class="button primary icon brands alt fa-github" target="_blank">  GitHub</a></li>
 										<li><a href="/cdn-cgi/l/email-protection#deaabdb6acb7adaab7bfb0adb1b09ebfb2abb3b0b7f0b8abb2b2adbfb7b2f0bbbaab" class="button primary icon solid alt fa-envelope" target="_blank">  Email</a></li>
 									</ul>
 								</div>
