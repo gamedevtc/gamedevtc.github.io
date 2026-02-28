@@ -746,11 +746,23 @@
 										};
 
 										window.asClose = function() {
-											document.getElementById('appstore-overlay').classList.remove('active');
-											unlockScroll();
+											var overlay = document.getElementById('appstore-overlay');
 											var sheet = document.getElementById('appstore-sheet');
-											sheet.style.removeProperty('--sheet-bg');
-											sheet.classList.remove('has-bg');
+											if (!overlay.classList.contains('active')) return;
+
+											// Slide sheet back down, fade backdrop
+											sheet.style.transform = 'translateY(100%)';
+											overlay.querySelector('.appstore-backdrop').style.opacity = '0';
+
+											// After animation finishes, fully hide and clean up
+											setTimeout(function() {
+												overlay.classList.remove('active');
+												sheet.style.transform = '';
+												overlay.querySelector('.appstore-backdrop').style.opacity = '';
+												sheet.style.removeProperty('--sheet-bg');
+												sheet.classList.remove('has-bg');
+												unlockScroll();
+											}, 320);
 										};
 
 										document.getElementById('appstore-backdrop').addEventListener('click', asClose);
