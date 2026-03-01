@@ -1,16 +1,19 @@
 {
-  "work": 
-  [
+  "work": [
     {
       "id": "halfbrick",
       "company": "Halfbrick Studios",
       "image": "images/experience/halfbrick.png",
-      "roles": ["Lead Programmer", "Game Designer", "Project Lead"],
-      "date": "Oct 2021 – Mar 2026"
+      "roles": [
+        "Lead Programmer",
+        "Expedition Lead"
+      ],
+      "date": "Oct 2021 – Mar 2026",
+      "startDate": "2021-09",
+      "endDate": "2026-03"
     }
   ],
-  "education": 
-  [
+  "education": [
     {
       "id": "fullsail",
       "school": "Full Sail University",
@@ -19,15 +22,38 @@
       "graduated": "Jul 2021"
     }
   ],
-  "skills": 
-  [
-    { "key": "languages",     "value": "C#  ·  C++  ·  HLSL  ·  HTML" },
-    { "key": "engine",        "value": "Unity (URP / HDRP / 6 / Cloud)  ·  Photon" },
-    { "key": "platforms",     "value": "iOS  ·  Android  ·  Profiling & Optimization" },
-    { "key": "versionControl","value": "Perforce  ·  Git  ·  TeamCity" },
-    { "key": "tools",         "value": "JetBrains Rider  ·  Visual Studio  ·  Cursor AI" },
-    { "key": "methodology",   "value": "Agile / Scrum  ·  Game & Systems Design" },
-    { "key": "specialisms",   "value": "AI Behaviors  ·  Proc Gen  ·  Tool Development" },
-    { "key": "leadership",    "value": "Team Leadership & Management" }
+  "skills": [
+    {
+      "key": "languages",
+      "value": "C#  ·  C++  ·  HLSL  ·  HTML"
+    },
+    {
+      "key": "engine",
+      "value": "Unity (URP / HDRP / 6 / Cloud)  ·  Photon"
+    },
+    {
+      "key": "platforms",
+      "value": "iOS  ·  Android  ·  Profiling & Optimization"
+    },
+    {
+      "key": "versionControl",
+      "value": "Perforce  ·  Git  ·  TeamCity"
+    },
+    {
+      "key": "tools",
+      "value": "JetBrains Rider  ·  Visual Studio  ·  Cursor AI"
+    },
+    {
+      "key": "methodology",
+      "value": "Agile / Scrum  ·  Game & Systems Design"
+    },
+    {
+      "key": "specialisms",
+      "value": "AI Behaviors  ·  Proc Gen  ·  Tool Development"
+    },
+    {
+      "key": "leadership",
+      "value": "Team Leadership  ·  Performance Reviews  ·  Mentorship"
+    }
   ]
 }

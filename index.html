@@ -11,12 +11,35 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<style>
-			/* Section padding override — must beat main.css */
-			#one, #two, #three,
-			section#one, section#two, section#three,
-			#main section, #wrapper section {
+			/* Override the template's container padding (defined in main.css as 6em/4em/2em) */
+			#main > section > .container {
 				padding-top: 1.5em !important;
 				padding-bottom: 1.5em !important;
+			}
+			/* Remove the 44px gap main.css reserves for the mobile titleBar */
+			@media screen and (max-width: 1024px) {
+				#wrapper {
+					padding-top: 0 !important;
+				}
+				#titleBar {
+					background: transparent !important;
+					box-shadow: none !important;
+					pointer-events: none !important;
+				}
+				#titleBar .toggle {
+					pointer-events: auto !important;
+				}
+				#titleBar .toggle::before {
+					background: rgba(13,17,23,0.75) !important;
+					backdrop-filter: blur(8px);
+					-webkit-backdrop-filter: blur(8px);
+					border-radius: 0 0 0 10px !important;
+					width: 48px !important;
+					color: rgba(255,255,255,0.85) !important;
+				}
+				#titleBar .title {
+					display: none !important;
+				}
 			}
 		</style>
 	</head>
@@ -34,7 +57,7 @@
 					<ul>
 						<li><a href="#one" class="active">About</a></li>
 						<li><a href="#two">Projects</a></li>
-						<li><a href="#three">Resume</a></li>
+						<li><a href="#three">Résumé</a></li>
 					</ul>
 				</nav>
 				<footer>
@@ -43,13 +66,11 @@
 					</div>
 					<div class="sidebar-resume-wrap">
 						<a href="downloads/Taylor Christianson - Resume 2026.pdf" download class="sidebar-resume-btn icon solid fa-download" target="_blank">
-							Resume
+							Résumé
 						</a>
 					</div>
-					<ul class="icons">
-						<li><a href="https://www.linkedin.com/in/gamedevtaylor/" class="icon brands alt fa-linkedin" target="_blank"><span class="label">LinkedIn</span></a></li>
-						<li><a href="https://github.com/gamedevtc" class="icon brands alt fa-github" target="_blank"><span class="label">GitHub</span></a></li>
-						<li><a href="/cdn-cgi/l/email-protection#7703141f051e04031e161904181937161b021a191e5911021b1b04161e1b59121302" class="icon solid alt fa-envelope"><span class="label">Email</span></a></li>
+					<ul class="icons" id="nav-social-icons">
+						<!-- populated from profile.json -->
 					</ul>
 					<div class="dark-mode-toggle-wrap">
 						<span class="dark-mode-toggle-label">dark mode</span>
@@ -75,21 +96,218 @@
 									</video>
 								</div>
 								<div class="container">
-									<header class="major">
-										<h2>I pitch it, build it, and ship it.</h2>
-									</header>
-									<div class="about-row">
-										<div class="about-face">
-											<img src="images/Coast Selfie - Round.png" alt="Taylor Christianson" />
+
+								<div class="about-card-b">
+									<div class="ab-foil"></div>
+									<div class="ab-inner">
+										<div class="ab-top">
+											<div class="ab-portrait">
+												<img id="ab-img" src="" alt="" />
+											</div>
+											<div class="ab-header">
+												<div class="ab-name" id="ab-name"></div>
+												<div class="ab-role" id="ab-role"></div>
+												<div class="ab-degree" id="ab-degree"></div>
+												<div class="ab-stats">
+													<div class="ab-stat"><span class="ab-stat-n" id="ab-years">—</span><span class="ab-stat-l">YRS EXP</span></div>
+													<div class="ab-stat"><span class="ab-stat-n" id="ab-projects">—</span><span class="ab-stat-l">PROJECTS</span></div>
+												</div>
+											</div>
+											<div class="ab-actions" id="ab-actions">
+												<!-- populated from profile.json -->
+											</div>
 										</div>
-										<p class="about-text"><b>FIX THIS</b> I'm Taylor Christianson — a game developer and natural team lead with 4.5 years of professional experience at Halfbrick Studios. I consistently take on lead roles across every project I work on, from pitching ideas and building prototypes to driving teams from concept through production. My technical expertise is in Unity and C#, with generalist experience spanning systems architecture, game design, mobile optimization, and tool development.</p>
-									</div>
-									<div class="resume-download-row" style="margin-top:1.5em;">
-										<a href="https://www.linkedin.com/in/gamedevtaylor/" class="dark-btn icon brands alt fa-linkedin" target="_blank">LinkedIn</a>
-										<a href="https://github.com/gamedevtc" class="dark-btn icon brands alt fa-github" target="_blank">GitHub</a>
-										<a href="/cdn-cgi/l/email-protection#7703141f051e04031e161904181937161b021a191e5911021b1b04161e1b59121302" class="dark-btn icon solid alt fa-envelope">Email</a>
+										<div class="ab-divider"></div>
+										<p class="ab-bio" id="ab-bio"></p>
 									</div>
 								</div>
+
+								</div><!-- /container -->
+
+								<style>
+									/* ── Pull card up further to overlap banner ── */
+									section#one .container {
+										margin-top: -5em;
+										position: relative;
+										z-index: 2;
+									}
+
+									/* ── Card ── */
+									.about-card-b {
+										position: relative;
+										background: linear-gradient(135deg, #0d1117 0%, #1a2332 50%, #0d1117 100%);
+										border-radius: 16px;
+										overflow: hidden;
+										box-shadow:
+											0 0 0 1px rgba(255,255,255,0.08),
+											0 20px 60px rgba(0,0,0,0.5);
+										padding: 1.8em;
+									}
+									/* Prismatic foil shimmer */
+									.ab-foil {
+										position: absolute;
+										inset: 0;
+										border-radius: 16px;
+										background: linear-gradient(
+											115deg,
+											transparent 0%,
+											rgba(78,201,176,0.04) 20%,
+											rgba(86,156,214,0.06) 40%,
+											rgba(220,143,170,0.04) 60%,
+											rgba(206,145,120,0.03) 80%,
+											transparent 100%
+										);
+										pointer-events: none;
+										z-index: 0;
+										transition: background 0.4s;
+									}
+									.about-card-b:hover .ab-foil {
+										background: linear-gradient(
+											115deg,
+											transparent 0%,
+											rgba(78,201,176,0.1) 15%,
+											rgba(86,156,214,0.14) 35%,
+											rgba(220,143,170,0.1) 55%,
+											rgba(206,145,120,0.08) 75%,
+											rgba(78,201,176,0.06) 100%
+										);
+									}
+									/* Corner accents */
+									.about-card-b::before,
+									.about-card-b::after {
+										content: '';
+										position: absolute;
+										width: 40px; height: 40px;
+										border-color: rgba(78,201,176,0.3);
+										border-style: solid;
+										z-index: 1;
+									}
+									.about-card-b::before { top: 10px; left: 10px; border-width: 1px 0 0 1px; }
+									.about-card-b::after  { bottom: 10px; right: 10px; border-width: 0 1px 1px 0; }
+
+									.ab-inner { position: relative; z-index: 2; }
+
+									/* Top row: portrait · name/stats · action buttons */
+									.ab-top {
+										display: flex;
+										gap: 1.4em;
+										align-items: flex-start;
+										margin-bottom: 1em;
+									}
+									.ab-portrait {
+										flex-shrink: 0;
+										width: 120px; height: 120px;
+										border-radius: 12px;
+										overflow: hidden;
+										border: 1px solid rgba(78,201,176,0.25);
+										box-shadow: 0 0 24px rgba(78,201,176,0.12);
+									}
+									.ab-portrait img {
+										width: 100%; height: 100%;
+										object-fit: cover;
+										object-position: center top;
+										display: block;
+									}
+									.ab-header {
+										flex: 1;
+									}
+									.ab-name {
+										font-size: 1.2em;
+										font-weight: 700;
+										color: #f0f4f8;
+										letter-spacing: 0.01em;
+										margin-bottom: 0.2em;
+									}
+									.ab-role {
+										font-size: 0.8em;
+										color: #4ec9b0;
+										letter-spacing: 0.08em;
+										text-transform: uppercase;
+										margin-bottom: 0.1em;
+									}
+									.ab-degree {
+										font-size: 0.78em;
+										color: rgba(255,255,255,0.45);
+										letter-spacing: 0.04em;
+										margin-bottom: 0.55em;
+									}
+									.ab-stats {
+										display: flex;
+										gap: 1.4em;
+									}
+									.ab-stat {
+										display: flex;
+										flex-direction: column;
+									}
+									.ab-stat-n {
+										font-size: 1.1em;
+										font-weight: 700;
+										color: #f0f4f8;
+										line-height: 1;
+									}
+									.ab-stat-l {
+										font-size: 0.56em;
+										color: rgba(255,255,255,0.55);
+										letter-spacing: 0.1em;
+										text-transform: uppercase;
+										margin-top: 0.2em;
+									}
+
+									/* Action buttons — full label, right-aligned column */
+									.ab-actions {
+										display: flex;
+										flex-direction: column;
+										gap: 0.45em;
+										flex-shrink: 0;
+										align-items: stretch;
+									}
+									.ab-action-btn {
+										display: inline-flex;
+										align-items: center;
+										gap: 0.55em;
+										background: rgba(255,255,255,0.06);
+										border: 1px solid rgba(255,255,255,0.12);
+										border-radius: 8px;
+										padding: 0.45em 0.9em;
+										color: rgba(255,255,255,0.75) !important;
+										text-decoration: none !important;
+										font-size: 0.8em;
+										white-space: nowrap;
+										transition: background 0.15s, color 0.15s, border-color 0.15s;
+									}
+									.ab-action-btn:hover {
+										background: rgba(78,201,176,0.15);
+										color: #4ec9b0 !important;
+										border-color: rgba(78,201,176,0.4);
+									}
+
+									/* Divider */
+									.ab-divider {
+										height: 1px;
+										background: linear-gradient(90deg, rgba(78,201,176,0.3), rgba(86,156,214,0.2), transparent);
+										margin-bottom: 1em;
+									}
+
+									/* Bio */
+									.ab-bio {
+										font-size: 0.88em;
+										color: rgba(255,255,255,0.7);
+										line-height: 1.75;
+										margin: 0;
+									}
+
+									/* Dark mode — deepen */
+									body.dark-mode .about-card-b {
+										background: linear-gradient(135deg, #000 0%, #0d1117 50%, #000 100%);
+										box-shadow: 0 0 0 1px rgba(78,201,176,0.1), 0 20px 60px rgba(0,0,0,0.8);
+									}
+
+									@media (max-width: 680px) {
+										.ab-top { flex-wrap: wrap; }
+										.ab-actions { flex-direction: row; width: 100%; }
+									}
+								</style>
+
 							</section>
 
 						<!-- Two -->
@@ -189,7 +407,40 @@
 											z-index: 1;
 										}
 
-										/* ── App Store Popup ── */
+										/* ── iOS Notification Badge ── */
+										.app-icon-stage {
+											position: relative;
+										}
+										.app-icon-badge {
+											position: absolute;
+											top: -5px;
+											right: -5px;
+											min-width: 20px;
+											height: 20px;
+											border-radius: 10px;
+											background: #ff3b30;
+											color: #fff;
+											font-size: 11px;
+											font-weight: 700;
+											font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif;
+											line-height: 20px;
+											text-align: center;
+											padding: 0 5px;
+											box-shadow: 0 1px 4px rgba(0,0,0,0.4);
+											z-index: 10;
+											pointer-events: none;
+											letter-spacing: 0;
+											/* Dot mode (no text): perfectly round */
+										}
+										.app-icon-badge.dot {
+											min-width: 20px;
+											width: 20px;
+											height: 20px;
+											border-radius: 10px;
+											padding: 0;
+											top: -5px;
+											right: -5px;
+										}
 										.appstore-overlay {
 											visibility: hidden;
 											pointer-events: none;
@@ -941,6 +1192,19 @@
 											inner.appendChild(img);
 											inner.appendChild(placeholder);
 											stage.appendChild(inner);
+
+											// iOS notification badge
+											if (game.badge) {
+												var badge = document.createElement('div');
+												badge.className = 'app-icon-badge';
+												if (game.badge === true) {
+													badge.classList.add('dot');
+												} else {
+													badge.textContent = game.badge;
+												}
+												stage.appendChild(badge);
+											}
+
 											wrap.appendChild(stage);
 
 											// Label appended synchronously — always visible
@@ -1521,8 +1785,10 @@
 									</div>
 
 									<div class="resume-download-row">
-										<a href="downloads/Taylor Christianson - Resume 2026.pdf" download class="dark-btn icon solid fa-download" target="_blank">Resume</a>
-										<a href="downloads/TChristianson-FullResume.pdf" download class="dark-btn icon solid fa-download" target="_blank">Resume (Expanded) <b>FIX THIS</b></a>
+										<a href="downloads/Taylor Christianson - Resume 2026.pdf" download class="dark-btn icon solid fa-download" target="_blank">Résumé</a>
+										<!-- DISABLED: full résumé not ready
+										<a href="downloads/TChristianson-FullResume.pdf" download class="dark-btn icon solid fa-download" target="_blank">Résumé (Expanded) <b>FIX THIS</b></a>
+										-->
 									</div>
 								</div>
 
@@ -1711,33 +1977,41 @@
 
 									/* Skills block */
 									.terminal-skills {
-										display: flex;
-										flex-direction: column;
-										gap: 0.3em;
+										display: grid;
+										grid-template-columns: 1fr 1fr;
+										gap: 0.15em 1.5em;
 										margin: 0.5em 0 0.9em 0.5em;
 										font-family: 'Cascadia Mono', 'Fira Code', 'Consolas', monospace;
 									}
 									.t-skill-row {
 										font-size: 0.8em;
-										line-height: 1.6;
+										line-height: 1.5;
 										display: flex;
-										gap: 0.4em;
-										flex-wrap: wrap;
-										align-items: baseline;
+										flex-direction: column;
+										padding: 0.4em 0.6em;
+										border-left: 1px solid rgba(156,220,254,0.15);
 									}
 									.t-skill-key {
 										color: #9cdcfe;   /* VS Code light blue — property names */
 										white-space: nowrap;
+										font-size: 0.88em;
 									}
 									.t-skill-colon {
-										color: rgba(255,255,255,0.25);
-										margin-right: 0.2em;
+										color: rgba(255,255,255,0.2);
 									}
 									.t-skill-val {
 										color: #ce9178;   /* VS Code orange-red — string values */
+										padding-left: 0.8em;
+										white-space: normal;
+										word-break: break-word;
+										font-size: 0.92em;
+										opacity: 0.9;
 									}
-									.t-skill-val::before { content: '"'; color: rgba(206,145,120,0.5); }
-									.t-skill-val::after  { content: '"'; color: rgba(206,145,120,0.5); }
+									.t-skill-val::before { content: '"'; color: rgba(206,145,120,0.4); }
+									.t-skill-val::after  { content: '"'; color: rgba(206,145,120,0.4); }
+									@media (max-width: 680px) {
+										.terminal-skills { grid-template-columns: 1fr; }
+									}
 								</style>
 
 								<script>
@@ -1817,356 +2091,140 @@
 										(data.skills || []).forEach(function(skill) {
 											var row = document.createElement('div');
 											row.className = 't-skill-row';
+
+											// Line 1: "key":
+											var keyLine = document.createElement('div');
 											var key = document.createElement('span');
 											key.className = 't-skill-key';
 											key.textContent = '"' + skill.key + '"';
 											var colon = document.createElement('span');
 											colon.className = 't-skill-colon';
 											colon.textContent = ':';
+											keyLine.appendChild(key);
+											keyLine.appendChild(colon);
+
+											// Line 2:   "value"
 											var val = document.createElement('span');
 											val.className = 't-skill-val';
 											val.textContent = skill.value;
-											row.appendChild(key);
-											row.appendChild(colon);
+
+											row.appendChild(keyLine);
 											row.appendChild(val);
 											skillsList.appendChild(row);
 										});
 									})
 									.catch(function(err) { console.error('Failed to load experience.json:', err); });
+
+								// ── Profile bootstrap: fetch profile.json + experience.json + games.json ──
+								Promise.all([
+									fetch('profile.json').then(function(r) { return r.json(); }),
+									fetch('experience.json').then(function(r) { return r.json(); }),
+									fetch('games.json').then(function(r) { return r.json(); })
+								]).then(function(results) {
+									var profile    = results[0];
+									var experience = results[1];
+									var games      = results[2];
+
+									// ── Name, title, image, bio ──────────────────────────────
+									var nameEl = document.getElementById('ab-name');
+									var roleEl = document.getElementById('ab-role');
+									var imgEl  = document.getElementById('ab-img');
+									var bioEl  = document.getElementById('ab-bio');
+									if (nameEl) nameEl.textContent = profile.name;
+									if (roleEl) roleEl.textContent = profile.title;
+									if (imgEl)  { imgEl.src = profile.image; imgEl.alt = profile.name; }
+									if (bioEl)  bioEl.textContent = profile.bio;
+
+									// ── Degree: first education entry ────────────────────────
+									var degreeEl = document.getElementById('ab-degree');
+									var firstEdu = (experience.education || [])[0];
+									if (degreeEl && firstEdu && firstEdu.degree) {
+										degreeEl.textContent = firstEdu.degree;
+									}
+
+									// ── Years experience: sum months across all work entries with startDate ──
+									var totalMonths = 0;
+									(experience.work || []).forEach(function(job) {
+										if (!job.startDate) return;
+										var sp = job.startDate.split('-');
+										var start = new Date(parseInt(sp[0]), parseInt(sp[1]) - 1);
+										var end;
+										if (job.endDate) {
+											var ep = job.endDate.split('-');
+											end = new Date(parseInt(ep[0]), parseInt(ep[1]) - 1);
+										} else {
+											end = new Date();
+										}
+										var months = (end.getFullYear() - start.getFullYear()) * 12
+										           + (end.getMonth() - start.getMonth());
+										totalMonths += Math.max(0, months);
+									});
+									var years = (totalMonths / 12).toFixed(1).replace(/\.0$/, '');
+									var yearsEl = document.getElementById('ab-years');
+									if (yearsEl) yearsEl.textContent = years;
+
+									// ── Project count: length of games.json ──────────────────
+									var projectsEl = document.getElementById('ab-projects');
+									if (projectsEl) projectsEl.textContent = games.length + (games.length >= 8 ? '+' : '');
+
+									// ── Build link list: links array + email ─────────────────
+									// All links (email first, then links array)
+									var allLinks = [];
+									if (profile.email) {
+										allLinks.push({
+											label: 'Email',
+											url:   'mailto:' + profile.email,
+											icon:  'solid alt fa-envelope',
+											newTab: false
+										});
+									}
+									(profile.links || []).forEach(function(l) { allLinks.push(l); });
+
+									// About card buttons
+									var actionsEl = document.getElementById('ab-actions');
+									if (actionsEl) {
+										actionsEl.innerHTML = '';
+										allLinks.forEach(function(l) {
+											var a = document.createElement('a');
+											a.href = l.url;
+											a.className = 'ab-action-btn icon ' + l.icon;
+											a.textContent = l.label;
+											if (l.newTab) { a.target = '_blank'; a.rel = 'noopener'; }
+											actionsEl.appendChild(a);
+										});
+									}
+
+									// Navpanel sidebar icons
+									var navIcons = document.getElementById('nav-social-icons');
+									if (navIcons) {
+										navIcons.innerHTML = '';
+										allLinks.forEach(function(l) {
+											var li = document.createElement('li');
+											var a  = document.createElement('a');
+											a.href = l.url;
+											a.className = 'icon ' + l.icon;
+											if (l.newTab) { a.target = '_blank'; a.rel = 'noopener'; }
+											var span = document.createElement('span');
+											span.className = 'label';
+											span.textContent = l.label;
+											a.appendChild(span);
+											li.appendChild(a);
+											navIcons.appendChild(li);
+										});
+									}
+
+									// Also populate navpanel name/title/avatar from profile
+									var logoEl = document.getElementById('logo');
+									if (logoEl) {
+										var a = logoEl.querySelector('a');
+										if (a) a.textContent = profile.name;
+									}
+									var avatarImg = document.querySelector('#header .image.avatar img');
+									if (avatarImg) avatarImg.src = profile.image;
+
+								}).catch(function(err) { console.error('Failed to load profile data:', err); });
 								</script>
 							</section>
-
-						<!-- Six (Examples) - REFERENCE ONLY, not displayed
-						
-							<section id="six">
-								<div class="container">
-									<h3>Elements</h3>
-
-									<section>
-										<h4>Text</h4>
-										<p>This is <b>bold</b> and this is <strong>strong</strong>. This is <i>italic</i> and this is <em>emphasized</em>.
-										This is <sup>superscript</sup> text and this is <sub>subscript</sub> text.
-										This is <u>underlined</u> and this is code: <code>for (;;) { ... }</code>. Finally, <a href="#">this is a link</a>.</p>
-										<hr />
-										<header>
-											<h4>Heading with a Subtitle</h4>
-											<p>Lorem ipsum dolor sit amet nullam id egestas urna aliquam</p>
-										</header>
-										<p>Nunc lacinia ante nunc ac lobortis. Interdum adipiscing gravida odio porttitor sem non mi integer non faucibus ornare mi ut ante amet placerat aliquet. Volutpat eu sed ante lacinia sapien lorem accumsan varius montes viverra nibh in adipiscing blandit tempus accumsan.</p>
-										<header>
-											<h5>Heading with a Subtitle</h5>
-											<p>Lorem ipsum dolor sit amet nullam id egestas urna aliquam</p>
-										</header>
-										<p>Nunc lacinia ante nunc ac lobortis. Interdum adipiscing gravida odio porttitor sem non mi integer non faucibus ornare mi ut ante amet placerat aliquet. Volutpat eu sed ante lacinia sapien lorem accumsan varius montes viverra nibh in adipiscing blandit tempus accumsan.</p>
-										<hr />
-										<h2>Heading Level 2</h2>
-										<h3>Heading Level 3</h3>
-										<h4>Heading Level 4</h4>
-										<h5>Heading Level 5</h5>
-										<h6>Heading Level 6</h6>
-										<hr />
-										<h5>Blockquote</h5>
-										<blockquote>Fringilla nisl. Donec accumsan interdum nisi, quis tincidunt felis sagittis eget tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan faucibus. Vestibulum ante ipsum primis in faucibus lorem ipsum dolor sit amet nullam adipiscing eu felis.</blockquote>
-										<h5>Preformatted</h5>
-										<pre><code>i = 0;
-
-while (!deck.isInOrder()) {
-    print 'Iteration ' + i;
-    deck.shuffle();
-    i++;
-}
-
-print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
-									</section>
-
-									<section>
-										<h4>Lists</h4>
-										<div class="row">
-											<div class="col-6 col-12-xsmall">
-												<h5>Unordered</h5>
-												<ul>
-													<li>Dolor pulvinar etiam magna etiam.</li>
-													<li>Sagittis adipiscing lorem eleifend.</li>
-													<li>Felis enim feugiat dolore viverra.</li>
-												</ul>
-												<h5>Alternate</h5>
-												<ul class="alt">
-													<li>Dolor pulvinar etiam magna etiam.</li>
-													<li>Sagittis adipiscing lorem eleifend.</li>
-													<li>Felis enim feugiat dolore viverra.</li>
-												</ul>
-											</div>
-											<div class="col-6 col-12-xsmall">
-												<h5>Ordered</h5>
-												<ol>
-													<li>Dolor pulvinar etiam magna etiam.</li>
-													<li>Etiam vel felis at lorem sed viverra.</li>
-													<li>Felis enim feugiat dolore viverra.</li>
-													<li>Dolor pulvinar etiam magna etiam.</li>
-													<li>Etiam vel felis at lorem sed viverra.</li>
-													<li>Felis enim feugiat dolore viverra.</li>
-												</ol>
-												<h5>Icons</h5>
-												<ul class="icons">
-													<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
-													<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
-													<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
-													<li><a href="#" class="icon brands fa-github"><span class="label">Github</span></a></li>
-													<li><a href="#" class="icon brands fa-dribbble"><span class="label">Dribbble</span></a></li>
-													<li><a href="#" class="icon brands fa-tumblr"><span class="label">Tumblr</span></a></li>
-												</ul>
-											</div>
-										</div>
-										<h5>Actions</h5>
-										<ul class="actions">
-											<li><a href="#" class="button primary">Default</a></li>
-											<li><a href="#" class="button">Default</a></li>
-											<li><a href="#" class="button alt">Default</a></li>
-										</ul>
-										<ul class="actions small">
-											<li><a href="#" class="button primary small">Small</a></li>
-											<li><a href="#" class="button small">Small</a></li>
-											<li><a href="#" class="button alt small">Small</a></li>
-										</ul>
-										<div class="row">
-											<div class="col-3 col-6-medium col-12-xsmall">
-												<ul class="actions stacked">
-													<li><a href="#" class="button primary">Default</a></li>
-													<li><a href="#" class="button">Default</a></li>
-													<li><a href="#" class="button alt">Default</a></li>
-												</ul>
-											</div>
-											<div class="col-3 col-6 col-12-xsmall">
-												<ul class="actions stacked">
-													<li><a href="#" class="button primary small">Small</a></li>
-													<li><a href="#" class="button small">Small</a></li>
-													<li><a href="#" class="button alt small">Small</a></li>
-												</ul>
-											</div>
-											<div class="col-3 col-6-medium col-12-xsmall">
-												<ul class="actions stacked">
-													<li><a href="#" class="button primary fit">Default</a></li>
-													<li><a href="#" class="button fit">Default</a></li>
-													<li><a href="#" class="button alt fit">Default</a></li>
-												</ul>
-											</div>
-											<div class="col-3 col-6-medium col-12-xsmall">
-												<ul class="actions stacked">
-													<li><a href="#" class="button primary small fit">Small</a></li>
-													<li><a href="#" class="button small fit">Small</a></li>
-													<li><a href="#" class="button alt small fit">Small</a></li>
-												</ul>
-											</div>
-										</div>
-									</section>
-
-									<section>
-										<h4>Table</h4>
-										<h5>Default</h5>
-										<div class="table-wrapper">
-											<table>
-												<thead>
-													<tr>
-														<th>Name</th>
-														<th>Description</th>
-														<th>Price</th>
-													</tr>
-												</thead>
-												<tbody>
-													<tr>
-														<td>Item One</td>
-														<td>Ante turpis integer aliquet porttitor.</td>
-														<td>29.99</td>
-													</tr>
-													<tr>
-														<td>Item Two</td>
-														<td>Vis ac commodo adipiscing arcu aliquet.</td>
-														<td>19.99</td>
-													</tr>
-													<tr>
-														<td>Item Three</td>
-														<td> Morbi faucibus arcu accumsan lorem.</td>
-														<td>29.99</td>
-													</tr>
-													<tr>
-														<td>Item Four</td>
-														<td>Vitae integer tempus condimentum.</td>
-														<td>19.99</td>
-													</tr>
-													<tr>
-														<td>Item Five</td>
-														<td>Ante turpis integer aliquet porttitor.</td>
-														<td>29.99</td>
-													</tr>
-												</tbody>
-												<tfoot>
-													<tr>
-														<td colspan="2"></td>
-														<td>100.00</td>
-													</tr>
-												</tfoot>
-											</table>
-										</div>
-
-										<h5>Alternate</h5>
-										<div class="table-wrapper">
-											<table class="alt">
-												<thead>
-													<tr>
-														<th>Name</th>
-														<th>Description</th>
-														<th>Price</th>
-													</tr>
-												</thead>
-												<tbody>
-													<tr>
-														<td>Item One</td>
-														<td>Ante turpis integer aliquet porttitor.</td>
-														<td>29.99</td>
-													</tr>
-													<tr>
-														<td>Item Two</td>
-														<td>Vis ac commodo adipiscing arcu aliquet.</td>
-														<td>19.99</td>
-													</tr>
-													<tr>
-														<td>Item Three</td>
-														<td> Morbi faucibus arcu accumsan lorem.</td>
-														<td>29.99</td>
-													</tr>
-													<tr>
-														<td>Item Four</td>
-														<td>Vitae integer tempus condimentum.</td>
-														<td>19.99</td>
-													</tr>
-													<tr>
-														<td>Item Five</td>
-														<td>Ante turpis integer aliquet porttitor.</td>
-														<td>29.99</td>
-													</tr>
-												</tbody>
-												<tfoot>
-													<tr>
-														<td colspan="2"></td>
-														<td>100.00</td>
-													</tr>
-												</tfoot>
-											</table>
-										</div>
-									</section>
-
-									<section>
-										<h4>Buttons</h4>
-										<ul class="actions">
-											<li><a href="#" class="button primary">Primary</a></li>
-											<li><a href="#" class="button">Default</a></li>
-											<li><a href="#" class="button alt">Alternate</a></li>
-										</ul>
-										<ul class="actions">
-											<li><a href="#" class="button primary large">Large</a></li>
-											<li><a href="#" class="button">Default</a></li>
-											<li><a href="#" class="button alt small">Small</a></li>
-										</ul>
-										<ul class="actions fit">
-											<li><a href="#" class="button primary fit">Fit</a></li>
-											<li><a href="#" class="button fit">Fit</a></li>
-											<li><a href="#" class="button alt fit">Fit</a></li>
-										</ul>
-										<ul class="actions fit small">
-											<li><a href="#" class="button primary fit small">Fit + Small</a></li>
-											<li><a href="#" class="button fit small">Fit + Small</a></li>
-											<li><a href="#" class="button alt fit small">Fit + Small</a></li>
-										</ul>
-										<ul class="actions">
-											<li><a href="#" class="button primary icon solid fa-download">Icon</a></li>
-											<li><a href="#" class="button icon solid fa-download">Icon</a></li>
-											<li><a href="#" class="button alt icon solid fa-check">Icon</a></li>
-										</ul>
-										<ul class="actions">
-											<li><span class="button primary disabled">Primary</span></li>
-											<li><span class="button disabled">Default</span></li>
-											<li><span class="button alt disabled">Alternate</span></li>
-										</ul>
-									</section>
-
-									<section>
-										<h4>Form</h4>
-										<form method="post" action="#">
-											<div class="row gtr-uniform">
-												<div class="col-6 col-12-xsmall">
-													<input type="text" name="demo-name" id="demo-name" value="" placeholder="Name" />
-												</div>
-												<div class="col-6 col-12-xsmall">
-													<input type="email" name="demo-email" id="demo-email" value="" placeholder="Email" />
-												</div>
-												<div class="col-12">
-													<select name="demo-category" id="demo-category">
-														<option value="">- Category -</option>
-														<option value="1">Manufacturing</option>
-														<option value="1">Shipping</option>
-														<option value="1">Administration</option>
-														<option value="1">Human Resources</option>
-													</select>
-												</div>
-												<div class="col-4 col-12-medium">
-													<input type="radio" id="demo-priority-low" name="demo-priority" checked>
-													<label for="demo-priority-low">Low Priority</label>
-												</div>
-												<div class="col-4 col-12-medium">
-													<input type="radio" id="demo-priority-normal" name="demo-priority">
-													<label for="demo-priority-normal">Normal Priority</label>
-												</div>
-												<div class="col-4 col-12-medium">
-													<input type="radio" id="demo-priority-high" name="demo-priority">
-													<label for="demo-priority-high">High Priority</label>
-												</div>
-												<div class="col-6 col-12-medium">
-													<input type="checkbox" id="demo-copy" name="demo-copy">
-													<label for="demo-copy">Email me a copy of this message</label>
-												</div>
-												<div class="col-6 col-12-medium">
-													<input type="checkbox" id="demo-human" name="demo-human" checked>
-													<label for="demo-human">I am a human and not a robot</label>
-												</div>
-												<div class="col-12">
-													<textarea name="demo-message" id="demo-message" placeholder="Enter your message" rows="6"></textarea>
-												</div>
-												<div class="col-12">
-													<ul class="actions">
-														<li><input type="submit" value="Send Message" /></li>
-														<li><input type="reset" value="Reset" class="alt" /></li>
-													</ul>
-												</div>
-											</div>
-										</form>
-									</section>
-
-									<section>
-										<h4>Image</h4>
-										<h5>Fit</h5>
-										<span class="image fit"><img src="images/banner.jpg" alt="" /></span>
-										<div class="box alt">
-											<div class="row gtr-50 gtr-uniform">
-												<div class="col-4"><span class="image fit"><img src="images/pic01.jpg" alt="" /></span></div>
-												<div class="col-4"><span class="image fit"><img src="images/pic02.jpg" alt="" /></span></div>
-												<div class="col-4"><span class="image fit"><img src="images/pic03.jpg" alt="" /></span></div>
-												<div class="col-4"><span class="image fit"><img src="images/pic02.jpg" alt="" /></span></div>
-												<div class="col-4"><span class="image fit"><img src="images/pic03.jpg" alt="" /></span></div>
-												<div class="col-4"><span class="image fit"><img src="images/pic01.jpg" alt="" /></span></div>
-												<div class="col-4"><span class="image fit"><img src="images/pic03.jpg" alt="" /></span></div>
-												<div class="col-4"><span class="image fit"><img src="images/pic01.jpg" alt="" /></span></div>
-												<div class="col-4"><span class="image fit"><img src="images/pic02.jpg" alt="" /></span></div>
-											</div>
-										</div>
-										<h5>Left &amp; Right</h5>
-										<p><span class="image left"><img src="images/avatar.jpg" alt="" /></span>Fringilla nisl. Donec accumsan interdum nisi, quis tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent. Donec accumsan interdum nisi, quis tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent.</p>
-										<p><span class="image right"><img src="images/avatar.jpg" alt="" /></span>Fringilla nisl. Donec accumsan interdum nisi, quis tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent. Donec accumsan interdum nisi, quis tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent.</p>
-									</section>
-
-								</div>
-							</section>
-						
-						-->
 
 					</div>
 
@@ -2189,6 +2247,30 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
+		<script>
+			// main.css sets #wrapper { padding-top: 44px } at <=1024px.
+			// main.js's $(window).on('load') handler applies this — we need to run
+			// *after* that, so we use a 0ms timeout to push to the end of the queue,
+			// plus a belt-and-suspenders 200ms delayed second pass.
+			(function() {
+				function fixTitleBar() {
+					var w = document.getElementById('wrapper');
+					if (w) w.style.setProperty('padding-top', '0', 'important');
+					var tb = document.getElementById('titleBar');
+					if (tb) {
+						tb.style.setProperty('background', 'transparent', 'important');
+						tb.style.setProperty('box-shadow', 'none', 'important');
+					}
+				}
+				window.addEventListener('load', function() {
+					setTimeout(fixTitleBar, 0);    // end of current call stack
+					setTimeout(fixTitleBar, 200);  // safety net
+				});
+				window.addEventListener('resize', function() {
+					setTimeout(fixTitleBar, 0);
+				});
+			})();
+		</script>
 			<script>
 			window.addEventListener('load', function() {
 				var navLinks = Array.from(document.querySelectorAll('#nav ul li a'));
