@@ -2,7 +2,8 @@
 	{
 		"id": "scraptics",
 		"name": "Scraptics",
-		"meta": "Halfbrick Studios &bull; 2023&ndash;2026",
+		"year": "2023–2026",
+		"meta": "Halfbrick Studios",
 		"tags": ["Unity 6", "C#", "iOS & Android"],
 		"roles": ["Lead Programmer", "Game Designer", "Team Lead"],
 		"desc": "A tactical turn-based roguelike on a hex grid with a unique inventory puzzle mechanic. Pitched in an internal game jam, greenlit for full production, and led as programmer, designer, and team lead for 3 years at Halfbrick Studios. Shipped to closed beta on iOS and Android.",
@@ -21,7 +22,8 @@
 	{
 		"id": "sumo",
 		"name": "Sumo Fight",
-		"meta": "Halfbrick Internal Game Jam &bull; 2024",
+		"year": "2024",
+		"meta": "Halfbrick Internal Game Jam",
 		"tags": ["Unity 6", "C#", "Photon", "iOS & Android"],
 		"roles": ["Lead Programmer"],
 		"desc": "Multiplayer beat-em-up party game built in one week. Lead programmer on a team of 5.",
@@ -32,7 +34,8 @@
 	{
 		"id": "survivors",
 		"name": "Survivors Aren't Dead",
-		"meta": "Halfbrick Internal Game Jam &bull; 2023",
+		"year": "2023",
+		"meta": "Halfbrick Internal Game Jam",
 		"tags": ["Unity 6", "C#", "iOS & Android"],
 		"roles": ["Pitch", "Project Lead", "Lead Programmer"],
 		"desc": "Survivor-like action game built in one week. Pitched the concept, led the project, and served as lead programmer on a team of 4.",
@@ -42,22 +45,10 @@
 		]
 	},
 	{
-		"id": "rucksack",
-		"name": "Rucksack Dungeon",
-		"meta": "Halfbrick Internal Game Jam &bull; 2022",
-		"tags": ["Unity", "C#", "iOS & Android"],
-		"roles": ["Team Lead", "AI Programmer"],
-		"desc": "The prototype that became Scraptics. Built in one week at an internal Halfbrick game jam, greenlit for full production, and reworked into the full game over the following 3 years. Team lead and AI behavior programmer.",
-		"bullets": [
-			"Designed and implemented AI enemy behaviour systems",
-			"Team lead across the full jam week",
-			"Prototype was selected and greenlit — became the foundation for Scraptics"
-		]
-	},
-	{
 		"id": "unannounced",
 		"name": "Unannounced Mobile Project",
-		"meta": "Halfbrick Studios &bull; Unreleased; 2021&ndash;2023",
+		"year": "2021–2023",
+		"meta": "Halfbrick Studios · Unreleased",
 		"tags": ["Unity", "C#", "iOS & Android"],
 		"roles": ["Project Lead", "Lead Programmer"],
 		"desc": "A 2D side-scrolling endless runner with a novel physics-driven swinging mechanic. Created the prototype that was greenlit, then led the project until it was paused due to shifting company priorities.",
@@ -68,9 +59,24 @@
 		]
 	},
 	{
+		"id": "rucksack",
+		"name": "Rucksack Dungeon",
+		"year": "2022",
+		"meta": "Halfbrick Internal Game Jam",
+		"tags": ["Unity", "C#", "iOS & Android"],
+		"roles": ["Team Lead", "AI Programmer"],
+		"desc": "The prototype that became Scraptics. Built in one week at an internal Halfbrick game jam, greenlit for full production, and reworked into the full game over the following 3 years. Team lead and AI behavior programmer.",
+		"bullets": [
+			"Designed and implemented AI enemy behaviour systems",
+			"Team lead across the full jam week",
+			"Prototype was selected and greenlit — became the foundation for Scraptics"
+		]
+	},
+	{
 		"id": "to-the-moon",
 		"name": "To The Moon!",
-		"meta": "Full Sail University &bull; Feb&ndash;Jun 2021",
+		"year": "2021",
+		"meta": "Full Sail University",
 		"tags": ["Unity HDRP", "C#", "Photon", "PC"],
 		"roles": ["Project Lead"],
 		"desc": "Competitive 3D space dogfighter. Capstone project at Full Sail University. Project lead on a team of 6.",
@@ -84,7 +90,8 @@
 	{
 		"id": "memoria",
 		"name": "Memoria Damnum",
-		"meta": "Global Game Jam 2020 &bull; Jan 2020",
+		"year": "2020",
+		"meta": "Global Game Jam 2020",
 		"tags": ["Unity", "C#", "PC"],
 		"roles": ["Lead Programmer"],
 		"desc": "2D platformer built in 48 hours for Global Game Jam 2020. Programming lead on a team of 9.",
@@ -96,7 +103,8 @@
 	{
 		"id": "retrospectre",
 		"name": "Retrospectre",
-		"meta": "Full Sail University &bull; Sep&ndash;Nov 2019",
+		"year": "2019",
+		"meta": "Full Sail University",
 		"tags": ["Unity", "C#", "PC & Web"],
 		"roles": ["Project Lead"],
 		"desc": "Retrowave-inspired 2.5D metroidvania platformer. Project lead on a team of 4.",

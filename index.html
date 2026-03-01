@@ -10,6 +10,15 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
+		<style>
+			/* Section padding override — must beat main.css */
+			#one, #two, #three,
+			section#one, section#two, section#three,
+			#main section, #wrapper section {
+				padding-top: 1.5em !important;
+				padding-bottom: 1.5em !important;
+			}
+		</style>
 	</head>
 	<body class="is-preload">
 
@@ -18,23 +27,36 @@
 				<header>
 					<span class="image avatar"><img src="images/Coast Selfie - Round.png" alt="" /></span>
 					<h1 id="logo"><a href="#">Taylor Christianson</a></h1>
-					<p>Game Developer &bull; Programmer<br />
-					Designer &bull; Team Lead</p>
+					<p>Game Developer<br />
+					<span style="font-size:0.9em;">Programmer &bull; Designer &bull; Team Lead</span></p>
 				</header>
 				<nav id="nav">
 					<ul>
 						<li><a href="#one" class="active">About</a></li>
 						<li><a href="#two">Projects</a></li>
 						<li><a href="#three">Resume</a></li>
-						<li><a href="#four">Contact</a></li>
 					</ul>
 				</nav>
 				<footer>
+					<div class="navbar-flavor">
+						<img src="images/navbar-flavor.png" alt="" />
+					</div>
+					<div class="sidebar-resume-wrap">
+						<a href="downloads/Taylor Christianson - Resume 2026.pdf" download class="sidebar-resume-btn icon solid fa-download" target="_blank">
+							Resume
+						</a>
+					</div>
 					<ul class="icons">
-						<li><a href="https://www.linkedin.com/in/taylor-christianson-066991159/" class="icon brands alt fa-linkedin" target="_blank"><span class="label">LinkedIn</span></a></li>
-						<li><a href="https://github.com/lobsterisme" class="icon brands alt fa-github" target="_blank"><span class="label">GitHub</span></a></li>
-						<li><a href="/cdn-cgi/l/email-protection#7703141f051e04031e161904181937161b021a191e5911021b1b04161e1b59121302" class="icon solid alt fa-envelope" target="_blank"><span class="label">Email</span></a></li>
+						<li><a href="https://www.linkedin.com/in/gamedevtaylor/" class="icon brands alt fa-linkedin" target="_blank"><span class="label">LinkedIn</span></a></li>
+						<li><a href="https://github.com/gamedevtc" class="icon brands alt fa-github" target="_blank"><span class="label">GitHub</span></a></li>
+						<li><a href="/cdn-cgi/l/email-protection#7703141f051e04031e161904181937161b021a191e5911021b1b04161e1b59121302" class="icon solid alt fa-envelope"><span class="label">Email</span></a></li>
 					</ul>
+					<div class="dark-mode-toggle-wrap">
+						<span class="dark-mode-toggle-label">dark mode</span>
+						<div class="toggle-track" id="dark-toggle" role="switch" aria-checked="false" tabindex="0">
+							<div class="toggle-knob"></div>
+						</div>
+					</div>
 				</footer>
 			</section>
 
@@ -56,23 +78,44 @@
 									<header class="major">
 										<h2>I pitch it, build it, and ship it.</h2>
 									</header>
-									<p><b>FIX THIS</b> I'm Taylor Christianson — a game developer and natural team lead with 4.5 years of professional experience at Halfbrick Studios. I consistently take on lead roles across every project I work on, from pitching ideas and building prototypes to driving teams from concept through production. My technical expertise is in Unity and C#, with generalist experience spanning systems architecture, game design, mobile optimization, and tool development.</p>
+									<div class="about-row">
+										<div class="about-face">
+											<img src="images/Coast Selfie - Round.png" alt="Taylor Christianson" />
+										</div>
+										<p class="about-text"><b>FIX THIS</b> I'm Taylor Christianson — a game developer and natural team lead with 4.5 years of professional experience at Halfbrick Studios. I consistently take on lead roles across every project I work on, from pitching ideas and building prototypes to driving teams from concept through production. My technical expertise is in Unity and C#, with generalist experience spanning systems architecture, game design, mobile optimization, and tool development.</p>
+									</div>
+									<div class="resume-download-row" style="margin-top:1.5em;">
+										<a href="https://www.linkedin.com/in/gamedevtaylor/" class="dark-btn icon brands alt fa-linkedin" target="_blank">LinkedIn</a>
+										<a href="https://github.com/gamedevtc" class="dark-btn icon brands alt fa-github" target="_blank">GitHub</a>
+										<a href="/cdn-cgi/l/email-protection#7703141f051e04031e161904181937161b021a191e5911021b1b04161e1b59121302" class="dark-btn icon solid alt fa-envelope">Email</a>
+									</div>
 								</div>
 							</section>
 
 						<!-- Two -->
 							<section id="two">
 								<div class="container">
-									<h3>Projects</h3>
-									<p>Click any game to explore it.</p>
+									<style>
+										.projects-header {
+											display: flex;
+											justify-content: flex-end;
+											margin-bottom: 0.5em;
+										}
+										.projects-hint {
+											font-size: 0.72em;
+											color: rgba(61,68,73,0.35);
+											font-style: italic;
+											letter-spacing: 0.01em;
+										}
+									</style>
 
 									<style>
 										/* ── App Grid ── */
 										.app-grid {
 											display: grid;
-											grid-template-columns: repeat(auto-fill, minmax(80px, 120px));
-											gap: 2em 1.5em;
-											justify-content: center;
+											grid-template-columns: repeat(auto-fill, 120px);
+											gap: 2em;
+											justify-content: space-between;
 											padding: 1em 0 2.5em;
 											overflow: visible;
 										}
@@ -130,6 +173,18 @@
 											line-height: 1.3;
 											width: 100%;
 											word-break: break-word;
+											position: relative;
+											z-index: 1;
+										}
+										.app-icon-year {
+											display: block !important;
+											visibility: visible !important;
+											margin-top: 0.15em;
+											font-size: 0.68em;
+											text-align: center;
+											color: rgba(61,68,73,0.6) !important;
+											line-height: 1.2;
+											width: 100%;
 											position: relative;
 											z-index: 1;
 										}
@@ -481,16 +536,339 @@
 										@media (max-width: 600px) {
 											.app-grid {
 												grid-template-columns: repeat(3, 1fr);
-												gap: 1.4em 1em;
+												gap: 1.4em;
 											}
 											.appstore-gallery-item { width: 180px; height: 120px; }
 											.appstore-header-icon { height: 80px; min-width: 80px; max-width: 200px; border-radius: 18px; }
 										}
 									</style>
 
+								<style>
+									/* ── About section face image ── */
+									.about-row {
+										display: flex;
+										align-items: center;
+										gap: 2.5em;
+									}
+									.about-text {
+										flex: 1;
+										margin: 0;
+									}
+									.about-face {
+										flex-shrink: 0;
+										width: 160px;
+										height: 160px;
+									}
+									.about-face img {
+										width: 100%;
+										height: 100%;
+										object-fit: cover;
+										border-radius: 50%;
+										display: block;
+									}
+									/* Hide face image on mobile */
+									@media (max-width: 979px) {
+										.about-face {
+											display: none;
+										}
+									}
+
+									/* Hide navbar avatar on wide screens where sidebar is always visible */
+									@media (min-width: 980px) {
+										#header .image.avatar {
+											display: none;
+										}
+									}
+
+									/* ── Navbar flavor image ── */
+									.navbar-flavor {
+										text-align: center;
+										padding: 0 1.5em 1em;
+									}
+									.navbar-flavor img {
+										max-width: 100%;
+										opacity: 0.6;
+										display: block;
+										margin: 0 auto;
+									}
+								</style>
+
+								<style>
+									/* ════════════════════════════════════════
+									   SIDEBAR / NAV PANEL RESTYLE
+									   ════════════════════════════════════════ */
+									#header {
+										background: #0d1117 !important;
+										border-right: 1px solid rgba(255,255,255,0.06) !important;
+										display: flex !important;
+										flex-direction: column !important;
+									}
+									#header h1#logo a {
+										color: #e2e8f0 !important;
+										font-family: 'Cascadia Mono', 'Fira Code', 'Consolas', monospace !important;
+										font-size: 1.05em !important;
+										letter-spacing: 0.02em !important;
+									}
+									#header header p {
+										color: #4ec9b0 !important;
+										font-family: 'Cascadia Mono', 'Fira Code', 'Consolas', monospace !important;
+										font-size: 0.7em !important;
+										letter-spacing: 0.05em !important;
+										opacity: 0.85;
+									}
+									#header nav ul li a {
+										color: rgba(255,255,255,0.5) !important;
+										font-family: 'Cascadia Mono', 'Fira Code', 'Consolas', monospace !important;
+										font-size: 0.82em !important;
+										letter-spacing: 0.04em !important;
+										border-left: 2px solid transparent !important;
+										transition: color 0.2s, border-color 0.2s, background 0.2s !important;
+										position: relative;
+									}
+									#header nav ul li a::before {
+										content: '> ';
+										color: #4ec9b0;
+										opacity: 0;
+										transition: opacity 0.2s;
+									}
+									#header nav ul li a:hover,
+									#header nav ul li a.active {
+										color: #e2e8f0 !important;
+										background: rgba(78,201,176,0.08) !important;
+										border-left-color: #4ec9b0 !important;
+									}
+									#header nav ul li a:hover::before,
+									#header nav ul li a.active::before {
+										opacity: 1;
+									}
+									#header nav ul li {
+										border-top: 1px solid rgba(255,255,255,0.04) !important;
+									}
+									#header footer .icons a {
+										color: rgba(255,255,255,0.3) !important;
+										transition: color 0.2s !important;
+									}
+									#header footer .icons a:hover {
+										color: #4ec9b0 !important;
+									}
+
+									/* ── Sidebar layout: name top, nav centered, footer bottom ── */
+									#header {
+										display: flex !important;
+										flex-direction: column !important;
+									}
+									#header > header {
+										flex-shrink: 0;
+									}
+									#header > nav {
+										flex: 1 !important;
+										display: flex !important;
+										flex-direction: column !important;
+										justify-content: center !important;
+									}
+									#header > footer {
+										flex-shrink: 0;
+										margin-top: 0;
+									}
+
+									/* ── Sidebar resume button ── */
+									.sidebar-resume-wrap {
+										display: flex;
+										justify-content: center;
+										padding: 0.6em 1.5em 0.8em;
+										border-top: 1px solid rgba(255,255,255,0.06);
+									}
+									.sidebar-resume-btn {
+										display: inline-flex;
+										align-items: center;
+										gap: 0.5em;
+										background: #1a1f24;
+										color: rgba(255,255,255,0.65) !important;
+										border: 1px solid rgba(255,255,255,0.1);
+										border-radius: 8px;
+										padding: 0.5em 1.1em;
+										font-size: 0.72em;
+										font-family: 'Cascadia Mono', 'Fira Code', 'Consolas', monospace;
+										letter-spacing: 0.04em;
+										text-decoration: none !important;
+										box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+										transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s;
+									}
+									.sidebar-resume-btn:hover {
+										background: #252c35;
+										color: #4ec9b0 !important;
+										border-color: rgba(78,201,176,0.35);
+										transform: translateY(-1px);
+									}
+
+									/* ── Dark Mode Toggle ── */
+									.dark-mode-toggle-wrap {
+										display: flex;
+										align-items: center;
+										justify-content: center;
+										gap: 0.6em;
+										padding: 0.9em 1.5em 1.1em;
+										border-top: 1px solid rgba(255,255,255,0.06);
+									}
+									.dark-mode-toggle-label {
+										font-family: 'Cascadia Mono', 'Fira Code', 'Consolas', monospace;
+										font-size: 0.62em;
+										color: rgba(255,255,255,0.28);
+										letter-spacing: 0.09em;
+										text-transform: uppercase;
+										user-select: none;
+									}
+									.toggle-track {
+										position: relative;
+										width: 40px;
+										height: 24px;
+										background: rgba(255,255,255,0.1);
+										border-radius: 12px;
+										cursor: pointer;
+										transition: background 0.25s, box-shadow 0.25s;
+										flex-shrink: 0;
+										border: 1px solid rgba(255,255,255,0.08);
+									}
+									.toggle-track.is-on {
+										background: #28c840;
+										border-color: #28c840;
+										box-shadow: 0 0 10px rgba(40,200,64,0.45);
+									}
+									.toggle-knob {
+										position: absolute;
+										top: 2px;
+										left: 2px;
+										width: 18px;
+										height: 18px;
+										background: #ffffff;
+										border-radius: 50%;
+										box-shadow: 0 1px 4px rgba(0,0,0,0.45);
+										transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+										pointer-events: none;
+									}
+									.toggle-track.is-on .toggle-knob {
+										transform: translateX(16px);
+									}
+
+									/* ════════════════════════════════════════
+									   DARK BUTTONS
+									   ════════════════════════════════════════ */
+									.resume-download-row {
+										display: flex;
+										justify-content: center;
+										flex-wrap: wrap;
+										gap: 0.85em;
+										margin: 1.2em 0 0.5em;
+									}
+									.dark-btn {
+										display: inline-flex;
+										align-items: center;
+										gap: 0.6em;
+										background: #1a1f24;
+										color: rgba(255,255,255,0.72) !important;
+										border: 1px solid rgba(255,255,255,0.1);
+										border-radius: 10px;
+										padding: 0.65em 1.3em;
+										font-size: 0.82em;
+										font-family: 'Cascadia Mono', 'Fira Code', 'Consolas', monospace;
+										letter-spacing: 0.03em;
+										text-decoration: none !important;
+										cursor: pointer;
+										box-shadow: 0 4px 14px rgba(0,0,0,0.3);
+										transition: background 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s, transform 0.15s;
+									}
+									.dark-btn:hover {
+										background: #252c35;
+										color: #4ec9b0 !important;
+										border-color: rgba(78,201,176,0.35);
+										box-shadow: 0 6px 20px rgba(0,0,0,0.4), 0 0 0 1px rgba(78,201,176,0.15);
+										transform: translateY(-2px);
+									}
+
+									/* ════════════════════════════════════════
+									   DARK MODE  (body.dark-mode)
+									   Light mode: main=white(template), terminal=#0d1117, nav=#0d1117
+									   Dark mode:  main=#0d1117,          terminal=#000,    nav=#000
+									   ════════════════════════════════════════ */
+
+									/* Main panel goes terminal-color */
+									body.dark-mode #wrapper,
+									body.dark-mode #main {
+										background: #0d1117 !important;
+									}
+									body.dark-mode #main section {
+										background: #0d1117 !important;
+										color: #c9d1d9 !important;
+									}
+									body.dark-mode h2, body.dark-mode h3, body.dark-mode h4 {
+										color: #e2e8f0 !important;
+									}
+									body.dark-mode p:not(.experience-entry-title):not(.experience-entry-sub) {
+										color: #8b949e !important;
+									}
+									body.dark-mode .about-text {
+										color: #8b949e !important;
+									}
+									body.dark-mode .app-icon-label {
+										color: #c9d1d9 !important;
+									}
+									body.dark-mode .app-icon-year {
+										color: rgba(201,209,217,0.45) !important;
+									}
+									body.dark-mode .projects-hint {
+										color: rgba(201,209,217,0.22) !important;
+									}
+									body.dark-mode #footer {
+										background: #0d1117 !important;
+										border-top: 1px solid rgba(255,255,255,0.07) !important;
+									}
+									body.dark-mode #footer .copyright,
+									body.dark-mode #footer .copyright a {
+										color: rgba(255,255,255,0.18) !important;
+									}
+
+									/* Terminal goes full black */
+									body.dark-mode .terminal-window {
+										background: #000000 !important;
+										box-shadow: 0 0 0 1px rgba(255,255,255,0.1);
+									}
+									body.dark-mode .terminal-titlebar {
+										background: #0a0a0a !important;
+									}
+									body.dark-mode .terminal-body {
+										background: #000000 !important;
+									}
+
+									/* NavPanel goes full black */
+									body.dark-mode #header {
+										background: #000000 !important;
+									}
+
+									/* ── Section padding: 75% reduction ── */
+									section#one,
+									section#two,
+									section#three {
+										padding-top: 1.5em !important;
+										padding-bottom: 1.5em !important;
+									}
+									#main section,
+									#main > div > section {
+										padding-top: 1.5em !important;
+										padding-bottom: 1.5em !important;
+									}
+
+									/* ── Dark mode: section divider lines ── */
+									body.dark-mode #main section {
+										border-color: #1e2530 !important;
+									}
+								</style>
+
 									<!-- App Grid -->
 									<div class="app-grid" id="app-grid">
 										<!-- Icons injected by JS from GAME_DATA -->
+									</div>
+									<div class="projects-header">
+										<span class="projects-hint">Click any game to explore it.</span>
 									</div>
 
 									<!-- App Store Sheet -->
@@ -570,6 +948,14 @@
 											label.className = 'app-icon-label';
 											label.textContent = game.name;
 											wrap.appendChild(label);
+
+											// Year label — read directly from game.year
+											if (game.year) {
+												var yearLabel = document.createElement('span');
+												yearLabel.className = 'app-icon-year';
+												yearLabel.textContent = game.year;
+												wrap.appendChild(yearLabel);
+											}
 
 											wrap.addEventListener('click', (function(id) {
 												return function() { asOpen(id); };
@@ -714,7 +1100,7 @@
 												'<div class="app-icon-placeholder" style="display:none"><strong style="font-size:1.2em;color:rgba(255,255,255,0.45)">?</strong></div>';
 
 											document.getElementById('as-title').innerHTML = game.name;
-											document.getElementById('as-meta').innerHTML  = game.meta;
+											document.getElementById('as-meta').innerHTML  = game.meta + (game.year ? ' &bull; ' + game.year : '');
 
 											var tagsEl = document.getElementById('as-tags');
 											tagsEl.innerHTML = (game.tags || []).map(function(t) {
@@ -746,19 +1132,24 @@
 										};
 
 										window.asClose = function() {
-											var overlay = document.getElementById('appstore-overlay');
-											var sheet = document.getElementById('appstore-sheet');
+											var overlay  = document.getElementById('appstore-overlay');
+											var sheet    = document.getElementById('appstore-sheet');
+											var backdrop = overlay.querySelector('.appstore-backdrop');
 											if (!overlay.classList.contains('active')) return;
+
+											// Ensure transition is on (may have been disabled during drag)
+											sheet.style.transition = '';
+											backdrop.style.transition = '';
 
 											// Slide sheet back down, fade backdrop
 											sheet.style.transform = 'translateY(100%)';
-											overlay.querySelector('.appstore-backdrop').style.opacity = '0';
+											backdrop.style.opacity = '0';
 
 											// After animation finishes, fully hide and clean up
 											setTimeout(function() {
 												overlay.classList.remove('active');
 												sheet.style.transform = '';
-												overlay.querySelector('.appstore-backdrop').style.opacity = '';
+												backdrop.style.opacity = '';
 												sheet.style.removeProperty('--sheet-bg');
 												sheet.classList.remove('has-bg');
 												unlockScroll();
@@ -767,6 +1158,108 @@
 
 										document.getElementById('appstore-backdrop').addEventListener('click', asClose);
 
+										// ── Drag to dismiss ──────────────────────────────────────
+										(function() {
+											var sheet    = document.getElementById('appstore-sheet');
+											var overlay  = document.getElementById('appstore-overlay');
+											var backdrop = document.getElementById('appstore-backdrop');
+
+											var dragging = false;
+											var startY   = 0;
+											var currentY = 0;
+											var startScrollTop = 0;
+											var velY     = 0;
+											var lastY    = 0;
+											var lastT    = 0;
+											var sheetH   = 0;
+
+											function isDragTarget(el) {
+												// Allow drag from handle or header; also from body when sheet is at scroll top
+												if (el.closest('.appstore-handle'))  return true;
+												if (el.closest('.appstore-header'))  return true;
+												if (el.closest('.appstore-gallery-wrap')) return false; // gallery has its own swipe
+												if (el.closest('.appstore-body'))    return sheet.scrollTop <= 0;
+												return true;
+											}
+
+											function startDrag(clientY, target) {
+												if (!overlay.classList.contains('active')) return;
+												if (!isDragTarget(target)) return;
+												dragging       = true;
+												startY         = clientY;
+												currentY       = 0;
+												startScrollTop = sheet.scrollTop;
+												velY           = 0;
+												lastY          = clientY;
+												lastT          = Date.now();
+												sheetH         = sheet.offsetHeight;
+												sheet.style.transition = 'none';
+											}
+
+											function moveDrag(clientY, cancelable, e) {
+												if (!dragging) return;
+												var dy = clientY - startY;
+
+												if (startScrollTop > 0 && dy > 0) {
+													dragging = false;
+													sheet.style.transition = '';
+													return;
+												}
+												if (dy < 0) {
+													dragging = false;
+													sheet.style.transition = '';
+													return;
+												}
+
+												if (cancelable && e && e.cancelable) e.preventDefault();
+
+												var now = Date.now();
+												velY = (clientY - lastY) / Math.max(1, now - lastT);
+												lastY = clientY;
+												lastT = now;
+												currentY = dy;
+
+												var progress = Math.min(dy / sheetH, 1);
+												sheet.style.transform = 'translateY(' + dy + 'px)';
+												backdrop.style.opacity = String(1 - progress * 0.85);
+											}
+
+											function endDrag() {
+												if (!dragging) return;
+												dragging = false;
+												sheet.style.transition = '';
+
+												var threshold = sheetH * 0.35;
+												var fastFling = velY > 0.5;
+
+												if (currentY > threshold || fastFling) {
+													asClose();
+												} else {
+													sheet.style.transform = 'translateY(0)';
+													backdrop.style.opacity = '';
+												}
+											}
+
+											// Touch
+											sheet.addEventListener('touchstart', function(e) {
+												var t = e.touches[0];
+												startDrag(t.clientY, t.target);
+											}, { passive: true });
+											window.addEventListener('touchmove', function(e) {
+												moveDrag(e.touches[0].clientY, true, e);
+											}, { passive: false });
+											window.addEventListener('touchend',    endDrag);
+											window.addEventListener('touchcancel', endDrag);
+
+											// Mouse
+											sheet.addEventListener('mousedown', function(e) {
+												startDrag(e.clientY, e.target);
+											});
+											window.addEventListener('mousemove', function(e) {
+												moveDrag(e.clientY, false, null);
+											});
+											window.addEventListener('mouseup', endDrag);
+										})();
 
 										// ── Load gallery from JSON ───────────────────────────────
 										function loadGallery(id, container) {
@@ -997,52 +1490,350 @@
 						<!-- Three -->
 							<section id="three">
 								<div class="container">
-									<h3>Resume</h3>
-									<p><b>FIX THIS</b> Some of my skills and credentials.</p>
-									<div class="row">
-										<div class="col-6 col-12-xsmall">
-											<header>
-												<h4>B.S. Game Development</h4>
-												<p>Full Sail University &mdash; Winter Park, FL &bull; 2021</p>
-											</header>
+
+									<div class="terminal-window">
+										<div class="terminal-titlebar">
+											<div class="terminal-dots">
+												<span class="dot dot-red"></span>
+												<span class="dot dot-yellow"></span>
+												<span class="dot dot-green"></span>
+											</div>
+											<div class="terminal-title">taylor@portfolio:~/resume</div>
+											<div class="terminal-titlebar-spacer"></div>
 										</div>
-										<div class="col-6 col-12-xsmall">
-											<header>
-												<h4>Lead Programmer / Project Lead</h4>
-												<p>Halfbrick Studios &bull; Oct 2021 &ndash; Mar 2026</p>
-											</header>
+										<div class="terminal-body">
+											<div class="terminal-prompt-line">
+												<span class="t-prompt">taylor@portfolio</span><span class="t-sep">:</span><span class="t-path">~/resume</span><span class="t-dollar">$</span><span class="t-cmd"> cat experience.json</span>
+											</div>
+											<div class="t-divider"># ─────────────────────────────── EXPERIENCE ──</div>
+											<div class="experience-list" id="work-list"></div>
+											<div class="t-divider"># ─────────────────────────────── EDUCATION ───</div>
+											<div class="experience-list" id="education-list"></div>
+											<div class="t-divider"># ─────────────────────────────── SKILLS ──────</div>
+											<div class="terminal-prompt-line">
+												<span class="t-prompt">taylor@portfolio</span><span class="t-sep">:</span><span class="t-path">~/resume</span><span class="t-dollar">$</span><span class="t-cmd"> cat skills.json</span>
+											</div>
+											<div class="terminal-skills" id="skills-list"></div>
+											<div class="terminal-prompt-line terminal-cursor-line">
+												<span class="t-prompt">taylor@portfolio</span><span class="t-sep">:</span><span class="t-path">~/resume</span><span class="t-dollar">$</span><span class="t-cursor">▋</span>
+											</div>
 										</div>
 									</div>
-									<br />
-									<ul class="feature-icons">
-										<li class="icon solid fa-code">C# &bull; C++ &bull; HLSL &bull; HTML</li>
-										<li class="icon solid fa-gamepad">Unity (URP / HDRP / 6 / Cloud) &bull; Photon Networking</li>
-										<li class="icon solid fa-mobile-alt">iOS &amp; Android &bull; Profiling &amp; Optimization</li>
-										<li class="icon solid fa-code-branch">Perforce &bull; Git &bull; TeamCity</li>
-										<li class="icon solid fa-tools">JetBrains Rider &bull; Visual Studio &bull; Cursor AI</li>
-										<li class="icon solid fa-layer-group">Agile/Scrum &bull; Game &amp; Systems Design</li>
-										<li class="icon solid fa-robot">AI Behaviors &bull; Procedural Generation &bull; Tool Development</li>
-										<li class="icon solid fa-users">Team Leadership &amp; Management</li>
-									</ul>
-									<br />
-									<ul class="actions">
-										<li><a href="downloads/Taylor Christianson - Resume 2026.pdf" download class="button primary icon solid fa-download" target="_blank">1-Page Resume</a></li>
-										<li><a href="downloads/TChristianson-FullResume.pdf" download class="button primary icon solid fa-download" target="_blank">Full Resume <b>FIX THIS</b></a></li>
-									</ul>
-								</div>
-							</section>
 
-						<!-- Four -->
-							<section id="four">
-								<div class="container">
-									<h3>Contact Me</h3>
-									<p>Feel free to reach out at any of the options below!</p>
-									<ul class="actions">
-										<li><a href="https://www.linkedin.com/in/gamedevtaylor/" class="button primary icon brands alt fa-linkedin" target="_blank">  LinkedIn</a></li>
-										<li><a href="https://github.com/gamedevtc" class="button primary icon brands alt fa-github" target="_blank">  GitHub</a></li>
-										<li><a href="/cdn-cgi/l/email-protection#deaabdb6acb7adaab7bfb0adb1b09ebfb2abb3b0b7f0b8abb2b2adbfb7b2f0bbbaab" class="button primary icon solid alt fa-envelope" target="_blank">  Email</a></li>
-									</ul>
+									<div class="resume-download-row">
+										<a href="downloads/Taylor Christianson - Resume 2026.pdf" download class="dark-btn icon solid fa-download" target="_blank">Resume</a>
+										<a href="downloads/TChristianson-FullResume.pdf" download class="dark-btn icon solid fa-download" target="_blank">Resume (Expanded) <b>FIX THIS</b></a>
+									</div>
 								</div>
+
+								<style>
+									@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&display=swap');
+
+									/* ── Terminal Window ── */
+									.terminal-window {
+										font-family: 'Cascadia Mono', 'Fira Code', 'Consolas', 'Courier New', monospace;
+										background: #0d1117;
+										border-radius: 10px;
+										overflow: hidden;
+										margin: 1em 0 1.75em;
+										box-shadow:
+											0 0 0 1px rgba(255,255,255,0.06),
+											0 20px 60px rgba(0,0,0,0.6),
+											0 4px 16px rgba(0,0,0,0.4);
+									}
+
+									/* Title bar */
+									.terminal-titlebar {
+										background: #1c2128;
+										padding: 0.65em 1em;
+										display: flex;
+										align-items: center;
+										gap: 0.75em;
+										border-bottom: 1px solid rgba(255,255,255,0.06);
+									}
+									.terminal-dots {
+										display: flex;
+										gap: 6px;
+										align-items: center;
+									}
+									.dot {
+										width: 12px;
+										height: 12px;
+										border-radius: 50%;
+									}
+									.dot-red    { background: #ff5f57; box-shadow: 0 0 4px rgba(255,95,87,0.5); }
+									.dot-yellow { background: #febc2e; box-shadow: 0 0 4px rgba(254,188,46,0.4); }
+									.dot-green  { background: #28c840; box-shadow: 0 0 4px rgba(40,200,64,0.4); }
+									.terminal-title {
+										flex: 1;
+										text-align: center;
+										font-family: 'Cascadia Mono', 'Fira Code', 'Consolas', monospace;
+										font-size: 0.72em;
+										color: rgba(255,255,255,0.35);
+										letter-spacing: 0.03em;
+									}
+									.terminal-titlebar-spacer {
+										width: 54px; /* mirrors the dots width for centering */
+									}
+
+									/* Body */
+									.terminal-body {
+										padding: 1.2em 1.5em 1.4em;
+									}
+
+									/* Prompt line */
+									.terminal-prompt-line {
+										font-size: 0.82em;
+										margin-bottom: 0.9em;
+										line-height: 1.6;
+									}
+									.t-prompt { color: #4ec9b0; font-weight: 600; }
+									.t-sep    { color: rgba(255,255,255,0.25); }
+									.t-path   { color: #569cd6; }
+									.t-dollar { color: rgba(255,255,255,0.4); margin-left: 0.2em; }
+									.t-cmd    { color: #d4d4d4; }
+
+									/* Divider / comment lines */
+									.t-divider {
+										font-family: 'Cascadia Mono', 'Fira Code', 'Consolas', monospace;
+										font-size: 0.75em;
+										color: #6a9955;
+										letter-spacing: 0.02em;
+										margin: 0.6em 0 0.85em;
+										line-height: 1;
+									}
+
+									/* Experience entries */
+									.experience-list {
+										display: flex;
+										flex-direction: column;
+										gap: 0.85em;
+										margin-bottom: 0.4em;
+									}
+									.experience-entry {
+										display: flex;
+										align-items: center;
+										gap: 1.1em;
+									}
+
+									/* Entry caret + icon block */
+									.experience-entry-leading {
+										display: flex;
+										align-items: center;
+										gap: 0.55em;
+										flex-shrink: 0;
+									}
+									.experience-entry-caret {
+										font-family: 'Cascadia Mono', 'Fira Code', 'Consolas', monospace;
+										font-size: 0.9em;
+										color: #4ec9b0;
+										user-select: none;
+										line-height: 1;
+									}
+									.experience-entry-icon {
+										flex-shrink: 0;
+										width: 48px;
+										height: 48px;
+										border-radius: 10px;
+										overflow: hidden;
+										background: rgba(255,255,255,0.05);
+										border: 1px solid rgba(255,255,255,0.08);
+										display: flex;
+										align-items: center;
+										justify-content: center;
+									}
+									.experience-entry-icon img {
+										width: 100%;
+										height: 100%;
+										object-fit: cover;
+										display: block;
+										filter: brightness(0.92) saturate(0.85);
+									}
+									.experience-entry-icon .exp-placeholder {
+										font-size: 1.3em;
+										color: rgba(255,255,255,0.18);
+									}
+
+									/* Text info */
+									.experience-entry-info {
+										flex: 1;
+										font-family: 'Cascadia Mono', 'Fira Code', 'Consolas', monospace;
+									}
+									.experience-entry-title {
+										font-size: 0.88em;
+										font-weight: 600;
+										color: #e2e8f0;
+										margin: 0 0 0.15em;
+										line-height: 1.3;
+									}
+									.experience-entry-sub {
+										font-size: 0.76em;
+										color: #dcdcaa;   /* VS Code yellow — like variable names */
+										margin: 0;
+										line-height: 1.5;
+									}
+									.experience-entry-date {
+										flex-shrink: 0;
+										font-family: 'Cascadia Mono', 'Fira Code', 'Consolas', monospace;
+										font-size: 0.72em;
+										color: #6a7fa8;   /* muted blue-grey — like a code comment */
+										text-align: right;
+										white-space: nowrap;
+									}
+									.experience-entry-date::before {
+										content: '// ';
+										color: rgba(106,127,168,0.5);
+									}
+
+									/* Blinking cursor */
+									.terminal-cursor-line {
+										margin-top: 1em;
+										margin-bottom: 0;
+									}
+									.t-cursor {
+										color: #4ec9b0;
+										animation: blink 1.1s step-start infinite;
+										font-size: 1em;
+										line-height: 1;
+										margin-left: 2px;
+									}
+									@keyframes blink {
+										0%, 100% { opacity: 1; }
+										50%       { opacity: 0; }
+									}
+
+									@media (max-width: 600px) {
+										.terminal-body { padding: 1em 1em 1.2em; }
+										.experience-entry-date { display: none; }
+										.terminal-title { display: none; }
+										.t-skill-row { font-size: 0.72em; }
+									}
+
+									/* Skills block */
+									.terminal-skills {
+										display: flex;
+										flex-direction: column;
+										gap: 0.3em;
+										margin: 0.5em 0 0.9em 0.5em;
+										font-family: 'Cascadia Mono', 'Fira Code', 'Consolas', monospace;
+									}
+									.t-skill-row {
+										font-size: 0.8em;
+										line-height: 1.6;
+										display: flex;
+										gap: 0.4em;
+										flex-wrap: wrap;
+										align-items: baseline;
+									}
+									.t-skill-key {
+										color: #9cdcfe;   /* VS Code light blue — property names */
+										white-space: nowrap;
+									}
+									.t-skill-colon {
+										color: rgba(255,255,255,0.25);
+										margin-right: 0.2em;
+									}
+									.t-skill-val {
+										color: #ce9178;   /* VS Code orange-red — string values */
+									}
+									.t-skill-val::before { content: '"'; color: rgba(206,145,120,0.5); }
+									.t-skill-val::after  { content: '"'; color: rgba(206,145,120,0.5); }
+								</style>
+
+								<script>
+								fetch('experience.json')
+									.then(function(r) { return r.json(); })
+									.then(function(data) {
+										function buildEntry(info, titleText, subText, dateText) {
+											var entry = document.createElement('div');
+											entry.className = 'experience-entry';
+
+											// Leading: caret + icon
+											var leading = document.createElement('div');
+											leading.className = 'experience-entry-leading';
+
+											var caret = document.createElement('span');
+											caret.className = 'experience-entry-caret';
+											caret.textContent = '>';
+
+											var iconWrap = document.createElement('div');
+											iconWrap.className = 'experience-entry-icon';
+											if (info.image) {
+												var img = document.createElement('img');
+												img.src = info.image;
+												img.alt = titleText;
+												img.onerror = function() {
+													iconWrap.innerHTML = '<span class="exp-placeholder">?</span>';
+												};
+												iconWrap.appendChild(img);
+											} else {
+												iconWrap.innerHTML = '<span class="exp-placeholder">?</span>';
+											}
+
+											leading.appendChild(caret);
+											leading.appendChild(iconWrap);
+
+											var infoDiv = document.createElement('div');
+											infoDiv.className = 'experience-entry-info';
+
+											var title = document.createElement('p');
+											title.className = 'experience-entry-title';
+											title.textContent = titleText;
+
+											var sub = document.createElement('p');
+											sub.className = 'experience-entry-sub';
+											sub.textContent = subText;
+
+											infoDiv.appendChild(title);
+											infoDiv.appendChild(sub);
+
+											var date = document.createElement('div');
+											date.className = 'experience-entry-date';
+											date.textContent = dateText;
+
+											entry.appendChild(leading);
+											entry.appendChild(infoDiv);
+											entry.appendChild(date);
+											return entry;
+										}
+
+										var workList = document.getElementById('work-list');
+										(data.work || []).forEach(function(job) {
+											var title = job.company;
+											var sub   = (job.roles || []).join(' · ');
+											var date  = job.date || '';
+											workList.appendChild(buildEntry(job, title, sub, date));
+										});
+
+										var eduList = document.getElementById('education-list');
+										(data.education || []).forEach(function(edu) {
+											var title = edu.school;
+											var sub   = edu.degree || '';
+											var date  = edu.graduated || '';
+											eduList.appendChild(buildEntry(edu, title, sub, date));
+										});
+
+										var skillsList = document.getElementById('skills-list');
+										(data.skills || []).forEach(function(skill) {
+											var row = document.createElement('div');
+											row.className = 't-skill-row';
+											var key = document.createElement('span');
+											key.className = 't-skill-key';
+											key.textContent = '"' + skill.key + '"';
+											var colon = document.createElement('span');
+											colon.className = 't-skill-colon';
+											colon.textContent = ':';
+											var val = document.createElement('span');
+											val.className = 't-skill-val';
+											val.textContent = skill.value;
+											row.appendChild(key);
+											row.appendChild(colon);
+											row.appendChild(val);
+											skillsList.appendChild(row);
+										});
+									})
+									.catch(function(err) { console.error('Failed to load experience.json:', err); });
+								</script>
 							</section>
 
 						<!-- Six (Examples) - REFERENCE ONLY, not displayed
@@ -1391,7 +2182,7 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 			</div>
 
 		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
+			<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="assets/js/jquery.min.js"></script>
 			<script src="assets/js/jquery.scrollex.min.js"></script>
 			<script src="assets/js/jquery.scrolly.min.js"></script>
 			<script src="assets/js/browser.min.js"></script>
@@ -1407,72 +2198,77 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 				}).filter(Boolean);
 				var sections = sectionIds.map(function(id) { return document.getElementById(id); }).filter(Boolean);
 
-				var visibility = {};
-				sections.forEach(function(s) { visibility[s.id] = 0; });
-
-				var _scrollLocked = false;
-				var _scrollLockTimer = null;
+				// _forcedActive: held during + briefly after a nav click animation.
+				// Prevents scroll events from overriding the highlight mid-animation.
+				var _forcedActive = null;
+				var _forceTimer = null;
 
 				function setActive(id) {
 					navLinks.forEach(function(l) {
-						var target = l.getAttribute('data-target') || l.getAttribute('href').replace('#','');
+						var target = l.getAttribute('data-target') || (l.getAttribute('href') || '').replace('#','');
 						l.classList.toggle('active', target === id);
 					});
 				}
 
+				// Pure scroll-position approach — no accumulated state, always deterministic.
+				// Finds which section's top is at or just above the vertical midpoint of the viewport.
+				// At the bottom of the page, always activates the last section.
 				function updateActive() {
-					if (_scrollLocked) return; // nav click in progress — don't override
-					var atBottom = (window.innerHeight + window.scrollY) >= document.body.scrollHeight - 10;
-					var activeId;
+					if (_forcedActive) return;
+
+					var scrollY  = window.scrollY;
+					var viewH    = window.innerHeight;
+					var docH     = document.body.scrollHeight;
+					var atBottom = (scrollY + viewH) >= docH - 4;
+
 					if (atBottom) {
-						activeId = sections[sections.length - 1].id;
-					} else {
-						var bestId = null, bestPx = 0;
-						sections.forEach(function(s) {
-							if (visibility[s.id] > bestPx) {
-								bestPx = visibility[s.id];
-								bestId = s.id;
-							}
-						});
-						activeId = bestId;
+						setActive(sections[sections.length - 1].id);
+						return;
 					}
-					if (activeId) setActive(activeId);
+
+					// Use the viewport's upper-third as the trigger line
+					var triggerY = scrollY + viewH * 0.33;
+					var activeId = sections[0].id; // default to first
+					for (var i = 0; i < sections.length; i++) {
+						if (sections[i].getBoundingClientRect().top + scrollY <= triggerY) {
+							activeId = sections[i].id;
+						}
+					}
+					setActive(activeId);
 				}
 
-				// Smooth scroll with custom duration, lock active during animation
+				window.addEventListener('scroll', function() {
+					if (!_forcedActive) updateActive();
+				}, { passive: true });
+
 				function smoothScrollTo(targetY, duration, targetId) {
 					var startY = window.scrollY;
-					var diff = targetY - startY;
+					var diff   = targetY - startY;
 					var startTime = null;
 
-					_scrollLocked = true;
+					_forcedActive = targetId;
 					setActive(targetId);
-					if (_scrollLockTimer) clearTimeout(_scrollLockTimer);
+					if (_forceTimer) clearTimeout(_forceTimer);
 
-					function step(timestamp) {
-						if (!startTime) startTime = timestamp;
-						var elapsed = timestamp - startTime;
-						var progress = Math.min(elapsed / duration, 1);
-						// Ease in-out cubic
-						var ease = progress < 0.5
-							? 4 * progress * progress * progress
-							: 1 - Math.pow(-2 * progress + 2, 3) / 2;
+					function step(ts) {
+						if (!startTime) startTime = ts;
+						var p = Math.min((ts - startTime) / duration, 1);
+						var ease = p < 0.5 ? 4*p*p*p : 1 - Math.pow(-2*p+2,3)/2;
 						window.scrollTo(0, startY + diff * ease);
-						if (progress < 1) {
+						if (p < 1) {
 							requestAnimationFrame(step);
 						} else {
-							// Hold lock briefly after scroll lands to absorb observer firing
-							_scrollLockTimer = setTimeout(function() {
-								_scrollLocked = false;
+							// Hold for 200ms after landing, then hand off to scroll spy
+							_forceTimer = setTimeout(function() {
+								_forcedActive = null;
 								updateActive();
-							}, 100);
+							}, 200);
 						}
 					}
 					requestAnimationFrame(step);
 				}
 
-				// Clone each nav link to strip all jQuery-bound handlers,
-				// then attach our own clean click handler
+				// Clone nav links to strip jQuery handlers, attach our own
 				navLinks = navLinks.map(function(link) {
 					var href = link.getAttribute('href');
 					var targetId = (href && href[0] === '#') ? href.replace('#', '') : null;
@@ -1492,17 +2288,37 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 					return clone;
 				});
 
-				var observer = new IntersectionObserver(function(entries) {
-					entries.forEach(function(entry) {
-						visibility[entry.target.id] = entry.intersectionRect.height;
-					});
-					updateActive();
-				}, { threshold: Array.from({length: 101}, function(_, i) { return i / 100; }) });
-
-				sections.forEach(function(s) { observer.observe(s); });
-				window.addEventListener('scroll', updateActive, { passive: true });
+				// Initial state
+				updateActive();
 			});
+
+			// ── Dark mode toggle ─────────────────────────────────────────────
+			// Runs after DOM is ready (deferred past load)
+			document.addEventListener('DOMContentLoaded', function() {
+				var toggle = document.getElementById('dark-toggle');
+				if (!toggle) return;
+
+				// Restore saved preference
+				if (localStorage.getItem('darkMode') === 'on') {
+					document.body.classList.add('dark-mode');
+					toggle.classList.add('is-on');
+					toggle.setAttribute('aria-checked', 'true');
+				}
+
+				function flip() {
+					var on = toggle.classList.toggle('is-on');
+					toggle.setAttribute('aria-checked', String(on));
+					document.body.classList.toggle('dark-mode', on);
+					localStorage.setItem('darkMode', on ? 'on' : 'off');
+				}
+
+				toggle.addEventListener('click', flip);
+				toggle.addEventListener('keydown', function(e) {
+					if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); flip(); }
+				});
+			});
+
 		</script>
 
-		</body>
-	</html>
+	</body>
+</html>
