@@ -407,6 +407,58 @@
 											z-index: 1;
 										}
 
+										/* ── Experience tag on app icon ── */
+										.app-icon-exp {
+											display: block !important;
+											visibility: visible !important;
+											margin-top: 0.15em;
+											font-size: 0.62em;
+											text-align: center;
+											color: rgba(78,201,176,0.75) !important;
+											line-height: 1.2;
+											width: 100%;
+											position: relative;
+											z-index: 1;
+											letter-spacing: 0.02em;
+										}
+										body.dark-mode .app-icon-exp { color: rgba(78,201,176,0.85) !important; }
+
+										/* ── Experience pill in app sheet tags row ── */
+										.appstore-tag-exp {
+											display: inline-flex;
+											align-items: center;
+											gap: 0.35em;
+											background: rgba(78,201,176,0.1);
+											border: 1px solid rgba(78,201,176,0.25);
+											border-radius: 20px;
+											padding: 0.2em 0.6em 0.2em 0.35em;
+											font-size: 0.72em;
+											color: rgba(78,201,176,0.9);
+											font-family: inherit;
+											line-height: inherit;
+											cursor: pointer;
+											transition: background 0.15s, border-color 0.15s;
+										}
+										.appstore-tag-exp:hover {
+											background: rgba(78,201,176,0.2);
+											border-color: rgba(78,201,176,0.5);
+										}
+										.appstore-tag-exp img {
+											width: 14px;
+											height: 14px;
+											border-radius: 3px;
+											object-fit: cover;
+											display: block;
+										}
+										.appstore-tag-exp-placeholder {
+											width: 14px;
+											height: 14px;
+											border-radius: 3px;
+											background: rgba(78,201,176,0.2);
+											display: block;
+											flex-shrink: 0;
+										}
+
 										/* ── iOS Notification Badge ── */
 										.app-icon-stage {
 											position: relative;
@@ -1164,6 +1216,7 @@
 
 										// ── Game Data (loaded from games.json) ───────────────────
 										var GAMES = [];
+										var EXPERIENCE_DATA = {}; // keyed by id
 
 										function buildGrid() {
 											// ── Build app grid ───────────────────────────────────────
@@ -1221,6 +1274,19 @@
 												wrap.appendChild(yearLabel);
 											}
 
+											// Experience tag below year
+											if (game.experience) {
+												var expData = typeof game.experience === 'string'
+													? (EXPERIENCE_DATA[game.experience] ? { label: EXPERIENCE_DATA[game.experience].company } : null)
+													: { label: game.experience.label };
+												if (expData) {
+													var expLabel = document.createElement('span');
+													expLabel.className = 'app-icon-exp';
+													expLabel.textContent = expData.label;
+													wrap.appendChild(expLabel);
+												}
+											}
+
 											wrap.addEventListener('click', (function(id) {
 												return function() { asOpen(id); };
 											})(game.id));
@@ -1245,16 +1311,26 @@
 										}); // end GAMES.forEach
 										} // end buildGrid()
 
-										// ── Bootstrap: fetch games.json then build ────────────────
-										fetch('games.json')
-											.then(function(r) { return r.json(); })
-											.then(function(data) {
-												GAMES = data;
-												buildGrid();
-											})
-											.catch(function(err) {
-												console.error('Failed to load games.json:', err);
-											});
+										// ── Bootstrap: fetch experience + games, then build grid ─────
+										Promise.all([
+											fetch('games.json').then(function(r){ return r.json(); }),
+											fetch('experience.json').then(function(r){ return r.json(); }).catch(function(){ return null; })
+										]).then(function(res) {
+											GAMES = res[0];
+											// Index both work and education entries by id for fast lookup
+											if (res[1]) {
+												(res[1].work || []).forEach(function(job) {
+													EXPERIENCE_DATA[job.id] = job;
+												});
+												(res[1].education || []).forEach(function(edu) {
+													// Normalise to 'company' so tag display code works uniformly
+													EXPERIENCE_DATA[edu.id] = Object.assign({}, edu, { company: edu.school });
+												});
+											}
+											buildGrid();
+										}).catch(function(err) {
+											console.error('Failed to load games.json:', err);
+										});
 
 										// ── Tilt on proximity ────────────────────────────────────
 										// Radius (px) within which icons start reacting to the mouse
@@ -1367,9 +1443,29 @@
 											document.getElementById('as-meta').innerHTML  = game.meta + (game.year ? ' &bull; ' + game.year : '');
 
 											var tagsEl = document.getElementById('as-tags');
-											tagsEl.innerHTML = (game.tags || []).map(function(t) {
+											var tagHtml = (game.tags || []).map(function(t) {
 												return '<span class="appstore-tag">' + t + '</span>';
 											}).join('');
+											// Experience pill — string = résumé ref, object = external link
+											if (game.experience) {
+												var exp = typeof game.experience === 'string'
+													? (EXPERIENCE_DATA[game.experience] ? {
+														label: EXPERIENCE_DATA[game.experience].company,
+														image: EXPERIENCE_DATA[game.experience].image,
+														url:   null
+													} : null)
+													: { label: game.experience.label, image: game.experience.image, url: game.experience.url };
+												if (exp) {
+													var imgHtml = exp.image
+														? '<img src="' + exp.image + '" onerror="this.style.display=\'none\'" alt="" />'
+														: '<span class="appstore-tag-exp-placeholder"></span>';
+													var onclick = exp.url
+														? 'window.open(\'' + exp.url + '\',\'_blank\')'
+														: 'asClose();setTimeout(function(){var t=document.getElementById(\'three\');if(t)t.scrollIntoView({behavior:\'smooth\'});},340);';
+													tagHtml = '<button class="appstore-tag-exp" onclick="' + onclick + '">' + imgHtml + exp.label + '</button>' + tagHtml;
+												}
+											}
+											tagsEl.innerHTML = tagHtml;
 
 											document.getElementById('as-desc').textContent = game.desc;
 

@@ -2,7 +2,7 @@
 	{
 		"id": "scraptics",
 		"name": "Scraptics",
-		"year": "2023\u20132026",
+		"year": "2023–2026",
 		"meta": "Halfbrick Studios",
 		"tags": [
 			"Unity 6",
@@ -26,13 +26,14 @@
 			"Cross-platform save systems",
 			"Led a team of 4 developers across the full production lifecycle"
 		],
-		"badge": true
+		"badge": true,
+		"experience": "halfbrick"
 	},
 	{
 		"id": "sumo",
 		"name": "Sumo Fight",
 		"year": "2024",
-		"meta": "Halfbrick Internal Game Jam",
+		"meta": "Halfbrick Fridays Game Jam",
 		"tags": [
 			"Unity 6",
 			"C#",
@@ -46,13 +47,14 @@
 		"bullets": [
 			"Photon networking for player customization sync and core gameplay"
 		],
-		"badge": true
+		"badge": true,
+		"experience": "halfbrick"
 	},
 	{
 		"id": "survivors",
 		"name": "Survivors Aren't Dead",
 		"year": "2023",
-		"meta": "Halfbrick Internal Game Jam",
+		"meta": "Halfbrick Fridays Game Jam",
 		"tags": [
 			"Unity 6",
 			"C#",
@@ -67,13 +69,14 @@
 		"bullets": [
 			"Created the pitch and core design document",
 			"Lead programmer, enemy behavior programmer, and sound designer"
-		]
+		],
+		"experience": "halfbrick"
 	},
 	{
 		"id": "unannounced",
 		"name": "Unannounced Mobile Project",
-		"year": "2021\u20132023",
-		"meta": "Halfbrick Studios \u00b7 Unreleased",
+		"year": "2021–2023",
+		"meta": "Halfbrick Studios · Unreleased",
 		"tags": [
 			"Unity",
 			"C#",
@@ -88,13 +91,14 @@
 			"Created the original prototype establishing the core loop and swinging mechanic",
 			"Led physics prototyping and mechanical iteration",
 			"Project lead and lead programmer for a team of 4"
-		]
+		],
+		"experience": "halfbrick"
 	},
 	{
 		"id": "rucksack",
 		"name": "Rucksack Dungeon",
 		"year": "2022",
-		"meta": "Halfbrick Internal Game Jam",
+		"meta": "Halfbrick Fridays Game Jam",
 		"tags": [
 			"Unity",
 			"C#",
@@ -108,8 +112,9 @@
 		"bullets": [
 			"Designed and implemented AI enemy behaviour systems",
 			"Team lead across the full jam week",
-			"Prototype was selected and greenlit \u2014 became the foundation for Scraptics"
-		]
+			"Prototype was selected and greenlit — became the foundation for Scraptics"
+		],
+		"experience": "halfbrick"
 	},
 	{
 		"id": "to-the-moon",
@@ -151,7 +156,12 @@
 		"bullets": [
 			"Object pooling system for collectibles with persistent collection state",
 			"Contributed to level design, audio systems, GameManager architecture, and VFX"
-		]
+		],
+		"experience": {
+			"label": "Global Game Jam 2020",
+			"image": "images/experience/ggj.png",
+			"url": "https://v3.globalgamejam.org/2020/games/memoria-damnum-6"
+		}
 	},
 	{
 		"id": "retrospectre",
@@ -173,5 +183,4 @@
 			"Level design and all interactable systems: destructible areas, climbable walls, moving platforms, environmental puzzles"
 		]
 	}
-	
 ]
