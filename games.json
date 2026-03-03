@@ -18,7 +18,7 @@
 		"bullets": [
 			"Architected the full systems stack: turn management, hex-grid logic, roguelike progression, and inventory puzzle systems",
 			"Wrote complex recursive algorithms powering the core puzzle mechanic",
-			"Designed and programmed enemy AI behavior systems",
+			"Designed and programmed modular enemy AI behavior systems",
 			"Developed custom editor tools to support content creation and team workflows",
 			"Built full UI/UX across all game screens and menus",
 			"Cross-platform iOS & Android builds with profiling and performance optimization",
