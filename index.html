@@ -2047,6 +2047,55 @@
 										color: rgba(106,127,168,0.5);
 									}
 
+									/* Role progression rows */
+									.experience-progression-row {
+										display: flex;
+										align-items: baseline;
+										gap: 0.6em;
+										padding: 0.2em 0 0.2em 1.1em; /* indent to sit under icon */
+										font-family: 'Cascadia Mono', 'Fira Code', 'Consolas', monospace;
+									}
+									.exp-prog-connector {
+										flex-shrink: 0;
+										font-size: 0.8em;
+										color: rgba(78,201,176,0.4);
+										width: 1em;
+										line-height: 1;
+										margin-left: 3.4em; /* align under the icon */
+									}
+									.exp-prog-info {
+										flex: 1;
+										display: flex;
+										align-items: baseline;
+										gap: 0.6em;
+										flex-wrap: wrap;
+									}
+									.exp-prog-title {
+										font-size: 0.78em;
+										color: #c8c8c8;
+									}
+									.exp-prog-badge {
+										font-size: 0.65em;
+										color: #4ec9b0;
+										opacity: 0.85;
+										letter-spacing: 0.03em;
+									}
+									.exp-prog-date {
+										flex-shrink: 0;
+										font-size: 0.68em;
+										color: #6a7fa8;
+										text-align: right;
+										white-space: nowrap;
+									}
+									.exp-prog-date::before {
+										content: '// ';
+										color: rgba(106,127,168,0.4);
+									}
+									@media (max-width: 600px) {
+										.exp-prog-date { display: none; }
+										.exp-prog-connector { margin-left: 2em; }
+									}
+
 									/* Blinking cursor */
 									.terminal-cursor-line {
 										margin-top: 1em;
@@ -2173,6 +2222,47 @@
 											var sub   = (job.roles || []).join(' · ');
 											var date  = job.date || '';
 											workList.appendChild(buildEntry(job, title, sub, date));
+
+											// Progression rows — show role timeline if present (reverse chron)
+											if (job.progression && job.progression.length) {
+												var steps = job.progression.slice().reverse();
+												steps.forEach(function(step, idx) {
+													var row = document.createElement('div');
+													row.className = 'experience-progression-row';
+
+													// Connector line + indent
+													var connector = document.createElement('div');
+													connector.className = 'exp-prog-connector';
+													var isLast = idx === steps.length - 1;
+													connector.innerHTML = isLast ? '└' : '├';
+
+													var info = document.createElement('div');
+													info.className = 'exp-prog-info';
+
+													var roleEl = document.createElement('span');
+													roleEl.className = 'exp-prog-title';
+													roleEl.textContent = step.title;
+
+													if (step.promoted) {
+														var badge = document.createElement('span');
+														badge.className = 'exp-prog-badge';
+														badge.textContent = '↑ promoted';
+														info.appendChild(roleEl);
+														info.appendChild(badge);
+													} else {
+														info.appendChild(roleEl);
+													}
+
+													var dateEl = document.createElement('div');
+													dateEl.className = 'exp-prog-date';
+													dateEl.textContent = step.date || '';
+
+													row.appendChild(connector);
+													row.appendChild(info);
+													row.appendChild(dateEl);
+													workList.appendChild(row);
+												});
+											}
 										});
 
 										var eduList = document.getElementById('education-list');
