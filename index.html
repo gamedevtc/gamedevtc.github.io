@@ -65,7 +65,7 @@
 						<img src="images/navbar-flavor.png" alt="" />
 					</div>
 					<div class="sidebar-resume-wrap">
-						<a href="downloads/Taylor Christianson - Resume 2026.pdf" download class="sidebar-resume-btn icon solid fa-download" target="_blank">
+						<a href="#" download id="sidebar-resume-btn" class="sidebar-resume-btn icon solid fa-download" target="_blank">
 							Résumé
 						</a>
 					</div>
@@ -1881,7 +1881,7 @@
 									</div>
 
 									<div class="resume-download-row">
-										<a href="downloads/Taylor Christianson - Resume 2026.pdf" download class="dark-btn icon solid fa-download" target="_blank">Résumé</a>
+										<a href="#" download id="section-resume-btn" class="dark-btn icon solid fa-download" target="_blank">Résumé</a>
 										<!-- DISABLED: full résumé not ready
 										<a href="downloads/TChristianson-FullResume.pdf" download class="dark-btn icon solid fa-download" target="_blank">Résumé (Expanded) <b>FIX THIS</b></a>
 										-->
@@ -2417,6 +2417,14 @@
 										if (logoEl) { var a = logoEl.querySelector('a'); if (a) a.textContent = profile.name; }
 										var avatarImg = document.querySelector('#header .image.avatar img');
 										if (avatarImg) avatarImg.src = profile.image;
+
+									// ── Résumé download buttons ──────────────────────────────
+									if (profile.resume) {
+										var sidebarBtn  = document.getElementById('sidebar-resume-btn');
+										var sectionBtn  = document.getElementById('section-resume-btn');
+										if (sidebarBtn)  sidebarBtn.href  = profile.resume;
+										if (sectionBtn)  sectionBtn.href  = profile.resume;
+									}
 									}
 
 								});
