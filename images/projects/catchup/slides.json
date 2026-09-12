@@ -1,0 +1,18 @@
+{
+  "thumb": "images/projects/catchup/catchup-thumb.png",
+  "background": "images/projects/catchup/catchup-background.png",
+  "slides":
+  [
+    { "type": "youtube", "src": "vjSYxnCt074",                           "alt": "CatchUp Social Media" },
+    { "type": "video",   "src": "images/projects/catchup/catchup-ui-video.mp4", "alt": "" },
+    { "type": "video",   "src": "images/projects/catchup/catchup-gacha-wip-video.mp4", "alt": "" },
+    { "type": "image",   "src": "images/projects/catchup/catchup-steam-2.png", "alt": "" },
+    { "type": "image",   "src": "images/projects/catchup/catchup-steam-3.png", "alt": "" },
+    { "type": "image",   "src": "images/projects/catchup/catchup-steam-4.png", "alt": "" },
+    { "type": "image",   "src": "images/projects/catchup/catchup-steam-5.png", "alt": "" },
+    { "type": "image",   "src": "images/projects/catchup/catchup-steam-6.png", "alt": "" },
+    { "type": "image",   "src": "images/projects/catchup/catchup-steam-7.png", "alt": "" },
+    { "type": "image",   "src": "images/projects/catchup/catchup-steam-8.png", "alt": "" },
+    { "type": "youtube", "src": "fmMBbip2nrI",                           "alt": "CatchUp: TowerScroll Tool" }
+  ]
+}

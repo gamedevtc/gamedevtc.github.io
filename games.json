@@ -1,5 +1,90 @@
 [
 	{
+		"id": "catchup",
+		"name": "CatchUp Showdown",
+		"year": "2026",
+		"meta": "Panda Paw Entertainment",
+		"tags": [
+			"Unity 6",
+			"C#",
+			"Photon Fusion",
+			"Claude Code",
+			"PC (Steam)"
+		],
+		"links": [
+			{ "type": "steam",   "url": "https://store.steampowered.com/app/4698980/CatchUp_Showdown/" },
+			{ "type": "youtube", "url": "https://www.youtube.com/@playcatchupgame" },
+			{ "type": "instagram", "url": "https://www.instagram.com/playcatchupgame/" },
+			{ "type": "tiktok", "url": "https://www.tiktok.com/@playcatchupgame" },
+			{ "type": "x-twitter", "url": "https://x.com/playcatchupgame" },
+			{ "type": "discord", "url": "https://discord.gg/4UEGzFhyQy" },
+		],
+		"roles": [
+			"Senior Unity Developer",
+			"Lead Designer",
+			"Systems Programmer",
+			"Technical Art"
+		],
+		"desc": "Multiplayer 3D Co-op friendslop rage game. Play catch to climb a tower, lose the ball and start again, while wacky environment mechanics make things interesting. Pitched, built and shipped in 2 months. Lead designer, systems and gameplay programmer on a four person core team; Releasing at Steam Next Fest: October 2026. Demo currently live",
+		"bullets": [
+			"Deterministic level system where the entire tower is a pure function of two networked values so late joiners rebuild a bit-identical world with minimal network load",
+			"Host-authoritative scoring pipeline: quality weights, a convex reward curve, and a catalog of 25+ detectable tricks broadcast to a networked score banner",
+			"Crowd trick-request mechanic where the crowd demands a specific trick, and success or failure feeds back into the level by increasing/decreasing difficulty",
+			"Hazard roster: 10 unique environment mechanics, ballistic bomb turrets, matched slippery/sticky slime pipes that coat both players and the ball, and a spotlight musical-chairs target",
+			"Networked announcer-bot NPC driven by a PD spring with a three-layer mover/brain/mood state machine, reacting live to catches, misses, and climb height",
+			"Custom URP shaders and render features: screen-space level-transition wipes, silhouette shadow projection, tile glow, tinted decals, and a Shader Graph combo-fire HUD effect",
+			"Editor tooling: a Tower Balance window for stage authoring and churn curves, plus an edit-mode scroll preview that drives the real level pipeline",
+			"Player progression and meta: local coin economy, gacha cosmetic unlocks, and AES/HMAC-signed save data synced through Steam Cloud",
+			"Fully hand-authored uGUI main menu, pause menu, HUD and in-game shop with full controller navigation, leaderboards, and an event-driven friends list wired to Steam lobby visibility",
+			"Photon Fusion client-side for prediction, interpolation, and aim raycasting against rendered versus simulated physics poses"
+		],
+		"badge": true,
+		"links": [
+			{
+				"type": "steam",
+				"url": "#"
+			},
+			{
+				"type": "youtube",
+				"url": "#"
+			}
+		],
+		"experience": "panda-paw"
+	},
+	{
+		"id": "swipers",
+		"name": "Swipers",
+		"year": "2026",
+		"meta": "Panda Paw Entertainment · Unreleased",
+		"tags": [
+			"Unity 6",
+			"C#",
+			"Photon Fusion",
+			"Claude Code",
+			"PC (Steam)"
+		],
+		"roles": [
+			"Senior Unity Developer",
+			"Gameplay Programmer",
+			"Systems Programmer",
+			"AI Programmer"
+		],
+		"desc": "Asymmetric co-op multiplayer heist game. One player claims the Operator role and works a multi-screen station — live map, camera feeds, and the only copies of the per-run security manuals — while the rest of the crew robs procedurally generated facilities under deliberately clumsy physics. Systems and gameplay programmer on a two-developer team; paused when the team pivoted to a new project.",
+		"bullets": [
+			"Designed and built the full guard AI stack: component-based state machine, dual-zone vision sensors, and data-driven guard archetypes authored as ScriptableObjects",
+			"Audio-driven stealth perception: piped live FMOD events and Photon Voice mic amplitude into guard hearing",
+			"Line-of-sight-aware pursuit with heading projection, movement-based detection rates, and a habituation system that turns repeated noise into masked dead zones",
+			"Data-driven guard spawning and routing: role ScriptableObjects, NavMesh waypoint generation, and context-sensitive route queries with SceneView preview tooling",
+			"Multi-component physics vacuum: Grabbable, draggable, pushable machine with separate PD-spring nozzle, Verlet-rope hose with procedural mesh generation, and a networked capacity-limited loot bag",
+			"Gadget framework with a six-slot input override system, plus over 12 gadgets built on it including a throwable teleporter portal, slow-motion beam gun, AI decoy, guard-stunning magazine, repair spray, 'wet floor sign' guard obstruction, and more",
+			"Operator \"Man in the Chair\" station: multi-screen workstation, live map markers and interactive map features, networked guard-identification puzzles, a custom URP render feature for the arcade X-ray tool, remote camera operation, remote player camera viewport, and more",
+			"FMOD integrated voice comms separating communication with the Operator into it's own 2D channel, while other players stay 3D with eachother",
+			"Diegetic 3D UI: a holographic mission-select table and a five-screen main menu workstation with render-texture input routing for UI Toolkit",
+			"Photon Fusion netcode: debugging and tuning client prediction and rollback desyncs across movement, physics, and animation, plus three-layer disconnect protection with deadlock recovery"
+		],
+		"experience": "panda-paw"
+	},
+	{
 		"id": "scraptics",
 		"name": "Scraptics",
 		"year": "2023–2026",
@@ -172,6 +257,9 @@
 			"Unity",
 			"C#",
 			"PC & Web"
+		],
+		"links": [
+			{ "type": "itch",   "url": "https://gameguys.itch.io/retrospectre" }
 		],
 		"roles": [
 			"Project Lead"

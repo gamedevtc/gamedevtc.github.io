@@ -1,6 +1,19 @@
 {
   "work": [
     {
+      "id": "panda-paw",
+      "company": "Panda Paw Entertainment",
+      "image": "images/experience/panda-paw.png",
+      "roles": [
+        "Senior Unity Developer",
+        "Lead Designer",
+        "Systems Programmer",
+        "AI Programmer"
+      ],
+      "date": "Mar 2026 – Present",
+      "startDate": "2026-03"
+    },
+    {
       "id": "halfbrick",
       "company": "Halfbrick Studios",
       "image": "images/experience/halfbrick.png",

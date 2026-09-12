@@ -459,6 +459,33 @@
 											flex-shrink: 0;
 										}
 
+										/* ── Store / social link pills in app sheet tags row ── */
+										.appstore-tag-link {
+											display: inline-flex;
+											align-items: center;
+											gap: 0.4em;
+											background: rgba(255,255,255,0.06);
+											border: 1px solid rgba(255,255,255,0.14);
+											border-radius: 20px;
+											padding: 0.2em 0.7em 0.2em 0.55em;
+											font-size: 0.72em;
+											color: rgba(255,255,255,0.82);
+											font-family: inherit;
+											line-height: inherit;
+											text-decoration: none;
+											cursor: pointer;
+											transition: background 0.15s, border-color 0.15s;
+										}
+										.appstore-tag-link:hover {
+											background: rgba(255,255,255,0.12);
+											border-color: var(--brand, rgba(255,255,255,0.4));
+										}
+										.appstore-tag-link i {
+											font-size: 1.05em;
+											line-height: 1;
+											color: var(--brand, rgba(255,255,255,0.75));
+										}
+
 										/* ── iOS Notification Badge ── */
 										.app-icon-stage {
 											position: relative;
@@ -1446,7 +1473,30 @@
 											var tagHtml = (game.tags || []).map(function(t) {
 												return '<span class="appstore-tag">' + t + '</span>';
 											}).join('');
+											// Store / social link pills — brand icon (Font Awesome 5 brands) + label, opens in a new tab.
+											var LINK_TYPES = {
+												steam:     { icon: 'fab fa-steam',      label: 'Steam',     color: '#66c0f4' },
+												youtube:   { icon: 'fab fa-youtube',    label: 'YouTube',   color: '#ff4e45' },
+												discord:   { icon: 'fab fa-discord',    label: 'Discord',   color: '#8c9eff' },
+												twitter:   { icon: 'fab fa-twitter',    label: 'Twitter',   color: '#4aa0eb' },
+												x:         { icon: 'fab fa-x-twitter',  label: 'X',         color: '#e7e9ea' },
+												instagram: { icon: 'fab fa-instagram',  label: 'Instagram', color: '#e1719b' },
+												tiktok:    { icon: 'fab fa-tiktok',     label: 'TikTok',    color: '#ff4e6a' },
+												twitch:    { icon: 'fab fa-twitch',     label: 'Twitch',    color: '#a970ff' },
+												itch:      { icon: 'fab fa-itch-io',    label: 'itch.io',   color: '#fa5c5c' },
+												bluesky:   { icon: 'fab fa-bluesky',    label: 'Bluesky',   color: '#4aa0eb' },
+												website:   { icon: 'fas fa-globe',      label: 'Website',   color: '#4ec9b0' }
+											};
+											var linkHtml = (game.links || []).map(function(lk) {
+												if (!lk || !lk.url) return '';
+												var t = LINK_TYPES[(lk.type || '').toLowerCase()] || { icon: 'fas fa-link', color: '#4ec9b0' };
+												var label = lk.label || t.label || (lk.type || 'Link');
+												var icon  = lk.icon  || t.icon  || 'fas fa-link';
+												return '<a class="appstore-tag-link" href="' + lk.url + '" target="_blank" rel="noopener" style="--brand:' + t.color + '">' +
+															'<i class="' + icon + '"></i>' + label + '</a>';
+											}).join('');
 											// Experience pill — string = résumé ref, object = external link
+											var expHtml = '';
 											if (game.experience) {
 												var exp = typeof game.experience === 'string'
 													? (EXPERIENCE_DATA[game.experience] ? {
@@ -1462,10 +1512,10 @@
 													var onclick = exp.url
 														? 'window.open(\'' + exp.url + '\',\'_blank\')'
 														: 'asClose();setTimeout(function(){var t=document.getElementById(\'three\');if(t)t.scrollIntoView({behavior:\'smooth\'});},340);';
-													tagHtml = '<button class="appstore-tag-exp" onclick="' + onclick + '">' + imgHtml + exp.label + '</button>' + tagHtml;
+													expHtml = '<button class="appstore-tag-exp" onclick="' + onclick + '">' + imgHtml + exp.label + '</button>';
 												}
 											}
-											tagsEl.innerHTML = tagHtml;
+											tagsEl.innerHTML = expHtml + linkHtml + tagHtml;
 
 											document.getElementById('as-desc').textContent = game.desc;
 

@@ -1,0 +1,23 @@
+{
+  "thumb": "images/projects/swipers/swipers-prototype-thumb.png",
+  "background": "images/projects/swipers/swipers-background.png",
+  "slides":
+  [
+    { "type": "video",   "src": "images/projects/swipers/swipers-prototype-video-1.mp4", "alt": "" },
+    { "type": "video",   "src": "images/projects/swipers/swipers-prototype-video-2.mp4", "alt": "" },
+    { "type": "video",   "src": "images/projects/swipers/swipers-prototype-video-3.mp4", "alt": "" },
+    { "type": "youtube", "src": "JNIEcHcGXZ8",                           "alt": "swipers-prototype-video-4" },
+    { "type": "video",   "src": "images/projects/swipers/swipers-prototype-video-5.mp4", "alt": "" },
+    { "type": "video",   "src": "images/projects/swipers/swipers-prototype-video-6.mp4", "alt": "" },
+    { "type": "image",   "src": "images/projects/swipers/swipers-prototype-image-1.png", "alt": "" },
+    { "type": "image",   "src": "images/projects/swipers/swipers-prototype-image-2.png", "alt": "" },
+    { "type": "image",   "src": "images/projects/swipers/swipers-prototype-image-3.png", "alt": "" },
+    { "type": "image",   "src": "images/projects/swipers/swipers-prototype-image-4.png", "alt": "" },
+    { "type": "image",   "src": "images/projects/swipers/swipers-prototype-image-5.png", "alt": "" },
+    { "type": "image",   "src": "images/projects/swipers/swipers-prototype-image-6.png", "alt": "" },
+    { "type": "image",   "src": "images/projects/swipers/swipers-prototype-image-7.png", "alt": "" },
+    { "type": "image",   "src": "images/projects/swipers/swipers-prototype-image-8.png", "alt": "" },
+    { "type": "image",   "src": "images/projects/swipers/swipers-prototype-image-9.png", "alt": "" },
+    { "type": "image",   "src": "images/projects/swipers/swipers-prototype-image-10.png", "alt": "" }
+  ]
+}
