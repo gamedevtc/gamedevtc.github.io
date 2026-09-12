@@ -1,0 +1,12 @@
+# Git LFS tracking for gamedevtc.github.io
+#
+# GitHub Pages does NOT resolve Git LFS pointers -- it serves the pointer text file,
+# not the media. So anything the live site loads (banner, gallery videos/gifs) must
+# stay a normal git blob and must NOT be listed here.
+#
+# Convention: archival media too large to serve (>50 MiB) lives under a stored/ folder,
+# is removed from the slides.json galleries, and is tracked by LFS below. Files in
+# stored/ are never requested by the site, so LFS pointers there are harmless.
+**/stored/*.mp4  filter=lfs diff=lfs merge=lfs -text
+**/stored/*.mov  filter=lfs diff=lfs merge=lfs -text
+**/stored/*.webm filter=lfs diff=lfs merge=lfs -text
