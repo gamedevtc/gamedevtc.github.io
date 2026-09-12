@@ -36,7 +36,7 @@
 			{ "type": "youtube", "url": "https://www.youtube.com/@playcatchupgame" },
 			{ "type": "instagram", "url": "https://www.instagram.com/playcatchupgame/" },
 			{ "type": "tiktok", "url": "https://www.tiktok.com/@playcatchupgame" },
-			{ "type": "x-twitter", "url": "https://x.com/playcatchupgame" },
+			{ "type": "x", "url": "https://x.com/playcatchupgame" },
 			{ "type": "discord", "url": "https://discord.gg/4UEGzFhyQy" }
 		],
 		"experience": "panda-paw"

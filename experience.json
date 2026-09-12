@@ -6,12 +6,24 @@
       "image": "images/experience/panda-paw.png",
       "roles": [
         "Senior Unity Developer",
-        "Lead Designer",
-        "Systems Programmer",
-        "AI Programmer"
+        "Lead Designer"
       ],
       "date": "Mar 2026 – Present",
-      "startDate": "2026-03"
+      "startDate": "2026-03",
+      "progression": [
+        {
+          "title": "Senior Unity Developer  ·  Lead Designer  ·  Systems Programmer",
+          "startDate": "2026-06",
+          "date": "Jun 2026 – Present"
+        },
+        {
+          "title": "Senior Unity Developer  ·  AI Programmer",
+          "startDate": "2026-03",
+          "endDate": "2026-06",
+          "date": "Mar 2026 – Jun 2026",
+          "promoted": true
+        }
+      ]
     },
     {
       "id": "halfbrick",
@@ -62,7 +74,7 @@
     },
     {
       "key": "platforms",
-      "value": "iOS  ·  Android  ·  Profiling & Optimization"
+      "value": "Steam  ·  iOS  ·  Android"
     },
     {
       "key": "versionControl",
@@ -70,7 +82,7 @@
     },
     {
       "key": "tools",
-      "value": "JetBrains Rider  ·  Visual Studio  ·  Cursor AI"
+      "value": "Claude Code  ·  Cursor AI  ·  JetBrains Rider  ·  Visual Studio"
     },
     {
       "key": "methodology",
@@ -78,7 +90,7 @@
     },
     {
       "key": "specialisms",
-      "value": "AI Behaviors  ·  Procedural Gen  ·  Tool Development"
+      "value": "AI Behaviors  ·  Procedural Gen  ·  Tool Development  ·  Profiling & Optimization"
     },
     {
       "key": "leadership",

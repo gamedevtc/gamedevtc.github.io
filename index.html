@@ -479,6 +479,7 @@
 										.appstore-tag-link:hover {
 											background: rgba(255,255,255,0.12);
 											border-color: var(--brand, rgba(255,255,255,0.4));
+											color: #fff;
 										}
 										.appstore-tag-link i {
 											font-size: 1.05em;
@@ -634,6 +635,13 @@
 											flex-wrap: wrap;
 											gap: 0.4em;
 										}
+										.appstore-header-links {
+											display: flex;
+											flex-wrap: wrap;
+											gap: 0.4em;
+											margin-top: 0.5em;
+										}
+										.appstore-header-links:empty { display: none; }
 										.appstore-tag {
 											background: rgba(255,255,255,0.08);
 											border-radius: 20px;
@@ -1212,6 +1220,7 @@
 													<h3 id="as-title"></h3>
 													<p class="appstore-header-meta" id="as-meta"></p>
 													<div class="appstore-header-tags" id="as-tags"></div>
+													<div class="appstore-header-links" id="as-links"></div>
 												</div>
 												<button class="appstore-close" onclick="asClose()">&times;</button>
 											</div>
@@ -1515,7 +1524,9 @@
 													expHtml = '<button class="appstore-tag-exp" onclick="' + onclick + '">' + imgHtml + exp.label + '</button>';
 												}
 											}
-											tagsEl.innerHTML = expHtml + linkHtml + tagHtml;
+											tagsEl.innerHTML = expHtml + tagHtml;
+											var linksEl = document.getElementById('as-links');
+											if (linksEl) linksEl.innerHTML = linkHtml;
 
 											document.getElementById('as-desc').textContent = game.desc;
 
