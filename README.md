@@ -142,12 +142,16 @@ The `id` on a work/education entry is what a game's `experience` string points a
 
 ### `profile.json` — About card + sidebar
 
-`{ name, title, image, bio, email, links[], resume }`
+`{ name, title, tagline, roles[], image, bio, email, links[], resume, reference }`
 
+- `title` is the role line on the **About card** (`#one`).
+- `tagline` + `roles[]` drive the **sidebar** subheader under your name — `tagline` on the first line,
+  `roles` joined with " • " on the second (e.g. `["Programmer","Designer","Team Lead"]`).
 - `bio` is an **array of sentences**, joined with spaces into one paragraph. Keep specific numbers
   (years, project counts) **out** of it — those are shown as auto-computed stats.
 - `links[]`: `{ label, url, icon, newTab }` (`icon` is a Font Awesome class like `"brands alt fa-github"`).
-- `resume` is the path to the résumé PDF in `downloads/`.
+- `resume` and `reference` are paths to PDFs in `downloads/` — they populate the Résumé and
+  Letter-of-Reference download buttons in the Documents section.
 
 ---
 

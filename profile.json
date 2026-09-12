@@ -1,6 +1,12 @@
 {
 	"name": "Taylor Christianson",
-	"title": "Senior Unity Developer / Lead Programmer / Indie Dev",
+	"title": "Senior Indie Game Dev / Lead Programmer / Unity Developer",
+	"tagline": "Senior Indie Game Dev",
+	"roles": [
+		"Programmer",
+		"Designer",
+		"Team Lead"
+	],
 	"image": "images/Coast Selfie - LinkedIn.png",
 	"bio": [
 		"A versatile game developer and technical lead who builds every part of a game: gameplay, systems architecture, AI, multiplayer netcode, tools, and tech art.",
@@ -22,5 +28,6 @@
 			"newTab": true
 		}
 	],
-	"resume": "downloads/Taylor Christianson - Portfolio Resume 2026.pdf"
+	"resume": "downloads/Taylor Christianson - Portfolio Resume 2026.pdf",
+	"reference": "downloads/Taylor Christianson - Halfbrick Reference Letter.pdf"
 }

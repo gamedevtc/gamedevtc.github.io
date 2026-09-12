@@ -50,8 +50,8 @@
 				<header>
 					<span class="image avatar"><img src="images/Coast Selfie - Round.png" alt="" /></span>
 					<h1 id="logo"><a href="#">Taylor Christianson</a></h1>
-					<p>Game Developer<br />
-					<span style="font-size:0.9em;">Programmer &bull; Designer &bull; Team Lead</span></p>
+					<p><span id="sidebar-tagline">Game Developer</span><br />
+					<span id="sidebar-roles" style="font-size:0.9em;">Programmer &bull; Designer &bull; Team Lead</span></p>
 				</header>
 				<nav id="nav">
 					<ul>
@@ -1943,7 +1943,7 @@
 
 									<div class="resume-download-row">
 										<a href="#" download id="section-resume-btn" class="dark-btn icon solid fa-download" target="_blank">Résumé</a>
-										<a href="downloads/Taylor Christianson - Halfbrick Reference Letter.pdf" download class="dark-btn icon solid fa-download" target="_blank">Letter of Reference</a>
+										<a href="#" download id="section-reference-btn" class="dark-btn icon solid fa-download" target="_blank">Letter of Reference</a>
 										<!-- DISABLED: full résumé not ready
 										<a href="downloads/TChristianson-FullResume.pdf" download class="dark-btn icon solid fa-download" target="_blank">Résumé (Expanded) <b>FIX THIS</b></a>
 										-->
@@ -2497,6 +2497,8 @@
 										// Navpanel name + avatar
 										var logoEl = document.getElementById('logo');
 										if (logoEl) { var a = logoEl.querySelector('a'); if (a) a.textContent = profile.name; }
+										if (profile.tagline) { var tlEl = document.getElementById('sidebar-tagline'); if (tlEl) tlEl.textContent = profile.tagline; }
+										if (profile.roles && profile.roles.length) { var rlEl = document.getElementById('sidebar-roles'); if (rlEl) rlEl.textContent = profile.roles.join(' • '); }
 										var avatarImg = document.querySelector('#header .image.avatar img');
 										if (avatarImg) avatarImg.src = profile.image;
 
@@ -2506,6 +2508,10 @@
 										var sectionBtn  = document.getElementById('section-resume-btn');
 										if (sidebarBtn)  sidebarBtn.href  = profile.resume;
 										if (sectionBtn)  sectionBtn.href  = profile.resume;
+									}
+									if (profile.reference) {
+										var refBtn = document.getElementById('section-reference-btn');
+										if (refBtn) refBtn.href = profile.reference;
 									}
 									}
 
