@@ -6,7 +6,8 @@
       "image": "images/experience/panda-paw.png",
       "roles": [
         "Senior Unity Developer",
-        "Lead Designer"
+        "Lead Designer",
+        "Programmer"
       ],
       "date": "Mar 2026 – Present",
       "status": "Furloughed",
@@ -16,8 +17,7 @@
           "title": "Senior Unity Developer  ·  AI Programmer",
           "startDate": "2026-03",
           "endDate": "2026-06",
-          "date": "Mar 2026 – Jun 2026",
-          "promoted": true
+          "date": "Mar 2026 – Jun 2026"
         },
         {
           "title": "Senior Unity Developer  ·  Lead Designer  ·  Systems Programmer",
