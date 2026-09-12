@@ -1,13 +1,11 @@
 {
 	"name": "Taylor Christianson",
-	"title": "Lead Programmer",
+	"title": "Senior Unity Developer / Lead Programmer / Indie Dev",
 	"image": "images/Coast Selfie - LinkedIn.png",
 	"bio": [
-		"Lead Programmer and natural team lead with professional experience at Halfbrick Studios.",
-		"Joined as a Graduate Programmer and promoted to Lead within 6 months.",
-		"I consistently take on leadership roles across every project I work on - pitching ideas, building prototypes, and driving teams from concept through production.",
-		"As team lead I managed a team of 4, conducting quarterly and annual performance reviews and mentorship alongside my technical responsibilities.",
-		"My core expertise is Unity and C#, with generalist experience spanning systems architecture, AI behaviors, game design, mobile optimization, and tool development."
+		"A versatile game developer and technical lead who builds every part of a game: gameplay, systems architecture, AI, multiplayer netcode, tools, and tech art.",
+		"At Halfbrick Studios I rose from Graduate to Lead Programmer and led a team of four from concept to launch, and I've since built co-op multiplayer titles at Panda Paw Entertainment, owning deep gameplay and networking systems end to end.",
+		"I turn ideas into polished, playable games from prototype to production, and work fluently with modern AI-assisted development tools like Claude Code."
 	],
 	"email": "taylor@example.com",
 	"links": [
