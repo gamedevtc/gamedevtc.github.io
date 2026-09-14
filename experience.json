@@ -5,7 +5,7 @@
       "company": "Panda Paw Entertainment",
       "image": "images/experience/panda-paw.png",
       "roles": [
-        "Senior Unity Developer",
+        "Senior Unity Game Developer",
         "Lead Designer",
         "AI & Systems Programmer"
       ],
@@ -58,7 +58,7 @@
     },
     {
       "key": "engine",
-      "value": "Unity (URP / HDRP / 6 / Cloud)  ·  Photon"
+      "value": "Unity (URP / HDRP / 6 / Cloud)  ·  Photon Fusion"
     },
     {
       "key": "platforms",
