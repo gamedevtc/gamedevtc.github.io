@@ -16,6 +16,12 @@
 				padding-top: 1.5em !important;
 				padding-bottom: 1.5em !important;
 			}
+			/* main.css sets `#header > nav ul li { display: block }`, which outranks the
+			   browser's default [hidden] rule, so the assistant's nav entry needs this
+			   to actually stay hidden while the feature is switched off. */
+			#header > nav ul li[hidden] {
+				display: none !important;
+			}
 			/* Remove the 44px gap main.css reserves for the mobile titleBar */
 			@media screen and (max-width: 1024px) {
 				#wrapper {
@@ -58,6 +64,7 @@
 						<li><a href="#one" class="active">About</a></li>
 						<li><a href="#two">Projects</a></li>
 						<li><a href="#three">Documents</a></li>
+						<li id="nav-assistant" hidden><a href="#four">Ask Me</a></li>
 					</ul>
 				</nav>
 				<footer>
@@ -2519,6 +2526,487 @@
 								</script>
 							</section>
 
+						<!-- Four -->
+							<section id="four" hidden>
+								<div class="container">
+
+									<div class="terminal-window ask-window">
+										<div class="terminal-titlebar">
+											<div class="terminal-dots">
+												<span class="dot dot-red"></span>
+												<span class="dot dot-yellow"></span>
+												<span class="dot dot-green"></span>
+											</div>
+											<div class="terminal-title" id="ask-title">taylor@portfolio:~/ask</div>
+											<div class="terminal-titlebar-spacer"></div>
+										</div>
+										<div class="terminal-body">
+											<div class="terminal-prompt-line">
+												<span class="t-prompt">taylor@portfolio</span><span class="t-sep">:</span><span class="t-path">~/ask</span><span class="t-dollar">$</span><span class="t-cmd" id="ask-command"> ./ask-about-taylor --interactive</span>
+											</div>
+											<div class="t-divider"># ─────────────────────────────── ASK ABOUT ME ──</div>
+
+											<p class="ask-intro" id="ask-intro"></p>
+
+											<div class="ask-suggestions" id="ask-suggestions"></div>
+
+											<div class="ask-log" id="ask-log" role="log" aria-live="polite" aria-label="Conversation"></div>
+
+											<form class="ask-inputline" id="ask-form" autocomplete="off">
+												<label class="ask-sr-only" for="ask-input">Ask a question about Taylor</label>
+												<span class="t-prompt">visitor</span><span class="t-sep">:</span><span class="t-path">~</span><span class="t-dollar">$</span>
+												<input type="text" id="ask-input" class="ask-input" placeholder="type a question and hit enter" />
+												<button type="submit" class="ask-send" id="ask-send" aria-label="Send question">
+													<span class="ask-send-icon">&#9654;</span>
+												</button>
+											</form>
+
+											<div class="ask-turnstile" id="ask-turnstile"></div>
+											<p class="ask-disclaimer" id="ask-disclaimer"></p>
+										</div>
+									</div>
+
+								</div>
+
+								<style>
+									/* ── Ask terminal ── inherits .terminal-window / .terminal-body from section three ── */
+
+									.ask-intro {
+										font-family: 'Cascadia Mono', 'Fira Code', 'Consolas', monospace;
+										font-size: 0.78em;
+										color: #8b949e;
+										line-height: 1.6;
+										margin: 0 0 1em;
+									}
+
+									/* Suggestion chips */
+									.ask-suggestions {
+										display: flex;
+										flex-wrap: wrap;
+										gap: 0.5em;
+										margin-bottom: 1.1em;
+									}
+									.ask-chip {
+										font-family: 'Cascadia Mono', 'Fira Code', 'Consolas', monospace;
+										font-size: 0.72em;
+										color: #9cdcfe;
+										background: rgba(156,220,254,0.06);
+										border: 1px solid rgba(156,220,254,0.22);
+										border-radius: 6px;
+										padding: 0.4em 0.75em;
+										cursor: pointer;
+										transition: background 0.15s ease, border-color 0.15s ease;
+										line-height: 1.3;
+									}
+									.ask-chip:hover,
+									.ask-chip:focus-visible {
+										background: rgba(156,220,254,0.13);
+										border-color: rgba(156,220,254,0.45);
+										outline: none;
+									}
+
+									/* Conversation log */
+									.ask-log {
+										font-family: 'Cascadia Mono', 'Fira Code', 'Consolas', monospace;
+										max-height: 22em;
+										overflow-y: auto;
+										overflow-x: hidden;
+										scroll-behavior: smooth;
+									}
+									.ask-log:not(:empty) {
+										margin-bottom: 1.1em;
+										padding-right: 0.4em;
+									}
+									.ask-log::-webkit-scrollbar { width: 8px; }
+									.ask-log::-webkit-scrollbar-track { background: transparent; }
+									.ask-log::-webkit-scrollbar-thumb {
+										background: rgba(255,255,255,0.12);
+										border-radius: 4px;
+									}
+
+									.ask-entry { margin-bottom: 1em; }
+
+									.ask-q {
+										font-size: 0.8em;
+										line-height: 1.5;
+										margin-bottom: 0.5em;
+										color: #d4d4d4;
+										word-break: break-word;
+									}
+									.ask-q .t-dollar { margin-right: 0.35em; }
+
+									.ask-a {
+										font-size: 0.8em;
+										line-height: 1.65;
+										color: #c9d1d9;
+										white-space: pre-wrap;
+										word-break: break-word;
+										padding-left: 0.9em;
+										border-left: 1px solid rgba(78,201,176,0.28);
+									}
+									.ask-a.is-error {
+										color: #e0a458;
+										border-left-color: rgba(224,164,88,0.4);
+									}
+
+									/* Waiting indicator */
+									.ask-wait span {
+										display: inline-block;
+										color: #4ec9b0;
+										animation: askPulse 1.2s ease-in-out infinite;
+									}
+									.ask-wait span:nth-child(2) { animation-delay: 0.15s; }
+									.ask-wait span:nth-child(3) { animation-delay: 0.3s; }
+									@keyframes askPulse {
+										0%, 60%, 100% { opacity: 0.25; }
+										30%           { opacity: 1; }
+									}
+
+									/* Input line */
+									.ask-inputline {
+										display: flex;
+										align-items: center;
+										gap: 0.1em;
+										font-family: 'Cascadia Mono', 'Fira Code', 'Consolas', monospace;
+										font-size: 0.82em;
+										border-top: 1px solid rgba(255,255,255,0.06);
+										padding-top: 0.9em;
+										margin: 0;
+									}
+									.ask-input {
+										flex: 1;
+										min-width: 0;
+										background: transparent;
+										border: none;
+										outline: none;
+										box-shadow: none;
+										color: #d4d4d4;
+										font-family: inherit;
+										font-size: 1em;
+										padding: 0.25em 0.5em;
+										height: auto;
+										line-height: 1.5;
+										caret-color: #4ec9b0;
+									}
+									.ask-input::placeholder { color: rgba(255,255,255,0.22); }
+									.ask-input:disabled { color: rgba(255,255,255,0.3); }
+
+									.ask-send {
+										flex-shrink: 0;
+										background: transparent;
+										border: 1px solid rgba(78,201,176,0.3);
+										border-radius: 6px;
+										color: #4ec9b0;
+										cursor: pointer;
+										padding: 0.3em 0.7em;
+										font-size: 0.85em;
+										line-height: 1;
+										transition: background 0.15s ease, border-color 0.15s ease, opacity 0.15s ease;
+									}
+									.ask-send:hover:not(:disabled) {
+										background: rgba(78,201,176,0.12);
+										border-color: rgba(78,201,176,0.55);
+									}
+									.ask-send:disabled { opacity: 0.35; cursor: default; }
+
+									.ask-turnstile:not(:empty) { margin-top: 0.9em; }
+
+									.ask-disclaimer {
+										font-family: 'Cascadia Mono', 'Fira Code', 'Consolas', monospace;
+										font-size: 0.66em;
+										color: #6a7fa8;
+										line-height: 1.5;
+										margin: 1em 0 0;
+									}
+									.ask-disclaimer::before {
+										content: '// ';
+										color: rgba(106,127,168,0.5);
+									}
+
+									.ask-sr-only {
+										position: absolute;
+										width: 1px; height: 1px;
+										padding: 0; margin: -1px;
+										overflow: hidden;
+										clip: rect(0,0,0,0);
+										white-space: nowrap;
+										border: 0;
+									}
+
+									@media (max-width: 600px) {
+										.ask-log { max-height: 18em; }
+										.ask-intro { font-size: 0.74em; }
+										.ask-chip { font-size: 0.68em; }
+									}
+								</style>
+
+								<script>
+								(function() {
+									var CONFIG_URL = 'assistant.json';
+
+									var cfg      = null;
+									var endpoint = '';
+									var history  = [];
+									var busy     = false;
+									var tsToken  = null;
+									var tsWidget = null;
+
+									var section = document.getElementById('four');
+									var navItem = document.getElementById('nav-assistant');
+									var form    = document.getElementById('ask-form');
+									var input   = document.getElementById('ask-input');
+									var sendBtn = document.getElementById('ask-send');
+									var log     = document.getElementById('ask-log');
+									var chips   = document.getElementById('ask-suggestions');
+
+									// ── Boot ──────────────────────────────────────────────────────────
+									// The section ships hidden. It is revealed only when the config says
+									// enabled AND an endpoint is configured, so a half-finished setup
+									// cannot leak onto the live site.
+									fetch(CONFIG_URL)
+										.then(function(r) {
+											if (!r.ok) throw new Error('config ' + r.status);
+											return r.json();
+										})
+										.then(function(data) {
+											cfg = data;
+											endpoint = (data.endpoint || '').replace(/\/$/, '');
+											if (data.enabled !== true || !endpoint) return; // stay hidden
+											init();
+										})
+										.catch(function(err) {
+											console.warn('Assistant config unavailable, section stays hidden.', err);
+										});
+
+									function init() {
+										applyText();
+										buildChips();
+										mountTurnstile();
+
+										form.addEventListener('submit', function(e) {
+											e.preventDefault();
+											var text = input.value.trim();
+											if (text) ask(text);
+										});
+
+										if (section) section.hidden = false;
+										if (navItem) navItem.hidden = false;
+									}
+
+									function applyText() {
+										var title = document.getElementById('ask-title');
+										var cmd   = document.getElementById('ask-command');
+										var intro = document.getElementById('ask-intro');
+										var disc  = document.getElementById('ask-disclaimer');
+
+										if (cfg.terminalTitle && title) title.textContent = cfg.terminalTitle;
+										if (cfg.command && cmd) cmd.textContent = ' ' + cfg.command;
+										if (cfg.intro && intro) intro.textContent = cfg.intro;
+										if (cfg.disclaimer && disc) disc.textContent = cfg.disclaimer;
+										if (cfg.maxChars) input.setAttribute('maxlength', String(cfg.maxChars));
+									}
+
+									function buildChips() {
+										var list = cfg.suggestions || [];
+										chips.innerHTML = '';
+										list.forEach(function(text) {
+											var b = document.createElement('button');
+											b.type = 'button';
+											b.className = 'ask-chip';
+											b.textContent = text;
+											b.addEventListener('click', function() {
+												if (!busy) ask(text);
+											});
+											chips.appendChild(b);
+										});
+									}
+
+									// ── Turnstile (optional) ──────────────────────────────────────────
+									function mountTurnstile() {
+										var key = cfg.turnstileSiteKey;
+										if (!key) return;
+
+										window.onAskTurnstileLoad = function() {
+											tsWidget = window.turnstile.render('#ask-turnstile', {
+												sitekey: key,
+												theme: 'dark',
+												size: 'flexible',
+												callback: function(token) { tsToken = token; }
+											});
+										};
+
+										var s = document.createElement('script');
+										s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onAskTurnstileLoad&render=explicit';
+										s.async = true;
+										s.defer = true;
+										document.head.appendChild(s);
+									}
+
+									// Turnstile tokens are single use, so a fresh one is needed per message.
+									function resetTurnstile() {
+										if (tsWidget !== null && window.turnstile) {
+											tsToken = null;
+											window.turnstile.reset(tsWidget);
+										}
+									}
+
+									// ── Rendering ─────────────────────────────────────────────────────
+									function scrollLog() {
+										log.scrollTop = log.scrollHeight;
+									}
+
+									function addEntry(question) {
+										var entry = document.createElement('div');
+										entry.className = 'ask-entry';
+
+										var q = document.createElement('div');
+										q.className = 'ask-q';
+										q.innerHTML = '<span class="t-prompt">visitor</span><span class="t-sep">:</span>' +
+										              '<span class="t-path">~</span><span class="t-dollar">$</span>';
+										q.appendChild(document.createTextNode(question));
+
+										var a = document.createElement('div');
+										a.className = 'ask-a';
+
+										var wait = document.createElement('span');
+										wait.className = 'ask-wait';
+										wait.innerHTML = '<span>.</span><span>.</span><span>.</span>';
+										a.appendChild(wait);
+
+										entry.appendChild(q);
+										entry.appendChild(a);
+										log.appendChild(entry);
+										scrollLog();
+										return a;
+									}
+
+									function fail(el, message) {
+										el.classList.add('is-error');
+										el.textContent = message;
+										scrollLog();
+									}
+
+									function setBusy(state) {
+										busy = state;
+										input.disabled = state;
+										sendBtn.disabled = state;
+									}
+
+									function messageForStatus(status) {
+										if (status === 429) return 'That is a lot of questions in a short window. Give it a few minutes.';
+										if (status === 503) return 'The assistant is offline right now. The resume above has everything.';
+										if (status === 403) return 'Could not verify this request. Try reloading the page.';
+										return 'Something went wrong reaching the assistant. Try again in a moment.';
+									}
+
+									// ── Ask ───────────────────────────────────────────────────────────
+									function ask(text) {
+										if (busy || !endpoint) return;
+
+										var maxChars = cfg.maxChars || 600;
+										if (text.length > maxChars) text = text.slice(0, maxChars);
+
+										var maxTurns = cfg.maxTurns || 8;
+										var asked = history.filter(function(m) { return m.role === 'user'; }).length;
+										if (asked >= maxTurns) {
+											var capped = addEntry(text);
+											fail(capped, 'That is the end of this session. Reload the page to start a new one, or grab the resume above.');
+											input.value = '';
+											setBusy(true);
+											return;
+										}
+
+										input.value = '';
+										chips.innerHTML = '';
+										setBusy(true);
+
+										var target = addEntry(text);
+										history.push({ role: 'user', content: text });
+
+										stream(target).catch(function(err) {
+											console.error(err);
+											fail(target, 'Could not reach the assistant. Check your connection and try again.');
+										}).then(function() {
+											setBusy(false);
+											resetTurnstile();
+											if (!('ontouchstart' in window)) input.focus();
+										});
+									}
+
+									async function stream(target) {
+										var payload = { messages: history };
+										if (tsToken) payload.turnstileToken = tsToken;
+
+										var res = await fetch(endpoint, {
+											method: 'POST',
+											headers: { 'Content-Type': 'application/json' },
+											body: JSON.stringify(payload)
+										});
+
+										if (!res.ok) {
+											var detail = null;
+											try { detail = await res.json(); } catch (e) { /* non-JSON error body */ }
+											fail(target, (detail && detail.message) || messageForStatus(res.status));
+											history.pop(); // drop the unanswered question so the thread stays valid
+											return;
+										}
+
+										var answer = '';
+
+										function consume(line) {
+											if (line.indexOf('data: ') !== 0) return true;
+											var evt;
+											try { evt = JSON.parse(line.slice(6)); } catch (e) { return true; }
+
+											if (evt.type === 'delta') {
+												answer += evt.text;
+												target.textContent = answer;
+												scrollLog();
+											} else if (evt.type === 'error') {
+												fail(target, evt.message);
+												return false;
+											}
+											return true;
+										}
+
+										// Streaming path.
+										if (res.body && res.body.getReader) {
+											var reader = res.body.getReader();
+											var decoder = new TextDecoder();
+											var buffer = '';
+
+											while (true) {
+												var chunk = await reader.read();
+												if (chunk.done) break;
+
+												buffer += decoder.decode(chunk.value, { stream: true });
+												var lines = buffer.split('\n');
+												buffer = lines.pop();
+
+												for (var i = 0; i < lines.length; i++) {
+													if (!consume(lines[i].trim())) { history.pop(); return; }
+												}
+											}
+										} else {
+											// Fallback for browsers without streaming response bodies.
+											var whole = await res.text();
+											var all = whole.split('\n');
+											for (var j = 0; j < all.length; j++) {
+												if (!consume(all[j].trim())) { history.pop(); return; }
+											}
+										}
+
+										if (answer) {
+											history.push({ role: 'assistant', content: answer });
+										} else {
+											fail(target, 'No answer came back. Try asking that a different way.');
+											history.pop();
+										}
+									}
+								})();
+								</script>
+							</section>
+
 					</div>
 
 				<!-- Footer -->
@@ -2591,22 +3079,29 @@
 				function updateActive() {
 					if (_forcedActive) return;
 
+					// Sections can be toggled off at runtime (the assistant ships hidden
+					// until assistant.json enables it). A display:none section reports a
+					// bounding rect of 0, which would otherwise win the comparison below
+					// and pin the highlight to it forever, so filter those out each pass.
+					var live = sections.filter(function(s) { return s.offsetParent !== null; });
+					if (!live.length) return;
+
 					var scrollY  = window.scrollY;
 					var viewH    = window.innerHeight;
 					var docH     = document.body.scrollHeight;
 					var atBottom = (scrollY + viewH) >= docH - 4;
 
 					if (atBottom) {
-						setActive(sections[sections.length - 1].id);
+						setActive(live[live.length - 1].id);
 						return;
 					}
 
 					// Use the viewport's upper-third as the trigger line
 					var triggerY = scrollY + viewH * 0.33;
-					var activeId = sections[0].id; // default to first
-					for (var i = 0; i < sections.length; i++) {
-						if (sections[i].getBoundingClientRect().top + scrollY <= triggerY) {
-							activeId = sections[i].id;
+					var activeId = live[0].id; // default to first
+					for (var i = 0; i < live.length; i++) {
+						if (live[i].getBoundingClientRect().top + scrollY <= triggerY) {
+							activeId = live[i].id;
 						}
 					}
 					setActive(activeId);

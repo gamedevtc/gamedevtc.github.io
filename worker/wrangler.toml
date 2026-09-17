@@ -1,0 +1,28 @@
+name = "portfolio-assistant"
+main = "src/index.js"
+compatibility_date = "2026-09-01"
+compatibility_flags = ["nodejs_compat"]
+
+[vars]
+# Origins allowed to call this worker. Comma-separated, no trailing slash.
+# Add "http://localhost:8000" while testing the site locally.
+ALLOWED_ORIGINS = "https://gamedevtc.github.io"
+
+# Where the worker fetches the knowledge base and resume data from.
+SITE_ORIGIN = "https://gamedevtc.github.io"
+
+# Server-side kill switch. Set to "false" to make the endpoint refuse all
+# traffic without touching the site or deleting the worker.
+ASSISTANT_ENABLED = "true"
+
+# Rate limiting. Optional but strongly recommended before going public.
+# Create with:  npx wrangler kv namespace create RATE_LIMIT
+# then paste the returned id below and uncomment this block.
+[[kv_namespaces]]
+binding = "RATE_LIMIT"
+id = "caabce8e55bc4e8996542db83b6b5722"
+
+# Secrets are NOT set here. Set them with:
+#   npx wrangler secret put ANTHROPIC_API_KEY
+#   npx wrangler secret put RATE_LIMIT_SALT      (any random string)
+#   npx wrangler secret put TURNSTILE_SECRET     (optional)

@@ -1,0 +1,25 @@
+{
+	"_comment": "Kill switch for the Ask-Me assistant. The section and its nav entry stay hidden unless enabled is true AND endpoint is set, so it cannot accidentally go live half-configured. Flip enabled to true and push when the knowledge base in assistant-kb.md is ready.",
+
+	"enabled": false,
+	"endpoint": "",
+
+	"navLabel": "Ask Me",
+	"terminalTitle": "taylor@portfolio:~/ask",
+	"command": "./ask-about-taylor --interactive",
+	"intro": "Ask me anything about Taylor's experience, projects, or how he works. I answer from his resume and project history.",
+
+	"suggestions": [
+		"What did he build at Halfbrick?",
+		"Does he have multiplayer experience?",
+		"What's his leadership experience?",
+		"Is he a fit for a small team?"
+	],
+
+	"disclaimer": "AI assistant. Answers come from Taylor's resume and project data, and can be imperfect. The resume download above is authoritative.",
+
+	"turnstileSiteKey": "",
+
+	"maxChars": 600,
+	"maxTurns": 8
+}
