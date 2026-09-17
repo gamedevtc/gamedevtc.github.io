@@ -1,0 +1,8 @@
+{
+  "thumb": "images/projects/cardclash/cardclash-thumb.png",
+  "background": "images/projects/cardclash/cardclash-background.png",
+  "slides":
+  [
+    { "type": "image", "src": "images/projects/cardclash/cardclash-1.png", "alt": "Card Clash Auto Battler" }
+  ]
+}
