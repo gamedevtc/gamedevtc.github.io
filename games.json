@@ -75,6 +75,34 @@
 		"experience": "panda-paw"
 	},
 	{
+		"id": "cardclash",
+		"name": "Card Clash Auto Battler",
+		"year": "2026",
+		"meta": "Personal Project",
+		"tags": [
+			"Next.js",
+			"React",
+			"TypeScript",
+			"Tailwind CSS",
+			"Web"
+		],
+		"roles": [
+			"Solo Developer",
+			"Designer",
+			"Programmer"
+		],
+		"desc": "A Super Auto Pets–inspired auto battler card game. Draft a lineup, equip boosters, and battle head-to-head in local 2-player PvP or against AI bots. 100+ cards with unique abilities, synergies, and set-collection bonuses. Built solo as a browser game.",
+		"bullets": [
+			"112-card roster spanning characters, ships, trails, emotes, and landmarks, each with unique stats and abilities",
+			"Set-collection bonuses that buff themed groups when fielded together",
+			"Local 2-player PvP plus AI bot opponents across a 5-round match",
+			"Custom deck builder with localStorage-saved lineups"
+		],
+		"links": [
+			{ "type": "website", "label": "Play Now", "icon": "fas fa-gamepad", "url": "https://card-clash-auto-battler.vercel.app" }
+		]
+	},
+	{
 		"id": "scraptics",
 		"name": "Scraptics",
 		"year": "2023–2026",
