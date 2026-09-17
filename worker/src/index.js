@@ -17,8 +17,18 @@ const MAX_TOKENS = 800;
 // Hard caps. These bound the damage if someone scripts against the endpoint.
 const MAX_MESSAGE_CHARS = 600;
 const MAX_TURNS = 16; // 8 visitor + 8 assistant
-const RATE_LIMIT_MAX = 15; // requests per IP...
-const RATE_LIMIT_WINDOW_S = 600; // ...per 10 minutes
+// Two layers, because neither primitive does both jobs.
+//
+// BURST_LIMIT (the [[ratelimits]] binding) is strongly consistent and has no
+// write quota, so it is the one that actually stops rapid-fire abuse.
+//
+// KV is the weaker second layer. It has no atomic increment, so its
+// read-modify-write loses increments whenever requests overlap: measured at 20
+// counted out of ~95 actual. Treat it as a soft backstop against slow, steady
+// abuse (where reads are fresh and it counts accurately), never as an exact cap.
+// The hard guarantee is a spend limit set in the Anthropic console.
+const DAILY_MAX = 40; // approximate requests per IP per day
+const DAILY_WINDOW_S = 86400;
 
 // Source files pulled from the site to build the system prompt. Order is fixed:
 // prompt caching is a prefix match, so a stable byte sequence matters.
@@ -106,26 +116,43 @@ async function sha256(value) {
 }
 
 /**
- * Fixed-window limiter backed by KV.
- *
- * Fails CLOSED: if KV is bound but erroring, requests are rejected rather than
- * waved through. On a metered endpoint, refusing service is the cheaper mistake.
+ * Burst protection. Strongly consistent and evaluated at the edge, so unlike KV
+ * it is reliable against rapid-fire requests. Fails CLOSED.
  */
-async function rateLimit(env, ip) {
+async function burstLimit(env, ip) {
+	if (!env.BURST_LIMIT) return true;
+
+	try {
+		const { success } = await env.BURST_LIMIT.limit({ key: ip });
+		return success;
+	} catch (err) {
+		console.error('burst limiter failed', err);
+		return false;
+	}
+}
+
+/**
+ * Daily ceiling backed by KV, hashed so raw IPs are never stored.
+ *
+ * KV's ~60s read cache is irrelevant across a 24 hour window, which is why this
+ * layer is a daily cap and not the short window it started as. Fails CLOSED: on
+ * a metered endpoint, refusing service is the cheaper mistake.
+ */
+async function dailyLimit(env, ip) {
 	if (!env.RATE_LIMIT) return true;
 
-	const window = Math.floor(Date.now() / 1000 / RATE_LIMIT_WINDOW_S);
+	const window = Math.floor(Date.now() / 1000 / DAILY_WINDOW_S);
 	const key = 'rl:' + (await sha256(ip + (env.RATE_LIMIT_SALT || ''))) + ':' + window;
 
 	try {
 		const current = parseInt((await env.RATE_LIMIT.get(key)) || '0', 10);
-		if (current >= RATE_LIMIT_MAX) return false;
+		if (current >= DAILY_MAX) return false;
 		await env.RATE_LIMIT.put(key, String(current + 1), {
-			expirationTtl: RATE_LIMIT_WINDOW_S * 2
+			expirationTtl: DAILY_WINDOW_S * 2
 		});
 		return true;
 	} catch (err) {
-		console.error('rate limit backend failed', err);
+		console.error('daily limiter failed', err);
 		return false;
 	}
 }
@@ -251,7 +278,8 @@ export default {
 					enabled: env.ASSISTANT_ENABLED !== 'false',
 					model: MODEL,
 					turnstile: Boolean(env.TURNSTILE_SECRET),
-					rateLimit: Boolean(env.RATE_LIMIT)
+					burstLimit: Boolean(env.BURST_LIMIT),
+					dailyLimit: Boolean(env.RATE_LIMIT)
 				},
 				200,
 				cors
@@ -284,11 +312,22 @@ export default {
 			return json({ error: 'verification_failed' }, 403, cors);
 		}
 
-		if (!(await rateLimit(env, ip))) {
+		if (!(await burstLimit(env, ip))) {
 			return json(
 				{
 					error: 'rate_limited',
-					message: 'That is a lot of questions in a short window. Give it a few minutes.'
+					message: 'That is a lot of questions at once. Give it a minute.'
+				},
+				429,
+				cors
+			);
+		}
+
+		if (!(await dailyLimit(env, ip))) {
+			return json(
+				{
+					error: 'rate_limited',
+					message: 'You have reached the question limit for today. The resume download has the rest.'
 				},
 				429,
 				cors

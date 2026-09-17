@@ -18,7 +18,7 @@
 
 	"disclaimer": "AI assistant. Answers come from Taylor's resume and project data, and can be imperfect. The resume download above is authoritative.",
 
-	"turnstileSiteKey": "",
+	"turnstileSiteKey": "0x4AAAAAAE7DonSqatn0e_yE",
 
 	"maxChars": 600,
 	"maxTurns": 8

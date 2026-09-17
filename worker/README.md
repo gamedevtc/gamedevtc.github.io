@@ -56,9 +56,30 @@ npx wrangler secret put RATE_LIMIT_SALT   # any random string
 npx wrangler deploy
 ```
 
-Current limit: 15 requests per IP per 10 minutes, set at the top of `src/index.js`. The limiter
-fails **closed** -- if KV errors, requests are rejected rather than waved through. On a metered
-endpoint, refusing service is the cheaper mistake.
+### The two layers, and what each is actually worth
+
+**Layer 1, `[[ratelimits]]` in `wrangler.toml` (5 per IP per 60s).** Strongly consistent, no write
+quota. This is the layer that does real work. It is *permissive* by design: measured against a
+limit of 8 it let roughly 16 through before clamping, so treat the effective ceiling as about
+double the configured number.
+
+**Layer 2, KV (about 40 per IP per day).** Weak. KV has no atomic increment, so the
+read-modify-write loses increments whenever requests overlap. Measured: **20 counted out of ~95
+actual**, an undercount of roughly 5x. It counts accurately only when requests are spread out, so
+treat it as a soft backstop against slow steady abuse and never as an exact cap.
+
+Both fail **closed** -- if the backend errors, requests are rejected rather than waved through.
+
+### The guarantee neither layer gives you
+
+Rate limiting is per IP, so it does not bound your total bill. Two things do:
+
+1. **A spend limit in the Anthropic console.** This is the only hard ceiling. Set it.
+2. **Turnstile** (next section). A script cannot solve it, which removes the automated-abuse case
+   that rate limiting only slows down.
+
+If you want a genuinely accurate counter, it needs Durable Objects rather than KV. That is real
+added complexity and probably not worth it for a portfolio, given the two controls above.
 
 ---
 
@@ -123,8 +144,10 @@ Everything worth changing is at the top of `src/index.js`:
 | `MAX_TOKENS` | `800` | Answer length ceiling |
 | `MAX_MESSAGE_CHARS` | `600` | Per message; keep in sync with `maxChars` in `assistant.json` |
 | `MAX_TURNS` | `16` | 8 visitor + 8 assistant |
-| `RATE_LIMIT_MAX` | `15` | Per IP per window |
-| `RATE_LIMIT_WINDOW_S` | `600` | 10 minutes |
+| `DAILY_MAX` | `40` | Approximate per IP per day (see the undercount note above) |
+| `DAILY_WINDOW_S` | `86400` | 24 hours |
+
+The burst limit lives in `wrangler.toml` under `[ratelimits.simple]`, not in `src/index.js`.
 
 Latency is dominated by `output_config.effort`, currently `low`. Raising it to `medium` makes
 answers more considered and noticeably slower to start.

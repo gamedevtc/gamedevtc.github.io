@@ -15,9 +15,27 @@ SITE_ORIGIN = "https://gamedevtc.github.io"
 # traffic without touching the site or deleting the worker.
 ASSISTANT_ENABLED = "true"
 
-# Rate limiting. Optional but strongly recommended before going public.
-# Create with:  npx wrangler kv namespace create RATE_LIMIT
-# then paste the returned id below and uncomment this block.
+# ── Rate limiting, layer 1: burst protection ──
+# Strongly consistent and evaluated at the edge, with no write quota. This is
+# the layer that actually stops rapid-fire abuse. KV cannot do this job: its
+# reads are cached for up to 60s, so a burst reads a stale counter and sails
+# through. namespace_id is just a unique number you pick per limiter.
+[[ratelimits]]
+name = "BURST_LIMIT"
+namespace_id = "1001"
+
+  # Enforcement is permissive: measured, it let ~16 through before clamping, so
+  # treat the effective ceiling as roughly double this number. 5 leaves plenty of
+  # headroom for a real visitor, who cannot read a streamed answer and ask again
+  # faster than about 4 times a minute.
+  [ratelimits.simple]
+  limit = 5
+  period = 60
+
+# ── Rate limiting, layer 2: daily ceiling ──
+# KV's eventual consistency is fine across 24 hours. Caps sustained abuse that
+# stays politely under the burst limit.
+# Created with:  npx wrangler kv namespace create RATE_LIMIT
 [[kv_namespaces]]
 binding = "RATE_LIMIT"
 id = "caabce8e55bc4e8996542db83b6b5722"
