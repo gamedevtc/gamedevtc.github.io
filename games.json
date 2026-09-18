@@ -3,6 +3,11 @@
 		"id": "catchup",
 		"name": "CatchUp Showdown",
 		"year": "2026",
+		"platforms": "PC",
+		"play": {
+			"label": "Play on Steam",
+			"link": "steam"
+		},
 		"meta": "Panda Paw Entertainment",
 		"tags": [
 			"Unity 6",
@@ -45,6 +50,7 @@
 		"id": "swipers",
 		"name": "Swipers",
 		"year": "2026",
+		"platforms": "PC",
 		"meta": "Panda Paw Entertainment · Unreleased",
 		"tags": [
 			"Unity 6",
@@ -78,6 +84,11 @@
 		"id": "cardclash",
 		"name": "Card Clash Auto Battler",
 		"year": "2026",
+		"platforms": "Web",
+		"play": {
+			"label": "Play in browser",
+			"link": "website"
+		},
 		"meta": "Personal Project",
 		"tags": [
 			"Next.js",
@@ -106,6 +117,7 @@
 		"id": "scraptics",
 		"name": "Scraptics",
 		"year": "2023–2026",
+		"platforms": "iOS & Android",
 		"meta": "Halfbrick Studios",
 		"tags": [
 			"Unity 6",
@@ -136,6 +148,7 @@
 		"id": "sumo",
 		"name": "Sumo Fight",
 		"year": "2024",
+		"platforms": "iOS & Android",
 		"meta": "Halfbrick Fridays Game Jam",
 		"tags": [
 			"Unity 6",
@@ -157,6 +170,7 @@
 		"id": "survivors",
 		"name": "Survivors Aren't Dead",
 		"year": "2023",
+		"platforms": "iOS & Android",
 		"meta": "Halfbrick Fridays Game Jam",
 		"tags": [
 			"Unity 6",
@@ -179,6 +193,7 @@
 		"id": "unannounced",
 		"name": "Unannounced Mobile Project",
 		"year": "2021–2023",
+		"platforms": "iOS & Android",
 		"meta": "Halfbrick Studios · Unreleased",
 		"tags": [
 			"Unity",
@@ -201,6 +216,7 @@
 		"id": "rucksack",
 		"name": "Rucksack Dungeon",
 		"year": "2022",
+		"platforms": "iOS & Android",
 		"meta": "Halfbrick Fridays Game Jam",
 		"tags": [
 			"Unity",
@@ -223,6 +239,7 @@
 		"id": "to-the-moon",
 		"name": "To The Moon!",
 		"year": "2021",
+		"platforms": "PC",
 		"meta": "Full Sail University",
 		"tags": [
 			"Unity HDRP",
@@ -246,6 +263,7 @@
 		"id": "memoria",
 		"name": "Memoria Damnum",
 		"year": "2020",
+		"platforms": "PC",
 		"meta": "Global Game Jam 2020",
 		"tags": [
 			"Unity",
@@ -270,6 +288,11 @@
 		"id": "retrospectre",
 		"name": "Retrospectre",
 		"year": "2019",
+		"platforms": "PC & Web",
+		"play": {
+			"label": "Play on itch",
+			"link": "itch"
+		},
 		"meta": "Full Sail University",
 		"tags": [
 			"Unity",

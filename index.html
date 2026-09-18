@@ -407,8 +407,8 @@
 											z-index: 1;
 										}
 
-										/* ── Experience tag on app icon ── */
-										.app-icon-exp {
+										/* ── Platform tag on app icon ── */
+										.app-icon-platform {
 											display: block !important;
 											visibility: visible !important;
 											margin-top: 0.15em;
@@ -421,7 +421,86 @@
 											z-index: 1;
 											letter-spacing: 0.02em;
 										}
-										body.dark-mode .app-icon-exp { color: rgba(78,201,176,0.85) !important; }
+										body.dark-mode .app-icon-platform { color: rgba(78,201,176,0.85) !important; }
+
+										/* ── Playable badge on app icon ── */
+										.app-icon-play {
+											position: absolute;
+											bottom: -9px;
+											left: 50%;
+											transform: translateX(-50%);
+											display: flex;
+											align-items: center;
+											justify-content: center;
+											gap: 0.32em;
+											height: 20px;
+											max-width: 130px;
+											padding: 0 8px;
+											border-radius: 10px;
+											background: #28c840;
+											color: #fff;
+											font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif;
+											font-size: 10px;
+											font-weight: 700;
+											line-height: 1;
+											white-space: nowrap;
+											box-shadow: 0 1px 4px rgba(0,0,0,0.4);
+											z-index: 10;
+											cursor: pointer;
+											text-decoration: none;
+											/* The template puts a border-bottom on every <a> and forces a colour
+											   on :hover with !important, so both need overriding here. */
+											color: #fff !important;
+											border-bottom: none !important;
+											transition: max-width 0.28s ease, padding 0.28s ease, gap 0.28s ease, background 0.15s ease;
+										}
+										.app-icon-play:hover,
+										.app-icon-play:focus {
+											color: #fff !important;
+											border-bottom: none !important;
+											background: #34d94e;
+										}
+										.app-icon-play:focus-visible {
+											outline: 2px solid #fff;
+											outline-offset: 2px;
+										}
+										/* Widens the tap target downward into empty space rather than up into
+										   the icon, so aiming at the tile does not catch the badge by mistake.
+										   Only effective where the badge is not clipped, i.e. touch devices. */
+										.app-icon-play::after {
+											content: '';
+											position: absolute;
+											left: -8px;
+											right: -8px;
+											top: -2px;
+											bottom: -12px;
+										}
+										.app-icon-play-glyph { font-size: 9px; line-height: 1; }
+										.app-icon-play-text { opacity: 1; transition: opacity 0.2s ease; }
+
+										/* Drop the name so the badge is not sitting on top of it */
+										.has-play .app-icon-label { margin-top: 1.25em; }
+
+										/* Collapse to a glyph only where hover genuinely exists, and unfold on
+										   hover. Touch devices skip this entirely and stay expanded. */
+										@media (hover: hover) and (pointer: fine) {
+											.app-icon-play {
+												max-width: 20px;
+												padding: 0;
+												gap: 0;
+												/* Clipping is only needed for the collapse animation, which only
+												   exists here. Leaving it off elsewhere lets the ::after tap
+												   target above actually extend past the badge on touch. */
+												overflow: hidden;
+											}
+											.app-icon-play-text { opacity: 0; }
+											.app-icon-wrap:hover .app-icon-play {
+												max-width: 130px;
+												padding: 0 8px;
+												gap: 0.32em;
+											}
+											.app-icon-wrap:hover .app-icon-play-text { opacity: 1; }
+										}
 
 										/* ── Experience pill in app sheet tags row ── */
 										.appstore-tag-exp {
@@ -876,6 +955,17 @@
 												grid-template-columns: repeat(3, 1fr);
 												gap: 1.4em;
 											}
+											/* Tiles are much narrower here and the badge is always expanded,
+											   so shrink it to stay inside the tile. */
+											.app-icon-play {
+												font-size: 9px;
+												height: 18px;
+												border-radius: 9px;
+												padding: 0 6px;
+												max-width: 112px;
+												bottom: -8px;
+											}
+											.app-icon-play-glyph { font-size: 8px; }
 											.appstore-gallery-item { width: 180px; height: 120px; }
 											.appstore-header-icon { height: 80px; min-width: 80px; max-width: 200px; border-radius: 18px; }
 										}
@@ -1294,6 +1384,50 @@
 												stage.appendChild(badge);
 											}
 
+											// Playable indicator. Only a few projects have a public build, and
+											// being able to go play one is the strongest thing a visitor can do,
+											// so it is surfaced on the grid rather than hidden in the sheet.
+											// Collapsed to a glyph on hover-capable devices and unfolds on hover;
+											// always expanded on touch, where there is no hover to rely on.
+											// game.play names a link by type rather than repeating the URL, so
+											// editing a URL in `links` can never leave this pointing at a stale one.
+											var playUrl = null;
+											if (game.play && game.play.link) {
+												(game.links || []).some(function(l) {
+													if (l.type === game.play.link) { playUrl = l.url; return true; }
+													return false;
+												});
+											}
+
+											// Only render once the referenced link actually resolves. A bad
+											// reference yields no badge rather than a dead one.
+											if (playUrl) {
+												wrap.classList.add('has-play');
+
+												var playBadge = document.createElement('a');
+												playBadge.className = 'app-icon-play';
+												playBadge.href = playUrl;
+												playBadge.target = '_blank';
+												playBadge.rel = 'noopener noreferrer';
+												playBadge.setAttribute('aria-label', game.play.label + ', opens in a new tab');
+
+												// Stop the tile's own handler firing underneath, which would open
+												// the detail sheet behind the newly opened tab.
+												playBadge.addEventListener('click', function(e) { e.stopPropagation(); });
+
+												var playGlyph = document.createElement('span');
+												playGlyph.className = 'app-icon-play-glyph';
+												playGlyph.textContent = '▶';
+
+												var playText = document.createElement('span');
+												playText.className = 'app-icon-play-text';
+												playText.textContent = game.play.label;
+
+												playBadge.appendChild(playGlyph);
+												playBadge.appendChild(playText);
+												stage.appendChild(playBadge);
+											}
+
 											wrap.appendChild(stage);
 
 											// Label appended synchronously — always visible
@@ -1310,17 +1444,14 @@
 												wrap.appendChild(yearLabel);
 											}
 
-											// Experience tag below year
-											if (game.experience) {
-												var expData = typeof game.experience === 'string'
-													? (EXPERIENCE_DATA[game.experience] ? { label: EXPERIENCE_DATA[game.experience].company } : null)
-													: { label: game.experience.label };
-												if (expData) {
-													var expLabel = document.createElement('span');
-													expLabel.className = 'app-icon-exp';
-													expLabel.textContent = expData.label;
-													wrap.appendChild(expLabel);
-												}
+											// Platform tag below year. This replaced the studio name: now that the
+											// work spans both mobile and PC, the platform is the more useful thing
+											// to know at a glance. The studio is still shown in the detail sheet.
+											if (game.platforms) {
+												var platLabel = document.createElement('span');
+												platLabel.className = 'app-icon-platform';
+												platLabel.textContent = game.platforms;
+												wrap.appendChild(platLabel);
 											}
 
 											wrap.addEventListener('click', (function(id) {
