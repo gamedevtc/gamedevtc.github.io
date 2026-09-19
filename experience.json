@@ -10,7 +10,6 @@
         "AI & Systems Programmer"
       ],
       "date": "Mar 2026 – Present",
-      "status": "Furloughed",
       "startDate": "2026-03"
     },
     {
@@ -54,11 +53,11 @@
   "skills": [
     {
       "key": "languages",
-      "value": "C#  ·  C++  ·  HLSL  ·  HTML"
+      "value": "C#  ·  C++  ·  HLSL  ·  HTML  ·  Next.js  ·  React  ·  Tailwind"
     },
     {
       "key": "engine",
-      "value": "Unity (URP / HDRP / 6 / Cloud)  ·  Photon Fusion"
+      "value": "Unity (URP / HDRP / 6 / Cloud)  ·  Photon Fusion  ·  FMOD"
     },
     {
       "key": "platforms",
@@ -66,7 +65,7 @@
     },
     {
       "key": "versionControl",
-      "value": "Perforce  ·  Git  ·  TeamCity"
+      "value": "PlasticSCM  ·  Perforce  ·  Git  ·  TeamCity"
     },
     {
       "key": "tools",
@@ -78,7 +77,7 @@
     },
     {
       "key": "specialisms",
-      "value": "AI Behaviors  ·  Procedural Gen  ·  Tool Development  ·  Profiling & Optimization"
+      "value": "Multiplayer & Netcode  ·  Rapid Prototyping  ·  AI Behaviors  ·  Procedural Gen  ·  UI/UX  ·  Tool Development  ·  Profiling & Optimization"
     },
     {
       "key": "leadership",
