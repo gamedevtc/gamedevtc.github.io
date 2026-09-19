@@ -6,9 +6,16 @@ GitHub Pages is static, so the site cannot call the Claude API directly: an API 
 JavaScript is visible in view-source and gets scraped. This worker holds the key, validates and
 rate limits requests, and streams answers back to the page.
 
-It reads the knowledge base and resume data from the **live site** on a 5 minute cache, so
-iterating on what the assistant says is a push to the portfolio repo. You only redeploy this
-worker when you change worker code.
+Résumé and project data are read from the **live site** on a 5 minute cache, so those stay in sync
+with the portfolio automatically.
+
+`assistant-kb.md` is different. It sits in this directory, is **gitignored**, and is compiled into
+the worker bundle at deploy time. It holds the assistant's own instructions and background material,
+which is private by design: GitHub Pages serves every committed file and this repo is public. Two
+consequences:
+
+- Editing it means `npx wrangler deploy`, not a push.
+- It is **not in version control**. Keep a backup somewhere private.
 
 ---
 

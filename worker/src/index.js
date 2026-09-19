@@ -11,6 +11,12 @@
 
 import Anthropic from '@anthropic-ai/sdk';
 
+// Bundled at build time rather than fetched from the site. GitHub Pages serves
+// every committed file and the repo is public, so a knowledge base full of
+// positioning notes does not belong there. Edit worker/assistant-kb.md and
+// redeploy; it is gitignored, so keep a backup.
+import KNOWLEDGE_BASE from '../assistant-kb.md';
+
 const MODEL = 'claude-sonnet-5';
 const MAX_TOKENS = 800;
 
@@ -33,7 +39,6 @@ const DAILY_WINDOW_S = 86400;
 // Source files pulled from the site to build the system prompt. Order is fixed:
 // prompt caching is a prefix match, so a stable byte sequence matters.
 const KB_SOURCES = [
-	{ path: 'assistant-kb.md', label: 'BRIEFING' },
 	{ path: 'downloads/Resume-Content.md', label: 'RESUME' },
 	{ path: 'experience.json', label: 'EXPERIENCE' },
 	{ path: 'games.json', label: 'PROJECTS' },
@@ -225,7 +230,9 @@ async function loadCorpus(env) {
 	const loaded = parts.filter(Boolean);
 	if (!loaded.length) throw new Error('no reference material could be loaded');
 
-	const text = loaded.join('\n\n');
+	// The briefing leads, since it tells the model how to use everything after it.
+	const text = '===== BRIEFING (bundled) =====\n' + redact(KNOWLEDGE_BASE.trim()) +
+		'\n\n' + loaded.join('\n\n');
 	corpusCache = { text: text, at: now };
 	return text;
 }

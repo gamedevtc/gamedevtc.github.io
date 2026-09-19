@@ -1,5 +1,5 @@
 {
-	"_comment": "Kill switch for the Ask-Me assistant. The section and its nav entry stay hidden unless enabled is true AND endpoint is set, so it cannot accidentally go live half-configured. Flip enabled to true and push when the knowledge base in assistant-kb.md is ready.",
+	"_comment": "Kill switch for the Ask-Me assistant. The section stays hidden unless enabled is true AND endpoint is set, so it cannot accidentally go live half-configured. Add ?assistant=preview to the site URL to test it while it is switched off.",
 
 	"enabled": true,
 	"endpoint": "https://portfolio-assistant.gamedevtc.workers.dev",

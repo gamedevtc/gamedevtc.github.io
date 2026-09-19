@@ -3,6 +3,15 @@ main = "src/index.js"
 compatibility_date = "2026-09-01"
 compatibility_flags = ["nodejs_compat"]
 
+# Lets src/index.js import assistant-kb.md as a plain string at build time.
+# The knowledge base carries positioning and framing notes that should not sit
+# in the public portfolio repo, so it is gitignored and travels only inside the
+# deployed bundle. Keep a backup of it: it is not in version control.
+[[rules]]
+type = "Text"
+globs = ["**/*.md"]
+fallthrough = false
+
 [vars]
 # Origins allowed to call this worker. Comma-separated, no trailing slash.
 # Add "http://localhost:8000" while testing the site locally.
