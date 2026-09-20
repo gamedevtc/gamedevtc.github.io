@@ -1,7 +1,15 @@
 [
 	{
+		"file": "Assassin's Creed - Odyssey.jpg",
+		"name": "Assassin's Creed - Odyssey"
+	},
+	{
 		"file": "Backpack Hero.png",
 		"name": "Backpack Hero"
+	},
+	{
+		"file": "Blue Prince.jpg",
+		"name": "Blue Prince"
 	},
 	{
 		"file": "Diablo III.jpg",
@@ -56,6 +64,10 @@
 		"name": "Remnant - From The Ashes"
 	},
 	{
+		"file": "REPO.webp",
+		"name": "REPO"
+	},
+	{
 		"file": "Returnal.jpg",
 		"name": "Returnal"
 	},
@@ -94,6 +106,10 @@
 	{
 		"file": "Valheim.png",
 		"name": "Valheim"
+	},
+	{
+		"file": "Vampire Survivors.webp",
+		"name": "Vampire Survivors"
 	},
 	{
 		"file": "Viva Pinata.jpg",
