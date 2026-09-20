@@ -3221,9 +3221,11 @@
 										flex-direction: column;
 										align-items: center;
 										flex: 0 0 auto;
+										/* Width is pinned to the cover's measured width from JS. Without
+										   that, a flex column sizes to its widest child's max-content
+										   width, so a long unwrapped caption would stretch the tile wider
+										   than its art and leave gaps either side. */
 										width: auto;
-										min-width: 130px;      /* gives narrow covers room for their caption */
-										max-width: 320px;
 										margin: 0 1em 0 0;
 									}
 
@@ -3247,6 +3249,8 @@
 
 									/* Caption sits under the cover and wraps, so long titles are never clipped. */
 									.fav-name {
+										width: 100%;
+										box-sizing: border-box;
 										margin-top: 0.7em;
 										padding: 0 0.2em;
 										font-family: 'Cascadia Mono', 'Fira Code', 'Consolas', monospace;
@@ -3254,6 +3258,7 @@
 										line-height: 1.35;
 										text-align: center;
 										color: #3d4449;
+										overflow-wrap: break-word;
 										word-break: break-word;
 										hyphens: auto;
 									}
@@ -3337,6 +3342,23 @@
 										return arr;
 									}
 
+									// Locks a tile to the rendered width of its cover, so the caption wraps
+									// inside the art instead of stretching the tile and leaving side gaps.
+									// Only meaningful once the section is visible: a display:none subtree
+									// measures zero.
+									function fitTile(fig) {
+										var img = fig.querySelector('img');
+										if (!img) return;
+										fig.style.width = '';
+										var w = img.getBoundingClientRect().width;
+										if (w) fig.style.width = Math.round(w) + 'px';
+									}
+
+									function fitAll() {
+										var figs = track.querySelectorAll('.fav-item');
+										Array.prototype.forEach.call(figs, fitTile);
+									}
+
 									function buildSet(ariaHidden) {
 										var set = document.createElement('div');
 										set.className = 'fav-set';
@@ -3354,6 +3376,10 @@
 											img.alt = ariaHidden ? '' : (item.name || item.file);
 											img.decoding = 'async';
 											img.draggable = false;
+											// Duplicate sets are built later and load from cache, so each tile
+											// pins itself as its own cover resolves rather than depending on a
+											// single measuring pass having already happened.
+											img.addEventListener('load', function() { fitTile(fig); });
 											// A cover that fails to load removes itself rather than leaving a gap.
 											img.addEventListener('error', function() { fig.remove(); });
 
@@ -3411,6 +3437,10 @@
 									function layout(first) {
 										if (!first) return;
 
+										// Pin tiles before measuring. A stretched tile would inflate the
+										// set width and throw off the wrap distance.
+										fitAll();
+
 										var measured = first.getBoundingClientRect().width;
 										if (!measured) return;
 										setWidth = measured;
@@ -3420,6 +3450,10 @@
 										var needed = Math.max(2, Math.ceil((marquee.clientWidth * 2) / setWidth) + 1);
 										while (track.children.length > needed) track.lastElementChild.remove();
 										while (track.children.length < needed) track.appendChild(buildSet(true));
+
+										// Copies drawn from cache may already be complete, in which case
+										// their load listener has nothing left to fire.
+										fitAll();
 
 										wrap();
 										render();
