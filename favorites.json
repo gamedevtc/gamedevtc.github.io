@@ -1,1 +1,102 @@
-[]
+[
+	{
+		"file": "Backpack Hero.png",
+		"name": "Backpack Hero"
+	},
+	{
+		"file": "Diablo III.jpg",
+		"name": "Diablo III"
+	},
+	{
+		"file": "Ghost of Tsushima.jpg",
+		"name": "Ghost of Tsushima"
+	},
+	{
+		"file": "God Of War (2018).jpg",
+		"name": "God Of War (2018)"
+	},
+	{
+		"file": "Guild Wars.webp",
+		"name": "Guild Wars"
+	},
+	{
+		"file": "Guild Wars 2.jpg",
+		"name": "Guild Wars 2"
+	},
+	{
+		"file": "Helldivers 2.jpg",
+		"name": "Helldivers 2"
+	},
+	{
+		"file": "Little Big Planet.jpg",
+		"name": "Little Big Planet"
+	},
+	{
+		"file": "Little Big Planet 2.webp",
+		"name": "Little Big Planet 2"
+	},
+	{
+		"file": "Pokemon Legends - Arceus.jpg",
+		"name": "Pokemon Legends - Arceus"
+	},
+	{
+		"file": "Ratchet & Clank.jpg",
+		"name": "Ratchet & Clank"
+	},
+	{
+		"file": "Ratchet & Clank - Going Commando.webp",
+		"name": "Ratchet & Clank - Going Commando"
+	},
+	{
+		"file": "Ratchet & Clank - Up Your Arsenal.jpg",
+		"name": "Ratchet & Clank - Up Your Arsenal"
+	},
+	{
+		"file": "Remnant - From The Ashes.jpg",
+		"name": "Remnant - From The Ashes"
+	},
+	{
+		"file": "Returnal.jpg",
+		"name": "Returnal"
+	},
+	{
+		"file": "Satisfactory.jpg",
+		"name": "Satisfactory"
+	},
+	{
+		"file": "Shadow Warrior.jpg",
+		"name": "Shadow Warrior"
+	},
+	{
+		"file": "Slay The Spire.webp",
+		"name": "Slay The Spire"
+	},
+	{
+		"file": "Sly 2 - Band of Thieves.png",
+		"name": "Sly 2 - Band of Thieves"
+	},
+	{
+		"file": "Sly 3 - Honor Among Thieves.jpg",
+		"name": "Sly 3 - Honor Among Thieves"
+	},
+	{
+		"file": "Sly Cooper.webp",
+		"name": "Sly Cooper"
+	},
+	{
+		"file": "Tenchu Z.jpg",
+		"name": "Tenchu Z"
+	},
+	{
+		"file": "Titanfall 2.webp",
+		"name": "Titanfall 2"
+	},
+	{
+		"file": "Valheim.png",
+		"name": "Valheim"
+	},
+	{
+		"file": "Viva Pinata.jpg",
+		"name": "Viva Pinata"
+	}
+]
