@@ -9,7 +9,7 @@ HTML. This README documents how the site is put together and, most importantly, 
 content by hand**.
 
 > Originally built on the HTML5 UP "Read Only" template, but heavily customized since — the app-store
-> project grid, the terminal-style Documents section, the JSON data layer, dark mode, and the social/
+> project grid, the terminal-style Experience section, the JSON data layer, dark mode, and the social/
 > store link pills are all bespoke. See **Credits & License** at the bottom.
 
 ---
@@ -29,7 +29,7 @@ content by hand**.
 |---|---|---|
 | `#one`   | About     | Top card: portrait, name, role, degree, auto-computed **YRS EXP** + **PROJECTS** stats, and the bio blurb. Driven by `profile.json` (+ `experience.json` for the stats). |
 | `#two`   | Projects  | App-store-style icon grid built from `games.json`. Click a game to open a detail sheet with its tags, link pills, roles, description, and an image/video/YouTube slideshow (`slides.json`). |
-| `#three` | Documents | Terminal-style résumé: experience, education, and skills from `experience.json`, plus the Résumé and Letter-of-Reference download buttons. |
+| `#three` | Experience | Terminal-style résumé: experience, education, and skills from `experience.json`, plus the Résumé and Letter-of-Reference download buttons. The **Ask Me** assistant terminal sits at the top of this section — see [The Ask Me assistant](#the-ask-me-assistant). |
 
 ---
 
@@ -39,8 +39,9 @@ content by hand**.
 /
 ├── index.html              ← all markup, CSS, and JS (single file)
 ├── games.json              ← the Projects grid (array of game objects)
-├── experience.json         ← work / education / skills (Documents section)
+├── experience.json         ← work / education / skills (Experience section)
 ├── profile.json            ← name, title, bio, portrait, social links, résumé path
+├── assistant.json          ← Ask Me assistant: kill switch, worker endpoint, UI copy
 ├── .gitattributes          ← Git LFS rules for archived videos (see "Media & video")
 ├── downloads/              ← résumé + letter of reference (PDFs)
 ├── videos/                 ← site banner video
@@ -125,7 +126,7 @@ Controls the card thumbnail and the detail-sheet slideshow.
 - `type: "youtube"` → `src` is just the **YouTube video ID** (the part after `watch?v=`). Best choice
   for anything large — see **Media & video** below.
 
-### `experience.json` — Documents section
+### `experience.json` — Experience section
 
 Three arrays: `work`, `education`, `skills`.
 
@@ -151,7 +152,76 @@ The `id` on a work/education entry is what a game's `experience` string points a
   (years, project counts) **out** of it — those are shown as auto-computed stats.
 - `links[]`: `{ label, url, icon, newTab }` (`icon` is a Font Awesome class like `"brands alt fa-github"`).
 - `resume` and `reference` are paths to PDFs in `downloads/` — they populate the Résumé and
-  Letter-of-Reference download buttons in the Documents section.
+  Letter-of-Reference download buttons in the Experience section.
+
+---
+
+## The Ask Me assistant
+
+The terminal at the top of the Experience section is a Claude-powered assistant that answers
+recruiter questions about Taylor. It is the one part of this site that is **not** self-contained.
+
+> **The backend is not in this repo.** It lives in the private repo
+> [`gamedevtc/portfolio-assistant`](https://github.com/gamedevtc/portfolio-assistant), locally at
+> `D:\Personal Projects\Portfolio\portfolio-assistant`. Nothing here points to it except the
+> `endpoint` URL in `assistant.json`, so it is easy to miss.
+
+### Why it is split
+
+GitHub Pages is static, so the page cannot call the Claude API directly: an API key in client JS is
+visible in view-source and gets scraped within days. A Cloudflare Worker holds the key instead.
+
+That worker also bundles `assistant-kb.md`, the file that tells the assistant how to answer sensitive
+questions (the furlough, weaknesses, salary, what never to claim). GitHub Pages serves every
+committed file and **this repo is public**, so that file cannot live here. It sits in the private
+repo and is compiled into the worker at deploy time.
+
+### What lives where
+
+| Change | Repo | How it ships |
+|---|---|---|
+| Site content, projects, résumé data | this one | `git push` |
+| What the assistant **says** (`assistant-kb.md`) | `portfolio-assistant` | `npx wrangler deploy` |
+| Worker code, rate limits, model choice | `portfolio-assistant` | `npx wrangler deploy` |
+| Whether the assistant is visible at all | this one (`assistant.json`) | `git push` |
+
+**Pushing to this repo will not change what the assistant says.** That is the single most common
+mistake available here.
+
+### Request flow
+
+```mermaid
+flowchart LR
+  A[index.html<br/>#ask-block] -->|POST + Turnstile token| B[Cloudflare Worker]
+  B -->|validate, rate limit| C[Claude API]
+  B -->|fetch on 5 min cache| D[live site JSON<br/>+ resume]
+  C -->|SSE stream| A
+```
+
+The worker assembles its system prompt from the bundled `assistant-kb.md` plus four files fetched
+from the **live site**: `downloads/Resume-Content.md`, `experience.json`, `games.json` and
+`profile.json`. So project and résumé edits here reach the assistant automatically within about five
+minutes, with no redeploy. Contact details are stripped from that material before the model sees it.
+
+### `assistant.json`
+
+| Field | Meaning |
+|---|---|
+| `enabled` | Master switch. The section stays hidden unless this is `true` **and** `endpoint` is set |
+| `endpoint` | Worker base URL. Empty means hidden, regardless of `enabled` |
+| `turnstileSiteKey` | Cloudflare Turnstile site key. Empty disables the bot check client-side |
+| `terminalTitle`, `command`, `intro`, `suggestions`, `disclaimer` | Visible UI copy |
+| `maxChars`, `maxTurns` | Client-side caps; the worker enforces its own regardless |
+
+There is a **second kill switch** in the worker (`ASSISTANT_ENABLED`) that makes the endpoint refuse
+everything with a 503. Use that one if the endpoint is being abused, since it takes effect without
+waiting on a Pages rebuild.
+
+### Testing without going live
+
+Add `?assistant=preview` to the site URL. The terminal appears with an amber "preview mode" flag
+even when `enabled` is `false`, so it can be tested on the real site, through the real Turnstile
+flow, while remaining invisible to ordinary visitors.
 
 ---
 
@@ -224,8 +294,10 @@ After pushing, allow ~1 minute and hard-refresh (Pages/CDN caching).
 
 - Static **HTML / CSS / JavaScript** (vanilla + jQuery from the original template).
 - **Font Awesome 6.5.2** (self-hosted in `assets/`; brand icons power the link pills).
-- **Fira Code** (Google Fonts) for the terminal-style Documents section.
+- **Fira Code** (Google Fonts) for the terminal-style Experience section.
 - **GitHub Pages** hosting; **Git LFS** for archived video.
+- **Cloudflare Workers** + the **Claude API** behind the Ask Me assistant, in a separate private
+  repo (see [The Ask Me assistant](#the-ask-me-assistant)).
 
 ---
 
