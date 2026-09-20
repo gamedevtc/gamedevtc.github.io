@@ -225,6 +225,58 @@ flow, while remaining invisible to ordinary visitors.
 
 ---
 
+## Favorite Games strip
+
+The scrolling row of cover art at the bottom of the page (`#four`). **Drop images into
+`images/favorites/` and push. That is the whole workflow.**
+
+The filename becomes the caption, so `Titanfall 2.jpg` shows as "Titanfall 2". Spaces, apostrophes
+and accents are all fine. Accepted: png, jpg, jpeg, webp, avif, gif.
+
+### How it knows what is in the folder
+
+GitHub Pages serves no directory index, so the page cannot discover the files itself. A GitHub
+Action (`.github/workflows/favorites.yml`) runs `.github/scripts/build-favorites.py` whenever
+anything in `images/favorites/` changes, regenerates `favorites.json`, and commits it back. That
+automated commit is expected.
+
+**Do not hand-edit `favorites.json`.** It is generated and will be overwritten.
+
+To regenerate it locally instead (useful before pushing):
+
+```bash
+python .github/scripts/build-favorites.py
+```
+
+### Titles a filename cannot hold
+
+Windows forbids `:` in filenames. For something like *Pokémon Legends: Arceus*, name the file
+without it and add an optional `favorites-overrides.json` at the repo root:
+
+```json
+{
+  "Pokemon Legends Arceus.jpg": "Pokémon Legends: Arceus"
+}
+```
+
+The file is optional; without it the filename is used as-is.
+
+### Behaviour worth knowing
+
+- **Order is randomised per page load.** Every visitor gets a different order and a refresh
+  reshuffles. `favorites.json` stays alphabetical so the generated file is stable; the shuffle is
+  client-side. All repeated copies in the strip share one order, which the seamless loop requires.
+- **Empty folder means no section.** The strip hides itself rather than rendering an empty band.
+- **Nothing is cropped.** Every cover is scaled to one height and keeps its own proportions, so
+  portrait boxes, wide Steam capsules and square icons all sit side by side intact.
+- **Scroll speed is constant** at ~45 px/sec no matter how many covers there are; duration is
+  computed from the measured width after the images load.
+- **Pauses on hover**, and respects `prefers-reduced-motion` by stopping the animation and becoming
+  a normally scrollable strip.
+- **A cover that fails to load removes itself** rather than leaving a gap.
+
+---
+
 ## Adding a new project (checklist)
 
 1. **Pick an `id`** (kebab-case, e.g. `my-game`).

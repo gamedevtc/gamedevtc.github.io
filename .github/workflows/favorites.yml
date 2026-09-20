@@ -1,0 +1,42 @@
+name: Build favorites list
+
+# GitHub Pages cannot list a directory, so the page needs a manifest of what is
+# in images/favorites/. This regenerates it whenever those images change, which
+# is what makes the folder genuinely drag-and-drop.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'images/favorites/**'
+      - 'favorites-overrides.json'
+      - '.github/scripts/build-favorites.py'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: favorites-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Generate favorites.json
+        run: python3 .github/scripts/build-favorites.py
+
+      - name: Commit if it changed
+        run: |
+          if git diff --quiet -- favorites.json; then
+            echo "favorites.json is already up to date, nothing to commit"
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add favorites.json
+          git commit -m "Rebuild favorites.json from images/favorites/"
+          git push
