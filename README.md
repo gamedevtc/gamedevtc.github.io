@@ -269,11 +269,17 @@ The file is optional; without it the filename is used as-is.
 - **Empty folder means no section.** The strip hides itself rather than rendering an empty band.
 - **Nothing is cropped.** Every cover is scaled to one height and keeps its own proportions, so
   portrait boxes, wide Steam capsules and square icons all sit side by side intact.
-- **Scroll speed is constant** at ~45 px/sec no matter how many covers there are; duration is
-  computed from the measured width after the images load.
-- **Pauses on hover**, and respects `prefers-reduced-motion` by stopping the animation and becoming
-  a normally scrollable strip.
+- **Grab and fling it.** Hovering does not stop the drift. Press and drag to move it by hand, flick
+  to throw it with momentum, and once it settles it waits a second, then eases back up to speed.
+- **Drift is ~45 px/sec** regardless of how many covers there are.
+- **Respects `prefers-reduced-motion`** by skipping the drift and the drag driver entirely and
+  becoming a plain natively scrollable strip.
 - **A cover that fails to load removes itself** rather than leaving a gap.
+
+The motion is driven in JS on `requestAnimationFrame` rather than by a CSS animation, because a CSS
+animation cannot be grabbed mid-flight. The feel is set by the constants at the top of that script
+in `index.html`: `SPEED`, `FRICTION` (raise toward `0.97` for longer glides), `STOP_BELOW`,
+`RESUME_WAIT` and `RESUME_RAMP`.
 
 ---
 

@@ -3193,86 +3193,85 @@
 										position: relative;
 										overflow: hidden;
 										padding: 0.5em 0 1.5em;
-										/* Fade the covers out at both edges instead of letting them pop. */
-										-webkit-mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
-										mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
+										cursor: grab;
+										/* Horizontal drags belong to the strip, vertical ones to the page. */
+										touch-action: pan-y;
+										-webkit-user-select: none;
+										user-select: none;
+										-webkit-mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
+										mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
 									}
+									.fav-marquee.is-dragging { cursor: grabbing; }
 
 									.fav-track {
 										display: flex;
+										align-items: flex-start;
 										width: max-content;
-										animation-name: favScroll;
-										animation-timing-function: linear;
-										animation-iteration-count: infinite;
 										will-change: transform;
-									}
-									/* --fav-shift is one full set's width, set from JS once the covers have
-									   loaded and their natural widths are known. */
-									@keyframes favScroll {
-										from { transform: translate3d(0, 0, 0); }
-										to   { transform: translate3d(var(--fav-shift, -50%), 0, 0); }
-									}
-									.fav-marquee:hover .fav-track,
-									.fav-marquee:focus-within .fav-track {
-										animation-play-state: paused;
 									}
 
 									.fav-set {
 										display: flex;
+										align-items: flex-start;
 										flex: 0 0 auto;
 									}
 
 									.fav-item {
-										position: relative;
+										display: flex;
+										flex-direction: column;
+										align-items: center;
 										flex: 0 0 auto;
-										height: 180px;
-										margin: 0 0.75em 0 0;
+										width: auto;
+										min-width: 130px;      /* gives narrow covers room for their caption */
+										max-width: 320px;
+										margin: 0 1em 0 0;
+									}
+
+									.fav-cover {
+										height: 230px;
 										border-radius: 10px;
 										overflow: hidden;
 										background: #0d1117;
 										box-shadow:
 											0 0 0 1px rgba(255,255,255,0.07),
-											0 10px 28px rgba(0,0,0,0.45);
+											0 10px 28px rgba(0,0,0,0.4);
 									}
-									.fav-item img {
+									.fav-cover img {
 										display: block;
-										height: 100%;
+										height: 230px;
 										width: auto;          /* natural proportions, nothing cropped */
-										max-width: none;      /* main.css sets img{max-width:100%}, which would squash these */
+										max-width: none;
+										pointer-events: none; /* never hijack the drag with a native image drag */
+										-webkit-user-drag: none;
 									}
 
-									/* Shadowbox nameplate, bottom left */
+									/* Caption sits under the cover and wraps, so long titles are never clipped. */
 									.fav-name {
-										position: absolute;
-										left: 8px;
-										bottom: 8px;
-										max-width: calc(100% - 16px);
-										padding: 0.32em 0.6em;
+										margin-top: 0.7em;
+										padding: 0 0.2em;
 										font-family: 'Cascadia Mono', 'Fira Code', 'Consolas', monospace;
-										font-size: 0.62em;
-										line-height: 1.25;
-										color: #fff;
-										background: rgba(13,17,23,0.82);
-										border: 1px solid rgba(255,255,255,0.1);
-										border-radius: 6px;
-										backdrop-filter: blur(6px);
-										-webkit-backdrop-filter: blur(6px);
-										overflow: hidden;
-										text-overflow: ellipsis;
-										white-space: nowrap;
-										pointer-events: none;
+										font-size: 0.68em;
+										line-height: 1.35;
+										text-align: center;
+										color: #3d4449;
+										word-break: break-word;
+										hyphens: auto;
 									}
+									body.dark-mode .fav-name { color: #c9d1d9; }
 
 									@media (max-width: 736px) {
-										.fav-item { height: 128px; margin-right: 0.55em; }
-										.fav-name { font-size: 0.56em; left: 6px; bottom: 6px; }
+										.fav-item { min-width: 100px; margin-right: 0.7em; }
+										.fav-cover, .fav-cover img { height: 158px; }
+										.fav-name { font-size: 0.62em; margin-top: 0.55em; }
 									}
 
-									/* Anyone who has asked for less motion gets a normal scrollable strip. */
+									/* Anyone who asked for less motion gets a plain scrollable strip and no
+									   auto-advance. The drag driver is never started in that case. */
 									@media (prefers-reduced-motion: reduce) {
-										.fav-track { animation: none !important; }
 										.fav-marquee {
 											overflow-x: auto;
+											cursor: default;
+											touch-action: auto;
 											-webkit-mask-image: none;
 											mask-image: none;
 										}
@@ -3281,7 +3280,13 @@
 
 								<script>
 								(function() {
-									var SPEED = 45;                 // pixels per second, constant regardless of how many covers
+									var SPEED = 45;          // px/sec of idle drift
+									var FRICTION = 0.94;     // per 16ms of fling decay
+									var STOP_BELOW = 18;     // px/sec at which a fling is considered finished
+									var RESUME_WAIT = 1000;  // ms of stillness before drifting again
+									var RESUME_RAMP = 450;   // ms to ease back up to full drift speed
+									var DRAG_SLOP = 4;       // px before a press counts as a drag
+
 									var SOURCE = 'favorites.json';
 									var DIR = 'images/favorites/';
 
@@ -3290,7 +3295,15 @@
 									var track   = document.getElementById('fav-track');
 									if (!section || !marquee || !track) return;
 
+									var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
 									var items = [];
+									var setWidth = 0;
+									var offset = 0;          // current translateX, kept within (-setWidth, 0]
+									var velocity = 0;        // px/sec, only during a fling
+									var mode = 'auto';       // auto | drag | fling | waiting
+									var resumeAt = 0;        // timestamp drift is allowed to restart
+									var lastFrame = 0;
 
 									fetch(SOURCE)
 										.then(function(r) {
@@ -3312,9 +3325,8 @@
 											console.warn('Favorites unavailable, section stays hidden.', err);
 										});
 
-									// Fisher-Yates. Shuffled once per load, never per copy: the repeated
-									// sets have to stay identical or the seamless loop breaks, since the
-									// animation shifts by exactly one set's width.
+									// Fisher-Yates. Shuffled once per load, never per copy: the repeated sets
+									// have to stay identical or the loop seam becomes visible.
 									function shuffle(arr) {
 										for (var i = arr.length - 1; i > 0; i--) {
 											var j = Math.floor(Math.random() * (i + 1));
@@ -3334,10 +3346,14 @@
 											var fig = document.createElement('figure');
 											fig.className = 'fav-item';
 
+											var cover = document.createElement('div');
+											cover.className = 'fav-cover';
+
 											var img = document.createElement('img');
 											img.src = DIR + encodeURIComponent(item.file);
 											img.alt = ariaHidden ? '' : (item.name || item.file);
 											img.decoding = 'async';
+											img.draggable = false;
 											// A cover that fails to load removes itself rather than leaving a gap.
 											img.addEventListener('error', function() { fig.remove(); });
 
@@ -3345,7 +3361,8 @@
 											cap.className = 'fav-name';
 											cap.textContent = item.name || item.file;
 
-											fig.appendChild(img);
+											cover.appendChild(img);
+											fig.appendChild(cover);
 											fig.appendChild(cap);
 											set.appendChild(fig);
 										});
@@ -3372,10 +3389,16 @@
 										// one keeps its own aspect ratio.
 										whenLoaded(first).then(function() {
 											// Reveal before measuring. A display:none section reports zero
-											// width, which would leave both the shift distance and the copy
-											// count wrong, and the strip would sit there motionless.
+											// width, which would leave the copy count and wrap distance wrong.
 											section.hidden = false;
-											requestAnimationFrame(function() { layout(first); });
+											requestAnimationFrame(function() {
+												layout(first);
+												if (!reduced) {
+													attachDrag();
+													lastFrame = performance.now();
+													requestAnimationFrame(tick);
+												}
+											});
 
 											var t;
 											window.addEventListener('resize', function() {
@@ -3388,18 +3411,118 @@
 									function layout(first) {
 										if (!first) return;
 
-										var setWidth = first.getBoundingClientRect().width;
-										if (!setWidth) return;
+										var measured = first.getBoundingClientRect().width;
+										if (!measured) return;
+										setWidth = measured;
 
-										// Enough copies that the track always overflows the viewport, so the
-										// loop never exposes empty space even with only a couple of covers.
+										// Enough copies that the strip always overflows, so neither direction
+										// of travel can expose empty space.
 										var needed = Math.max(2, Math.ceil((marquee.clientWidth * 2) / setWidth) + 1);
 										while (track.children.length > needed) track.lastElementChild.remove();
 										while (track.children.length < needed) track.appendChild(buildSet(true));
 
-										// Shifting by exactly one set's width makes the repeat seamless.
-										track.style.setProperty('--fav-shift', '-' + setWidth + 'px');
-										track.style.animationDuration = (setWidth / SPEED) + 's';
+										wrap();
+										render();
+									}
+
+									// Keeps offset inside one set's width, which is what makes the repeat seamless.
+									function wrap() {
+										if (!setWidth) return;
+										while (offset <= -setWidth) offset += setWidth;
+										while (offset > 0) offset -= setWidth;
+									}
+
+									function render() {
+										track.style.transform = 'translate3d(' + offset + 'px, 0, 0)';
+									}
+
+									function tick(now) {
+										var dt = Math.min((now - lastFrame) / 1000, 0.05); // clamp after a tab switch
+										lastFrame = now;
+
+										if (mode === 'auto') {
+											// Ease back up to speed rather than snapping after an interaction.
+											var ramp = resumeAt ? Math.min((now - resumeAt) / RESUME_RAMP, 1) : 1;
+											offset -= SPEED * ramp * dt;
+										} else if (mode === 'fling') {
+											offset += velocity * dt;
+											velocity *= Math.pow(FRICTION, (dt * 1000) / 16);
+											if (Math.abs(velocity) < STOP_BELOW) {
+												velocity = 0;
+												mode = 'waiting';
+												setTimeout(function() {
+													if (mode === 'waiting') {
+														resumeAt = performance.now();
+														mode = 'auto';
+													}
+												}, RESUME_WAIT);
+											}
+										}
+										// 'drag' and 'waiting' hold position without drifting.
+
+										wrap();
+										render();
+										requestAnimationFrame(tick);
+									}
+
+									function attachDrag() {
+										var startX = 0, lastX = 0, lastT = 0, prevX = 0, prevT = 0;
+										var dragging = false, moved = false, pointerId = null;
+
+										marquee.addEventListener('pointerdown', function(e) {
+											if (e.button !== undefined && e.button !== 0) return;
+											dragging = true;
+											moved = false;
+											pointerId = e.pointerId;
+											startX = lastX = prevX = e.clientX;
+											lastT = prevT = performance.now();
+											velocity = 0;
+											mode = 'drag';
+											marquee.classList.add('is-dragging');
+											marquee.setPointerCapture(pointerId);
+										});
+
+										marquee.addEventListener('pointermove', function(e) {
+											if (!dragging) return;
+											var dx = e.clientX - lastX;
+											if (!moved && Math.abs(e.clientX - startX) > DRAG_SLOP) moved = true;
+											offset += dx;
+											prevX = lastX; prevT = lastT;
+											lastX = e.clientX; lastT = performance.now();
+											wrap();
+											render();
+										});
+
+										function release() {
+											if (!dragging) return;
+											dragging = false;
+											marquee.classList.remove('is-dragging');
+											if (pointerId !== null && marquee.hasPointerCapture(pointerId)) {
+												marquee.releasePointerCapture(pointerId);
+											}
+											pointerId = null;
+
+											// Velocity from the last pointer samples, so a flick throws it.
+											var dt = lastT - prevT;
+											velocity = (dt > 0 && dt < 120) ? ((lastX - prevX) / dt) * 1000 : 0;
+
+											if (moved && Math.abs(velocity) >= STOP_BELOW) {
+												mode = 'fling';
+											} else {
+												mode = 'waiting';
+												setTimeout(function() {
+													if (mode === 'waiting') {
+														resumeAt = performance.now();
+														mode = 'auto';
+													}
+												}, RESUME_WAIT);
+											}
+										}
+
+										marquee.addEventListener('pointerup', release);
+										marquee.addEventListener('pointercancel', release);
+										// Stops the browser turning a horizontal drag into a text selection.
+										marquee.addEventListener('dragstart', function(e) { e.preventDefault(); });
 									}
 								})();
 								</script>
