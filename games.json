@@ -22,8 +22,11 @@
 			"Systems Programmer",
 			"Technical Art"
 		],
-		"desc": "Multiplayer 3D Co-op friendslop rage game. Play catch to climb a tower, lose the ball and start again, while wacky environment mechanics make things interesting. Pitched, built and shipped in 2 months. Lead designer, systems and gameplay programmer on a four person core team; Releasing at Steam Next Fest: October 2026. Demo currently live",
+		"desc": ["Multiplayer 3D Co-op friendslop rage game. Play catch with friends to climb a tower, lose the ball and start again, while wacky environment mechanics make things interesting. ",
+				"CatchUp Showdown was built by a four-person team using an AI-forward development workflow, with Claude Code integrated from day one. I pitched the original concept and owned much of the game across gameplay, systems, networking, UI, procedural generation, progression, shaders, and tooling. We took the project from concept to a live Steam demo in two months."
+		],
 		"bullets": [
+			"Built CatchUp's complete UI in roughly two weeks using a workflow I call generate-then-author. I generated the initial UI structure and wiring through code for speed and consistency, then brought the resulting components into Unity for hands-on visual design, animation, layout, and polish.",
 			"Deterministic level system where the entire tower is a pure function of two networked values so late joiners rebuild a bit-identical world with minimal network load",
 			"Host-authoritative scoring pipeline: quality weights, a convex reward curve, and a catalog of 25+ detectable tricks broadcast to a networked score banner",
 			"Crowd trick-request mechanic where the crowd demands a specific trick, and success or failure feeds back into the level by increasing/decreasing difficulty",
@@ -32,7 +35,6 @@
 			"Custom URP shaders and render features: screen-space level-transition wipes, silhouette shadow projection, tile glow, tinted decals, and a Shader Graph combo-fire HUD effect",
 			"Editor tooling: a Tower Balance window for stage authoring and churn curves, plus an edit-mode scroll preview that drives the real level pipeline",
 			"Player progression and meta: local coin economy, gacha cosmetic unlocks, and AES/HMAC-signed save data synced through Steam Cloud",
-			"Fully hand-authored uGUI main menu, pause menu, HUD and in-game shop with full controller navigation, leaderboards, and an event-driven friends list wired to Steam lobby visibility",
 			"Photon Fusion client-side for prediction, interpolation, and aim raycasting against rendered versus simulated physics poses"
 		],
 		"badge": true,
@@ -65,7 +67,7 @@
 			"Systems Programmer",
 			"AI Programmer"
 		],
-		"desc": "Asymmetric co-op multiplayer heist game. One player claims the Operator role and works a multi-screen station — live map, camera feeds, and the only copies of the per-run security manuals — while the rest of the crew robs procedurally generated facilities under deliberately clumsy physics. Systems and gameplay programmer on a two-developer team; paused when the team pivoted to a new project.",
+		"desc": "Asymmetric co-op multiplayer heist game. One player claims the Operator role and works a multi-screen station — live map, camera feeds, and the only copies of the per-run security manuals — while the rest of the crew robs procedurally generated facilities under deliberately clumsy physics. Developed at Panda Paw using the same Claude Code-first, AI-assisted development workflow as CatchUp Showdown. Systems and gameplay programmer on a two-developer team; paused when the team pivoted to a new project.",
 		"bullets": [
 			"Designed and built the full guard AI stack: component-based state machine, dual-zone vision sensors, and data-driven guard archetypes authored as ScriptableObjects",
 			"Audio-driven stealth perception: piped live FMOD events and Photon Voice mic amplitude into guard hearing",
@@ -102,7 +104,10 @@
 			"Designer",
 			"Programmer"
 		],
-		"desc": "A Super Auto Pets–inspired auto battler card game. Draft a lineup, equip boosters, and battle head-to-head in local 2-player PvP or against AI bots. 100+ cards with unique abilities, synergies, and set-collection bonuses. Built solo as a browser game.",
+		"desc": ["A Super Auto Pets–inspired auto battler card game. Draft a lineup, equip boosters, and battle head-to-head in local 2-player PvP or against AI bots. 100+ cards with unique abilities, synergies, and set-collection bonuses. ",
+				"I built Card Clash partly to test how far modern AI-assisted development could extend my existing game-development skills into an unfamiliar technology stack. Despite having no professional web-development experience, ",
+				"I took the game from initial concept to a live playable build in about three days using Cursor with Next.js, React, TypeScript, and Tailwind..",
+		],
 		"bullets": [
 			"112-card roster spanning characters, ships, trails, emotes, and landmarks, each with unique stats and abilities",
 			"Set-collection bonuses that buff themed groups when fielded together",
