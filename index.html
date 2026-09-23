@@ -1659,7 +1659,7 @@
 											var linksEl = document.getElementById('as-links');
 											if (linksEl) linksEl.innerHTML = linkHtml;
 
-											document.getElementById('as-desc').textContent = game.desc;
+											document.getElementById('as-desc').textContent = Array.isArray(game.desc) ? game.desc.join(' ') : (game.desc || '');
 
 											var rolesEl = document.getElementById('as-roles');
 											rolesEl.innerHTML = (game.roles || []).map(function(r) {

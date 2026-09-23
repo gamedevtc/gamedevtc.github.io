@@ -22,7 +22,7 @@
 			"Systems Programmer",
 			"Technical Art"
 		],
-		"desc": ["Multiplayer 3D Co-op friendslop rage game. Play catch with friends to climb a tower, lose the ball and start again, while wacky environment mechanics make things interesting. ",
+		"desc": ["Multiplayer 3D Co-op friendslop rage game. Play catch with friends to climb a tower, lose the ball and start again, while wacky environment mechanics make things interesting.",
 				"CatchUp Showdown was built by a four-person team using an AI-forward development workflow, with Claude Code integrated from day one. I pitched the original concept and owned much of the game across gameplay, systems, networking, UI, procedural generation, progression, shaders, and tooling. We took the project from concept to a live Steam demo in two months."
 		],
 		"bullets": [
@@ -104,9 +104,9 @@
 			"Designer",
 			"Programmer"
 		],
-		"desc": ["A Super Auto Pets–inspired auto battler card game. Draft a lineup, equip boosters, and battle head-to-head in local 2-player PvP or against AI bots. 100+ cards with unique abilities, synergies, and set-collection bonuses. ",
-				"I built Card Clash partly to test how far modern AI-assisted development could extend my existing game-development skills into an unfamiliar technology stack. Despite having no professional web-development experience, ",
-				"I took the game from initial concept to a live playable build in about three days using Cursor with Next.js, React, TypeScript, and Tailwind..",
+		"desc": ["A Super Auto Pets–inspired auto battler card game. Draft a lineup, equip boosters, and battle head-to-head in local 2-player PvP or against AI bots. 100+ cards with unique abilities, synergies, and set-collection bonuses.",
+				"I built Card Clash partly to test how far modern AI-assisted development could extend my existing game-development skills into an unfamiliar technology stack. Despite having no professional web-development experience,",
+				"I took the game from initial concept to a live playable build in about three days using Cursor with Next.js, React, TypeScript, and Tailwind."
 		],
 		"bullets": [
 			"112-card roster spanning characters, ships, trails, emotes, and landmarks, each with unique stats and abilities",
