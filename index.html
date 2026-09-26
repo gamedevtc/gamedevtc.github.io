@@ -2305,12 +2305,30 @@
 												cfg = data;
 												endpoint = (data.endpoint || '').replace(/\/$/, '');
 												if (!endpoint) return;
+												recordPageView();
 												if (data.enabled !== true && !PREVIEW) return;
 												init();
 											})
 											.catch(function(err) {
 												console.warn('Assistant config unavailable, section stays hidden.', err);
 											});
+
+										// One page-view beacon per load, carrying only the referrer's hostname.
+										// Counted by the worker (see its README) because ad blockers hide most
+										// visitors from Cloudflare Web Analytics. Runs whether or not the
+										// assistant is enabled. Nothing is stored in the visitor's browser.
+										function recordPageView() {
+											try {
+												var ref = document.referrer ? new URL(document.referrer).hostname : '';
+												if (ref === location.hostname) ref = '';
+												var body = JSON.stringify({ r: ref });
+												if (navigator.sendBeacon) {
+													navigator.sendBeacon(endpoint + '/hit', body);
+												} else {
+													fetch(endpoint + '/hit', { method: 'POST', body: body, keepalive: true }).catch(function() {});
+												}
+											} catch (e) { /* analytics must never break the page */ }
+										}
 
 										function init() {
 											applyText();
